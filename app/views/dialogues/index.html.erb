@@ -1,0 +1,26 @@
+<p style="color: green"><%= notice %></p>
+
+<h2>
+   Star Trek Dialogue Search
+</h2>
+
+<%=form_with url: dialogues_path, :method => "get" do %>
+    <%=label_tag(:query, 'Enter Dialogue or Character')%>
+    <%=text_field_tag('query', params[:query])%>
+    <%=submit_tag("Search")%>
+<% end %>
+<%=link_to "Search Good Reads instead", quotes_path %>
+
+<div class='quotes-wrapper'>
+<% @dialogues.each do | dialogue|%>
+    <div>
+        <h3 class="quote">
+           <%=link_to dialogue.line, "#{dialogue_url(dialogue.id)}\##{dialogue.id}"%>
+        </h3>
+        <div class='author'>
+         - <%=dialogue.character%>, <%=dialogue.episode%>
+        </div>
+    </li>
+<% end %>
+
+</div>

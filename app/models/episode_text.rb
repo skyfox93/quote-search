@@ -1,0 +1,2 @@
+class EpisodeText < ApplicationRecord
+end

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  line: MyString
+  episode: MyString
+  series: MyString
+  character: MyString
+
+two:
+  line: MyString
+  episode: MyString
+  series: MyString
+  character: MyString

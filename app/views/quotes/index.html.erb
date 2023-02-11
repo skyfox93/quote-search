@@ -1,0 +1,24 @@
+<h2>
+    GoodReads Quote Search
+</h2>
+
+<%=form_with url: quotes_path, :method => "get" do %>
+    <%=label_tag(:query, 'Search Quote Or Author')%>
+    <%=text_field_tag('query', params[:query])%>
+    <%=submit_tag("Search")%>
+<% end %>
+<%=link_to "Search Star Trek Dialogue instead", dialogues_path %>
+
+<div class='quotes-wrapper'>
+<% @quotes.each do | quote|%>
+    <div>
+        <h3 class="quote">
+           <%=quote.content%> 
+        </h3>
+        <div class='author'>
+         - <%=quote.author%>
+        </div>
+    </li>
+<% end %>
+
+</div>

@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<h3><%= @dialogue.line %></h3>
+-<%=@dialogue.character%>, <%=@dialogue.series%>, <%=@dialogue.episode%>
+
+<div>
+  <%= link_to 'Back', :back %>
+
+  <div style="background-color: light-grey; white-space: pre; text-align: center">
+  <h3> Full Episode Text </h2>
+      <%=@with_highlights.html_safe%>
+  </div>
