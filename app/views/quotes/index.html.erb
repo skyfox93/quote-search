@@ -1,13 +1,14 @@
-<h2>
-    GoodReads Quote Search
-</h2>
-
+<div class='heading-section'>
+    <h2>
+    Quotes Search ( GoodReads)
+    </h2>
+    <%=link_to "Search Star Trek Dialogue instead", dialogues_path %>
+</div>
 <%=form_with url: quotes_path, :method => "get" do %>
     <%=label_tag(:query, 'Search Quote Or Author')%>
     <%=text_field_tag('query', params[:query])%>
     <%=submit_tag("Search")%>
 <% end %>
-<%=link_to "Search Star Trek Dialogue instead", dialogues_path %>
 
 <div class='quotes-wrapper'>
 <% @quotes.each do | quote|%>

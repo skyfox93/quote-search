@@ -3,7 +3,7 @@ class DialoguesController < ApplicationController
 
   # GET /dialogues or /dialogues.json
   def index
-    @dialogues = Dialogue.search(params[:query]).limit(50)
+    @dialogues = Dialogue.search(params[:query]).limit(300)
   end
 
   # GET /dialogues/1 or /dialogues/1.json

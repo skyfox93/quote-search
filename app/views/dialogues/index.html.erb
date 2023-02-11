@@ -1,15 +1,20 @@
 <p style="color: green"><%= notice %></p>
-
+<div class='heading-section'>
 <h2>
    Star Trek Dialogue Search
 </h2>
-
-<%=form_with url: dialogues_path, :method => "get" do %>
-    <%=label_tag(:query, 'Enter Dialogue or Character')%>
+<%=link_to "Search Good Reads instead", quotes_path %>
+</div>
+<%=form_with url: dialogues_path, :method => "get", html: {class: 'search-section'} do %>
+    <%=label_tag(:query, 'Search Dialogue or Character')%>
     <%=text_field_tag('query', params[:query])%>
     <%=submit_tag("Search")%>
 <% end %>
-<%=link_to "Search Good Reads instead", quotes_path %>
+<% if @dialogues.length == 300%>
+    Over
+<%end%>
+<%= @dialogues.length%> Results
+
 
 <div class='quotes-wrapper'>
 <% @dialogues.each do | dialogue|%>
@@ -18,7 +23,7 @@
            <%=link_to dialogue.line, "#{dialogue_url(dialogue.id)}\##{dialogue.id}"%>
         </h3>
         <div class='author'>
-         - <%=dialogue.character%>, <%=dialogue.episode%>
+         - <%=dialogue.character%>, <%=dialogue.series%> <%=dialogue.episode%>
         </div>
     </li>
 <% end %>
