@@ -13,6 +13,10 @@
  *= require_tree .
  *= require_self
  */
- .heading-section{
+ .heading-section {
     margin-bottom: 2em;
+ }
+
+ .search-results {
+    max-width: 600px;
  }

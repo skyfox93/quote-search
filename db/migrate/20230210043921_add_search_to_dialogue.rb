@@ -11,6 +11,6 @@ class AddSearchToDialogue < ActiveRecord::Migration[7.0]
     end
   
     def down
-      remove_column :quotes, :searchable
+      remove_column :dialogue, :searchable
     end
 end
