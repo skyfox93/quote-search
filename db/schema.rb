@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_015412) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_230016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_015412) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(line, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(\"character\", ''::character varying))::text), 'B'::\"char\"))", stored: true
+    t.integer "index"
     t.index ["searchable"], name: "index_dialogues_on_searchable", using: :gin
   end
 

@@ -22,25 +22,24 @@ for i in 0..(data.length/100) do
     end
 end
 
-file = File.read('./db/all_series_lines.json')
-data = JSON.parse(file)
-data.each do |series, details|
-        data[series].each do |episode, char_lines|
-            batch =[]
-            char_lines.each do |character, lines|
-                lines.each do | line|
-                    batch.append({character: character, line: line, episode: episode, series: series})
-                end
-            end
-            Dialogue.insert_all(batch)
-        end
-end
+
 file = File.read('./db/all_scripts_raw.json')
 data = JSON.parse(file)
 data.each do |series, details|
         data[series].each do |episode, char_lines|
+            dialogue = []
             EpisodeText.create({episode:episode, text:char_lines, series:series})
-            
+            char_lines.split("\n(?=[A-Z,'-]{3,})").each_with_index do |charline, index|
+                split_line = charline.split(/([A-Z,'-]{3,}:)/)
+                if split_line.length == 1
+                  dialogue.push({"index": index, "line": split_line[0], "char": "SCENE", episode: episode, series: series})
+                elsif split_line.length >= 3
+                  char = split_line[1]
+                  line = split_line[2]
+                  dialogue.push({"index": index, "line": line.gsub("\n", ' ').strip(), "character": char, episode: episode, series: series})
+                end
+            end
+            Dialogue.insert_all(dialogue)
         end
 end
 
