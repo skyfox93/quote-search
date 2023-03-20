@@ -7,20 +7,20 @@
 #   Character.create(name: "Luke", movie: movies.first)
 require 'json'
 
-# file = File.read('./db/quotes.json')
-# data = JSON.parse(file)
-# puts 'open'
-# puts data.length
-# puts (data.length/100)
-# for i in 0..(data.length/100) do
-#     raw = data[(100*i)..(100*(i+1))]
-#     batch = raw.collect{|quote| {content: quote["Quote"], author: quote["Author"]}}
-#     batch.compact!
-#     puts batch
-#     if batch.length > 0
-#         Quote.insert_all(batch)
-#     end
-# end
+file = File.read('./db/quotes.json')
+data = JSON.parse(file)
+puts 'open'
+puts data.length
+puts (data.length/100)
+for i in 0..(data.length/100) do
+    raw = data[(100*i)..(100*(i+1))]
+    batch = raw.collect{|quote| {content: quote["Quote"], author: quote["Author"]}}
+    batch.compact!
+    puts batch
+    if batch.length > 0
+        Quote.insert_all(batch)
+    end
+end
 
 file = File.read('./db/all_series_lines.json')
 data = JSON.parse(file)
@@ -35,11 +35,12 @@ data.each do |series, details|
             Dialogue.insert_all(batch)
         end
 end
-# file = File.read('./db/all_scripts_raw.json')
-# data = JSON.parse(file)
-# data.each do |series, details|
-#         data[series].each do |episode, char_lines|
-#             EpisodeText.create({episode:episode, text:char_lines, series:series})
-#         end
-# end
+file = File.read('./db/all_scripts_raw.json')
+data = JSON.parse(file)
+data.each do |series, details|
+        data[series].each do |episode, char_lines|
+            EpisodeText.create({episode:episode, text:char_lines, series:series})
+            
+        end
+end
 
