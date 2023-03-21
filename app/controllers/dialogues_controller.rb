@@ -10,7 +10,7 @@ class DialoguesController < ApplicationController
   def show
     @dialogue = Dialogue.find(params[:id])
     @text = EpisodeText.where(episode: @dialogue.episode, series: @dialogue.series).first().text
-    @with_highlights = @text.gsub("#{@dialogue.character} #{@dialogue.line}", "<span id=#{@dialogue.id} style=\"background-color: yellow\">#{@dialogue.character}: #{@dialogue.line}</span>")
+    @with_highlights = @text.gsub("#{@dialogue.character}: #{@dialogue.line}", "<span id=#{@dialogue.id} class=\"highlighted\">#{@dialogue.character}: #{@dialogue.line}</span>")
   end
 
   # GET /dialogues/new
