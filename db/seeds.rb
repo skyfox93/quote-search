@@ -29,7 +29,7 @@ data.each do |series, details|
         data[series].each do |episode, char_lines|
             char_dialogue = []
             episode_dialogue = []
-            char_lines.split(/\n(?=[A-Z,'-]{3,}.+:)/).each_with_index do |charline, index|
+            char_lines.split(/\s(?=[A-Z,'-]{3,}.+:)/).each_with_index do |charline, index|
                 split_line = charline.split(/([A-Z,'-]{3,}.*):/)
                 if split_line.length == 1
 
