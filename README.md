@@ -12,6 +12,10 @@
  ## To Run
  (you should have Ruby installed)
  `bundle install`
-  `rails db:migrate`
-  `rails db:seed`
-  `rails s`
+ 
+ 
+ `rails db:migrate`
+ 
+ `rails db:seed`
+ 
+ `rails s`
