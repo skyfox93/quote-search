@@ -1,7 +1,7 @@
 # README
 
 ## Trek Reads Search
-  This is a basic ruby on Rails application utitlizing full text search for good reads and star trek quotes.
+  This is a basic Ruby on Rails/ Postgres App utitlizing demonstrating Postgres's search feature through star trek quotes.
   Users can search using key words like 'beam me up', utilize quotes "beam me up" for an exact phrase match, and use "OR" statements, e.g "beam me up" OR "beam me down".
   
  Data is from Kaggle and may not be complete.
