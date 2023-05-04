@@ -1,24 +1,22 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Trek Reads Search
+  This is a basic Ruby on Rails/ Postgres App utitlizing demonstrating Postgres's fulll text search functions demontrated through star trek quotes.
+  Users can search using key words like 'beam me up', utilize quotes "beam me up" for an exact phrase match, and use "OR" statements, e.g "beam me up" OR "beam me down".
+  
+ Data is from Kaggle and may not be complete.
+ Data sources here:<br>
+ [Quotes dataset](https://www.kaggle.com/datasets/manann/quotes-500k)
+ <br>
+ [Star Trek Dataset](https://www.kaggle.com/datasets/gjbroughton/start-trek-scripts)
+ 
+ ## To Run
+ (you should have Ruby installed)
+ `bundle install`
+ 
+ 
+ `rails db:migrate`
+ 
+ `rails db:seed`
+ 
+ `rails s`
