@@ -3,7 +3,12 @@ class DialoguesController < ApplicationController
 
   # GET /dialogues or /dialogues.json
   def index
-    @dialogues = Dialogue.search(params[:query]).limit(300)
+    conn = ActiveRecord::Base.connection
+    if params[:dictionary] == "1"
+      @dialogues = Dialogue.search_english(params[:query], conn).limit(300)
+    else
+      @dialogues = Dialogue.search(params[:query], conn).limit(300)
+    end
   end
 
   # GET /dialogues/1 or /dialogues/1.json

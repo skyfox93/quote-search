@@ -4,10 +4,11 @@
     </h2>
     <%=link_to "Search Star Trek Dialogue instead", dialogues_path %>
 </div>
-<%=form_with url: quotes_path, :method => "get" do %>
-    <%=label_tag(:query, 'Search Quote Or Author')%>
-    <%=text_field_tag('query', params[:query])%>
-    <%=submit_tag("Search")%>
+<%=form_with url: quotes_path, :method => "get" do |form| %>
+    <%=form.label :query, 'Search Quote Or Author'%>
+    <%=form.text_field :query)%>
+    <%=from.label :dictionary%>
+    <%=form.submit "Search"%>
 <% end %>
 
 <div class="search-results">

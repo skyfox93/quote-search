@@ -3,12 +3,15 @@
 <h2>
    Star Trek Dialogue Search
 </h2>
-<%=link_to "Search Good Reads instead", quotes_path %>
+<%=link_to "search using ChatGTP embeddings (TNG only)", episode_texts_path %>
 </div>
-<%=form_with url: dialogues_path, :method => "get", html: {class: 'search-section'} do %>
-    <%=label_tag(:query, 'Search Dialogue or Character')%>
-    <%=text_field_tag('query', params[:query])%>
-    <%=submit_tag("Search")%>
+<%=form_with url: dialogues_path, :method => "get", html: {class: 'search-section'} do |form|%>
+    <%=form.label :query, 'Search Dialogue or Character'%>
+   <%=form.text_field :query%>
+    <%=form.label :dictionary, "Use Dictionary"%>
+    <%=form.check_box :dictionary %>
+
+    <%=form.submit "Search"%>
 <% end %>
 <% if @dialogues.length == 300%>
     Over
@@ -27,5 +30,4 @@
         </div>
     </li>
 <% end %>
-
 </div>

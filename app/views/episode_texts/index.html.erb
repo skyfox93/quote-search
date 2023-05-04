@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+<div class='heading-section'>
+<h2>
+   Star Trek Dialogue Search
+</h2>
+<%=link_to "Search Using Key Words ", dialogues_path %>
+</div>
+<%=form_with url: episode_texts_path, :method => "get", html: {class: 'search-section'} do %>
+    <%=label_tag(:query, 'Search using description: "the enterprise computer becomes sentient"')%>
+    <br>
+    <%=text_field_tag('query', params[:query])%>
+    <%=submit_tag("Search")%>
+<% end %>
+
+
+<div class='search-results'>
+<% @results.each do | result|%>
+    <div>
+        <h3 class="quote">
+           <%=link_to result["text"], episode_text_url(result['metadata']['source_id']) %>
+        </h3
+        <div>
+         Score: <%=result['score']%>
+        </div>
+        </div>
+<% end %>
+</div>
