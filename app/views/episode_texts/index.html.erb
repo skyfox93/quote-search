@@ -14,14 +14,14 @@
 
 
 <div class='search-results'>
-<% @results.each do | result|%>
+<% @results.each do |chunk| %>
     <div>
         <h3 class="quote">
-           <%=link_to result["text"], episode_text_url(result['metadata']['source_id']) %>
-        </h3
+           <%=link_to chunk.content, episode_text_url(chunk.episode_text_id) %>
+        </h3>
         <div>
-         Score: <%=result['score']%>
+         <%= chunk.episode_text.series %> <%= chunk.episode_text.episode %> · Similarity: <%= (1 - chunk.neighbor_distance).round(3) %>
         </div>
-        </div>
+    </div>
 <% end %>
 </div>

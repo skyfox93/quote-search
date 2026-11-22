@@ -3,9 +3,7 @@
 one:
   content: MyString
   author: MyString
-  publication: MyString
 
 two:
   content: MyString
   author: MyString
-  publication: MyString

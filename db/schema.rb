@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_013827) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_21_000000) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
+  enable_extension "vector"
 
   create_table "dialogues", force: :cascade do |t|
     t.string "line"
@@ -26,6 +27,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_013827) do
     t.virtual "searchable_english", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(line, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(\"character\", ''::character varying))::text), 'B'::\"char\"))", stored: true
     t.index ["searchable"], name: "dialogues_search_index", using: :gin
     t.index ["searchable"], name: "index_dialogues_on_searchable", using: :gin
+  end
+
+  create_table "episode_chunks", force: :cascade do |t|
+    t.bigint "episode_text_id", null: false
+    t.integer "position", null: false
+    t.text "content", null: false
+    t.vector "embedding", limit: 1536
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["embedding"], name: "index_episode_chunks_on_embedding", opclass: :vector_cosine_ops, using: :hnsw
+    t.index ["episode_text_id", "position"], name: "index_episode_chunks_on_episode_text_id_and_position", unique: true
+    t.index ["episode_text_id"], name: "index_episode_chunks_on_episode_text_id"
   end
 
   create_table "episode_texts", force: :cascade do |t|
@@ -45,4 +58,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_013827) do
     t.index ["searchable"], name: "index_quotes_on_searchable", using: :gin
   end
 
+  add_foreign_key "episode_chunks", "episode_texts"
 end

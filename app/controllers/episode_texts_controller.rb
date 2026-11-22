@@ -1,32 +1,12 @@
 require 'net/http'
 require 'json'
 
-
 class EpisodeTextsController < ApplicationController
   
     # GET /dialogues or /dialogues.json
     def index
-      uri = URI('http://0.0.0.0')
-      hostname = uri.hostname # => "example.com"
-      uri.path = '/query'
-      query = params[:query]
-      @results = []
-      if query 
-        req = Net::HTTP::Post.new(uri) # => #<Net::HTTP::Post POST>
-        req["Authorization"] = "Bearer #{ENV["DOCUMENT_RETRIEVAL_TOKEN"]}"
-        req.body = {
-            "queries": [{"query": query, "top_k": 10}],
-        }.to_json
-      
-        req.content_type = 'application/json'
-        res = Net::HTTP.start(hostname, 8000) do |http|
-               http.request(req)
-              
-        end
-        response = JSON.parse(res.body)
-        puts response
-        @results = response["results"][0]["results"].select{|result| result["score"] < 0.21}
-      end
+      query = params[:query].to_s.strip
+      @results = query.present? ? EpisodeChunk.semantic_search(query, limit: 10) : []
     end
   
     # GET /dialogues/1 or /dialogues/1.json
@@ -75,7 +55,6 @@ class EpisodeTextsController < ApplicationController
     # DELETE /dialogues/1 or /dialogues/1.json
     def destroy
       @dialogue.destroy
-  
       respond_to do |format|
         format.html { redirect_to dialogues_url, notice: "Dialogue was successfully destroyed." }
         format.json { head :no_content }
