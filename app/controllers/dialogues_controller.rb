@@ -3,6 +3,10 @@ class DialoguesController < ApplicationController
 
   # GET /dialogues or /dialogues.json
   def index
+    @dialogues = []
+    @titles = {}
+    return if params[:query].blank?
+
     conn = ActiveRecord::Base.connection
     if params[:dictionary] == "1"
       @dialogues = Dialogue.search_english(params[:query], conn).limit(300)
@@ -16,8 +20,8 @@ class DialoguesController < ApplicationController
   def show
     @dialogue = Dialogue.find(params[:id])
     @episode = EpisodeText.find_by!(episode: @dialogue.episode, series: @dialogue.series)
-    @text = @episode.text
-    @with_highlights = @text.gsub("#{@dialogue.character}: #{@dialogue.line}", "<span id=#{@dialogue.id} class=\"highlighted\">#{@dialogue.character}: #{@dialogue.line}</span>")
+    @lines = ScriptText.lines(@episode.text)
+    @highlight = quoted_line_range
   end
 
   # GET /dialogues/new
@@ -68,6 +72,14 @@ class DialoguesController < ApplicationController
   end
 
   private
+    # The transcript line holding this dialogue, as a Range for highlighting.
+    def quoted_line_range
+      wanted = @dialogue.line.to_s.squish
+      line = @lines.find { |l| l.speaker == @dialogue.character && l.text.squish == wanted } ||
+             @lines.find { |l| wanted.present? && l.text.squish.include?(wanted) }
+      line && (line.index..line.index)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_dialogue
       @dialogue = Dialogue.find(params[:id])

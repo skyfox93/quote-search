@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :dialogues
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  # Defines the root path route ("/")
   root "dialogues#index"
-  resources :episode_texts, only: [:index, :show]
-  resources :quotes, only: [:index, :show]
 
+  resources :dialogues
+  resources :episode_texts, only: [:index, :show] do
+    get :results, on: :collection
+  end
+  get "search/summary", to: "search_summaries#show", as: :search_summary
+  resources :quotes, only: [:index, :show]
 end

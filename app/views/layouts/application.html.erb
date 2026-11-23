@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>QuoteSearch</title>
+    <title><%= content_for?(:title) ? safe_join([yield(:title), " · Trek Script Search"]) : "Trek Script Search" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -10,6 +11,33 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <%= link_to root_path, class: "brand" do %>
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 2 4.5 21l7.5-4.2 7.5 4.2L12 2Z" fill="currentColor"/></svg>
+          </span>
+          <span class="brand__name">Trek Script Search</span>
+        <% end %>
+        <nav class="tabs" aria-label="Search mode">
+          <%= link_to "Describe a scene", episode_texts_path, class: ["tabs__tab", ("is-active" if controller_name == "episode_texts")] %>
+          <%= link_to "Find a quote", dialogues_path, class: ["tabs__tab", ("is-active" if controller_name == "dialogues")] %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container main">
+      <% flash.each do |type, message| %>
+        <div class="flash flash--<%= type %>" role="status"><%= message %></div>
+      <% end %>
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        A fan-made search for Star Trek transcripts, for educational and entertainment use.
+        Star Trek and related marks are trademarks of CBS Studios Inc.
+      </div>
+    </footer>
   </body>
 </html>

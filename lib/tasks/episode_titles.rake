@@ -10,17 +10,7 @@ namespace :episodes do
   # Transcript titles that can't be matched by normalising spelling.
   TITLE_OVERRIDES = { "DS9" => { "Till Death Us Do Part" => "'Til Death Do Us Part" } }.freeze
 
-  # Lowercase, US spelling, no punctuation or leading "the", and every
-  # "Part One" / "Part II" / "(1)" written as "part 1".
-  normalize = lambda do |name|
-    t = name.to_s.unicode_normalize(:nfkd).downcase.delete("'’")
-    t = t.gsub(/our\b/) { |m| %w[honour favour].any? { t.include?(_1) } ? "or" : m }
-    t = t.gsub(/\((\d)\)/, ' part \1')
-         .gsub(/\bpart\s+(one|i)\b/, "part 1").gsub(/\bpart\s+(two|ii)\b/, "part 2")
-         .gsub(/\b(ii)\s*\z/, "part 2").gsub(/\bi\s*\z/, "part 1")
-    t = t.gsub(/[^a-z0-9 ]/, " ").squeeze(" ").strip.delete_prefix("the ")
-    t.gsub(/\s+part 1\z/, "") # "X" and "X, Part One" name the same episode
-  end
+  normalize = ->(name) { EpisodeText.normalize_title(name) } # resolved lazily, after :environment
 
   desc "Look up season/episode numbers on TVMaze and write db/episode_numbers.json"
   task fetch_numbers: :environment do

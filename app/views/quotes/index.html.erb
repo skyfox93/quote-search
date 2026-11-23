@@ -1,26 +1,25 @@
-<div class='heading-section'>
-    <h2>
-    Quotes Search ( GoodReads)
-    </h2>
-    <%=link_to "Search Star Trek Dialogue instead", dialogues_path %>
-</div>
-<%=form_with url: quotes_path, :method => "get" do |form| %>
-    <%=form.label :query, 'Search Quote Or Author'%>
-    <%=form.text_field :query)%>
-    <%=from.label :dictionary%>
-    <%=form.submit "Search"%>
-<% end %>
+<% query = params[:query].to_s %>
+<% content_for :title, query.presence || "Quotes" %>
 
-<div class="search-results">
-<% @quotes.each do | quote|%>
-    <div>
-        <h3 class="quote">
-           <%=quote.content%> 
-        </h3>
-        <div class='author'>
-         - <%=quote.author%>
-        </div>
-    </li>
-<% end %>
+<section class="search-hero<%= " search-hero--compact" if query.present? %>">
+  <% if query.blank? %>
+    <h1 class="search-hero__title">Search quotes</h1>
+    <p class="search-hero__lede">Quotes from Goodreads, by words or author. Looking for Star Trek? <%= link_to "Find a quote from the shows", dialogues_path %>.</p>
+  <% end %>
+  <%= form_with url: quotes_path, method: :get, class: "search-box", role: "search" do |form| %>
+    <label for="query" class="visually-hidden">Quote or author</label>
+    <%= form.text_field :query, value: query, id: "query", class: "search-box__input search-box__input--plain", placeholder: "Quote or author", autocomplete: "off" %>
+    <%= form.submit "Search", class: "button button--primary search-box__button", name: nil %>
+  <% end %>
+</section>
 
-</div>
+<% if query.present? %>
+  <ol class="quote-list">
+    <% @quotes.each do |quote| %>
+      <li class="quote-item">
+        <blockquote class="quote-item__line"><%= quote.content %></blockquote>
+        <div class="quote-item__meta"><span class="speaker"><%= quote.author %></span></div>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

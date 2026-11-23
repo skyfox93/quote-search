@@ -1,15 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title, "#{@dialogue.character}: #{@dialogue.line.truncate(60)}" %>
 
-<h3><%= @dialogue.line %></h3>
--<%=@dialogue.character%>, <%= @episode.full_title %> (<%=@dialogue.series%>)
-<% if @episode.summary.present? %>
-  <p class="episode-summary"><%= @episode.summary %></p>
-<% end %>
+<%= render "episode_texts/episode_header", episode: @episode, back: true %>
 
-<div>
-  <%= link_to 'Back', :back %>
+<figure class="card featured-quote">
+  <blockquote class="featured-quote__line">“<%= @dialogue.line %>”</blockquote>
+  <figcaption class="featured-quote__by">
+    <span class="speaker"><%= @dialogue.character %></span>
+    <% if @highlight %>· <%= link_to "See it in the script", "#match", class: "link-arrow" %><% end %>
+  </figcaption>
+</figure>
 
-  <div class="episode-text">
-  <h3> Full Episode Text </h2>
-      <%=@with_highlights.html_safe%>
-  </div>
+<article class="card script script--full" aria-label="Transcript">
+  <%= script_lines(@lines, highlight: @highlight) %>
+</article>

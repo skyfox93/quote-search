@@ -1,0 +1,19 @@
+<div class="loading" aria-busy="true" aria-live="polite">
+  <p class="loading__status">
+    <span class="spinner" aria-hidden="true"></span>
+    Reading your description and searching the scripts…
+  </p>
+  <div class="card ai-answer ai-answer--placeholder" aria-hidden="true">
+    <div class="skeleton skeleton--line"></div>
+    <div class="skeleton skeleton--line"></div>
+    <div class="skeleton skeleton--line"></div>
+  </div>
+  <% 3.times do %>
+    <div class="card result result--placeholder" aria-hidden="true">
+      <div class="skeleton skeleton--title"></div>
+      <div class="skeleton skeleton--line"></div>
+      <div class="skeleton skeleton--line"></div>
+      <div class="skeleton skeleton--line"></div>
+    </div>
+  <% end %>
+</div>

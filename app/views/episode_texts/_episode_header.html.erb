@@ -1,0 +1,22 @@
+<header class="episode-header">
+  <% if local_assigns[:back] %>
+    <%= link_to "← Back", :back, class: "back-link" %>
+  <% end %>
+  <div class="episode-header__meta">
+    <span class="badge" title="<%= episode.series_name %>"><%= episode.series %></span>
+    <span><%= episode.series_name %></span>
+    <% if episode.short_number %><span class="dot" aria-hidden="true">·</span><span><%= episode.short_number %></span><% end %>
+  </div>
+  <h1 class="episode-header__title"><%= episode.display_title %></h1>
+  <% facts = { "Stardate" => episode.stardate, "First aired" => episode.airdate }.compact %>
+  <% if facts.any? %>
+    <dl class="facts">
+      <% facts.each do |label, value| %>
+        <div><dt><%= label %></dt><dd><%= value %></dd></div>
+      <% end %>
+    </dl>
+  <% end %>
+  <% if episode.summary.present? %>
+    <p class="episode-header__summary"><%= episode.summary %></p>
+  <% end %>
+</header>

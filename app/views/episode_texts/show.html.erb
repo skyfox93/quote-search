@@ -1,11 +1,13 @@
-  <%= link_to 'Back', :back %>
+<% content_for :title, @episode.display_title %>
 
-  <h2><%= @episode.full_title %> <small>(<%= @episode.series %>)</small></h2>
-  <% if @episode.summary.present? %>
-    <p class="episode-summary"><%= @episode.summary %></p>
-  <% end %>
+<%= render "episode_texts/episode_header", episode: @episode, back: true %>
 
-  <div class="episode-text">
-  <h3> Full Episode Text </h3>
-      <%=@episode_text.html_safe%>
-  </div>
+<% if @highlight %>
+  <p class="jump-note">
+    <%= link_to "Jump to the matching scene", "#match", class: "link-arrow" %>
+  </p>
+<% end %>
+
+<article class="card script script--full" aria-label="Transcript">
+  <%= script_lines(@lines, highlight: @highlight) %>
+</article>

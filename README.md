@@ -20,3 +20,22 @@
  `rails db:seed`
  
  `rails s`
+
+ ## Describe-a-scene search (AI)
+ "Describe a scene" (`/episode_texts`) finds episodes from a description, e.g. "Geordi is brainwashed into becoming an assassin". It needs an OpenAI API key in `.env`:
+
+ `OPENAI_API_KEY=...`
+
+ Then embed the transcripts (TNG by default; `SERIES=all` for everything):
+
+ `bin/rails seed_embedding`
+
+ How a search works:
+ 1. A chat model rewrites the description as a few lines of plausible script, guesses likely episodes, and spots a series filter ("in TNG").
+ 2. That passage and the user's own words are embedded and matched against transcript chunks with pgvector.
+ 3. Both rankings and the guesses are merged (reciprocal rank fusion) into a list of episodes with their best-matching scenes.
+ 4. The results page loads straight away; results arrive in a Turbo Frame, then an AI answer streams in above them.
+
+ Query plans, embeddings and AI answers are cached in `Rails.cache`, so repeat searches skip OpenAI. Optional settings:
+ `OPENAI_SEARCH_MODEL` / `OPENAI_SEARCH_REASONING` (default `gpt-5.4-mini` / `low`) and
+ `OPENAI_SUMMARY_MODEL` / `OPENAI_SUMMARY_REASONING` (default `gpt-5.4-mini` / `none`).

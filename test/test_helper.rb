@@ -11,3 +11,27 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+module StubHelpers
+  # Replaces obj.name (e.g. a class method) for the duration of the block.
+  # impl is a callable, or a value to return.
+  def stub_method(obj, name, impl)
+    original = obj.method(name)
+    obj.define_singleton_method(name) { |*args, **kwargs, &blk| impl.respond_to?(:call) ? impl.call(*args, **kwargs, &blk) : impl }
+    yield
+  ensure
+    obj.define_singleton_method(name, original)
+  end
+
+  # Sets environment variables for the duration of the block (nil unsets).
+  def with_env(vars)
+    old = vars.keys.to_h { |k| [k, ENV[k]] }
+    vars.each { |k, v| ENV[k] = v }
+    yield
+  ensure
+    old.each { |k, v| ENV[k] = v }
+  end
+end
+
+ActiveSupport::TestCase.include(StubHelpers)
+ActionDispatch::IntegrationTest.include(StubHelpers)

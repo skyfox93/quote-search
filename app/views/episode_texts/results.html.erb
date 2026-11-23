@@ -1,0 +1,55 @@
+<turbo-frame id="search-results" target="_top">
+  <% if @error %>
+    <div class="notice notice--error" role="alert"><%= @error %></div>
+  <% elsif @search %>
+    <% plan = @search.plan %>
+    <% series = @search.series_filter %>
+
+    <div class="result-meta">
+      <% if series && !@search.relaxed_filters %>
+        <span class="filter-chip">
+          <%= EpisodeText::SERIES[series] %>
+          <%= link_to "×", episode_texts_path(query: @query, all: 1), class: "filter-chip__remove",
+                          title: "Search all series", aria: { label: "Remove series filter: search all series" } %>
+        </span>
+      <% elsif series %>
+        <span class="result-meta__note">
+          <%= EpisodeText::SERIES[series] %> isn't searchable yet, so these results are from
+          <%= @indexed_series.map { EpisodeText::SERIES[_1] }.to_sentence %>.
+        </span>
+      <% end %>
+      <% if series.nil? && @indexed_series.size < EpisodeText::SERIES.size %>
+        <span class="result-meta__note">Only <%= @indexed_series.map { EpisodeText::SERIES[_1] }.to_sentence %> can be searched by description so far.</span>
+      <% end %>
+    </div>
+
+    <% if @search.hits.empty? %>
+      <div class="empty-state">
+        <h2>No matching scenes</h2>
+        <p>Try describing what happens in different words, or name the characters involved.</p>
+      </div>
+    <% else %>
+      <section class="card ai-answer" data-controller="summary"
+               data-summary-url-value="<%= search_summary_path(query: @query, all: params[:all].presence) %>"
+               data-summary-count-value="<%= @search.hits.size %>" aria-labelledby="ai-answer-heading">
+        <header class="ai-answer__header">
+          <svg class="ai-answer__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2Zm7 12 .95 2.55L22.5 17.5l-2.55.95L19 21l-.95-2.55L15.5 17.5l2.55-.95L19 14Z" fill="currentColor"/></svg>
+          <h2 id="ai-answer-heading" class="ai-answer__title">AI answer</h2>
+        </header>
+        <div class="ai-answer__body" data-summary-target="output" aria-live="polite" aria-busy="true">
+          <div class="skeleton skeleton--line"></div>
+          <div class="skeleton skeleton--line"></div>
+          <div class="skeleton skeleton--line"></div>
+        </div>
+        <p class="ai-answer__footnote">Written by AI from the scenes below. It can make mistakes.</p>
+      </section>
+
+      <h2 class="results-heading"><%= pluralize(@search.hits.size, "matching episode") %></h2>
+      <ol class="results">
+        <% @search.hits.each do |hit| %>
+          <%= render "hit", hit: hit, terms: @terms %>
+        <% end %>
+      </ol>
+    <% end %>
+  <% end %>
+</turbo-frame>
