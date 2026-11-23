@@ -1,0 +1,96 @@
+<% content_for :title, "Three levels of search" %>
+
+<section class="landing-hero">
+  <h1 class="landing-hero__title">Three ways to search Star Trek</h1>
+  <p class="landing-hero__lede">
+    The same <%= number_with_delimiter(@stats[:episodes]) %> transcripts, searched three ways, from matching your exact
+    words to an AI agent that writes its own database queries. Each level hands more of the work to the machine.
+  </p>
+
+  <ol class="ladder" aria-label="Levels of search automation">
+    <li>
+      <a href="#level-1" class="ladder__step">
+        <span class="ladder__num">1</span>
+        <span class="ladder__name">Keyword search</span>
+        <span class="ladder__who">You choose the words</span>
+      </a>
+    </li>
+    <li>
+      <a href="#level-2" class="ladder__step">
+        <span class="ladder__num">2</span>
+        <span class="ladder__name">RAG + AI summary</span>
+        <span class="ladder__who">You describe, AI retrieves and explains</span>
+      </a>
+    </li>
+    <li>
+      <a href="#level-3" class="ladder__step">
+        <span class="ladder__num">3</span>
+        <span class="ladder__name">AI agent + SQL</span>
+        <span class="ladder__who">You ask, AI investigates</span>
+      </a>
+    </li>
+  </ol>
+</section>
+
+<section class="level" id="level-1" aria-labelledby="level-1-title">
+  <div class="level__intro">
+    <span class="level-tag">Level 1</span>
+    <h2 id="level-1-title" class="level__title">Keyword search with a dictionary</h2>
+    <p class="level__lede">
+      Postgres full-text search over <%= number_with_delimiter(@stats[:lines]) %> lines of dialogue. Each line is indexed
+      as a list of words; with the English dictionary on, words are reduced to their stems, so
+      “assimilating” also finds “assimilate”, “assimilation” and “assimilators”.
+    </p>
+    <dl class="level__facts">
+      <div><dt>How it works</dt><dd>Stemmed word index (tsvector) and ranked matching. Supports “exact phrases”, OR and -exclusions.</dd></div>
+      <div><dt>Best for</dt><dd>Quotes you remember, characters, catchphrases.</dd></div>
+      <div><dt>Misses</dt><dd>Anything you can't describe in the script's own words.</dd></div>
+    </dl>
+    <%= link_to "Try keyword search", dialogues_path, class: "link-arrow" %>
+  </div>
+  <turbo-frame id="example-keyword" class="level__example" src="<%= landing_example_path("keyword") %>" loading="lazy">
+    <%= render "home/example_loading", query: HomeController::EXAMPLES["keyword"], label: "Searching…" %>
+  </turbo-frame>
+</section>
+
+<section class="level" id="level-2" aria-labelledby="level-2-title">
+  <div class="level__intro">
+    <span class="level-tag level-tag--ai">Level 2</span>
+    <h2 id="level-2-title" class="level__title">RAG: retrieval with an AI summary</h2>
+    <p class="level__lede">
+      Retrieval-augmented generation. Describe a scene in your own words: a language model rewrites it as a few
+      lines of plausible script, vector search finds the closest of <%= number_with_delimiter(@stats[:chunks]) %> transcript
+      passages, and the model reads the best ones and writes an answer that cites them.
+    </p>
+    <dl class="level__facts">
+      <div><dt>How it works</dt><dd>LLM query rewrite → embeddings + pgvector → rank fusion → LLM summary of the top scenes.</dd></div>
+      <div><dt>Best for</dt><dd>“The one where…” questions when you don't know the words.</dd></div>
+      <div><dt>Misses</dt><dd>Counting and comparing: it only sees the handful of scenes it retrieved.</dd></div>
+    </dl>
+    <%= link_to "Try describing a scene", episode_texts_path, class: "link-arrow" %>
+  </div>
+  <turbo-frame id="example-rag" class="level__example" src="<%= landing_example_path("rag") %>" loading="lazy">
+    <%= render "home/example_loading", query: HomeController::EXAMPLES["rag"], label: "Retrieving scenes and writing a summary…" %>
+  </turbo-frame>
+</section>
+
+<section class="level" id="level-3" aria-labelledby="level-3-title">
+  <div class="level__intro">
+    <span class="level-tag level-tag--ai">Level 3</span>
+    <h2 id="level-3-title" class="level__title">An AI agent with a SQL tool</h2>
+    <p class="level__lede">
+      The model gets the database schema and one tool, <code>run_sql</code>. It decides what to query, reads the
+      results, fixes its own mistakes and keeps going until it can answer, so it can count, rank and compare
+      across every episode.
+    </p>
+    <dl class="level__facts">
+      <div><dt>How it works</dt><dd>A loop: the model writes SQL, the app runs it, the model reads the rows and either queries again or answers.</dd></div>
+      <div><dt>Guardrails</dt><dd>One SELECT at a time, read-only transaction, two tables only, 4-second timeout, 50 rows.</dd></div>
+      <div><dt>Misses</dt><dd>Slower, and only as good as the data: when lines are missing, it has to notice and work around it.</dd></div>
+    </dl>
+    <%= link_to "Ask a question", ask_path, class: "link-arrow" %>
+  </div>
+  <turbo-frame id="example-agent" class="level__example" src="<%= landing_example_path("agent") %>" loading="lazy">
+    <%= render "home/example_loading", query: HomeController::EXAMPLES["agent"], label: "The agent is querying the database…" %>
+  </turbo-frame>
+</section>

@@ -42,16 +42,16 @@ module ScriptHelper
 
   # Escapes text and wraps each match of pattern in <mark>.
   def mark_terms(text, pattern)
-    return h(text) unless pattern
+    return ERB::Util.html_escape(text) unless pattern
 
     pieces = []
     last = 0
     text.to_enum(:scan, pattern).each do
       m = Regexp.last_match
-      pieces << h(text[last...m.begin(0)]) << content_tag(:mark, m[0])
+      pieces << ERB::Util.html_escape(text[last...m.begin(0)]) << content_tag(:mark, m[0])
       last = m.end(0)
     end
-    pieces << h(text[last..])
+    pieces << ERB::Util.html_escape(text[last..])
     safe_join(pieces)
   end
 

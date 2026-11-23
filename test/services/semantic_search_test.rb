@@ -42,7 +42,8 @@ class SemanticSearchTest < ActiveSupport::TestCase
 
     assert_equal [@a, @b, @c].map(&:id), result.hits.map { _1.episode.id }.first(3)
     assert_equal [1, 2, 3], result.hits.first(3).map(&:rank)
-    assert_in_delta 1.0, result.hits.first.similarity, 0.001
+    # Best of the two vectors' cosine similarities to Alpha's chunk (1, 0).
+    assert_in_delta 1 / Math.sqrt(1.04), result.hits.first.similarity, 0.001
     assert_equal "ALPHA: hello", result.hits.first.scenes.first.content
     assert_nil result.hits.first.episode.attributes["text"], "lists shouldn't load full transcripts"
   end

@@ -163,13 +163,14 @@ class SearchQueryPlanner
   def sanitize_guesses(guesses, series)
     return [] unless guesses.is_a?(Array)
 
-    guesses.first(MAX_GUESSES).filter_map do |guess|
+    # Filter, then cap: a malformed guess shouldn't push out a valid one.
+    guesses.first(MAX_GUESSES * 4).filter_map do |guess|
       next unless guess.is_a?(Hash) && EpisodeText::SERIES.key?(guess["series"])
       next if series && guess["series"] != series
 
       title = clean(guess["title"], MAX_TITLE_LENGTH)
       Guess.new(series: guess["series"], title: title) if title.present?
-    end
+    end.first(MAX_GUESSES)
   end
 
   # Non-strings become "", strings are squished and length-capped.

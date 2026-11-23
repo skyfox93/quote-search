@@ -10,7 +10,8 @@ class ScriptHelperTest < ActionView::TestCase
     assert_not_includes html, "<script>"
     assert_not_includes html, "<img"
     assert_not_includes html, "<b>"
-    assert_includes html, "&lt;script&gt;alert(1)&lt;/script&gt;"
+    assert_includes html, "&lt;script&gt;alert"
+    assert_includes html, "&lt;img src=x onerror=alert"
   end
 
   test "marks speakers, inline directions and search terms" do

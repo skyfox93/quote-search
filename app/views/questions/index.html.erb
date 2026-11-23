@@ -1,0 +1,39 @@
+<% content_for :title, @question.presence || "Ask a question" %>
+
+<section class="search-hero<%= " search-hero--compact" if @question.present? %>">
+  <% if @question.blank? %>
+    <span class="level-tag">Level 3 · AI agent</span>
+    <h1 class="search-hero__title">Ask a question about the scripts</h1>
+    <p class="search-hero__lede">An AI agent writes and runs its own SQL against 240,000 lines of dialogue and 700 transcripts, then answers. You'll see every query it runs.</p>
+  <% end %>
+
+  <%= form_with url: ask_path, method: :get, class: "search-box", role: "search" do %>
+    <label for="q" class="visually-hidden">Your question</label>
+    <svg class="search-box__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20Zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 11.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 6a3.5 3.5 0 0 1 1.2 6.79c-.4.15-.7.5-.7.93V14h-1.5v-.28c0-1.06.68-2 1.68-2.34A2 2 0 1 0 10 9.5H8.5A3.5 3.5 0 0 1 12 6Z" fill="currentColor"/></svg>
+    <%= text_field_tag :q, @question, id: "q", class: "search-box__input", placeholder: "e.g. Which TNG character has the most lines?",
+                        autocomplete: "off", autofocus: @question.blank?, maxlength: SearchAgent::MAX_QUESTION_LENGTH %>
+    <button type="submit" class="button button--primary search-box__button">Ask</button>
+  <% end %>
+
+  <% if @question.blank? %>
+    <div class="examples">
+      <span class="examples__label">Try</span>
+      <% ["Which TNG character has the most lines?",
+          "In which episode does Q speak the most?",
+          "How often does Worf mention honor, by season?",
+          "Which episodes mention the Borg most often?"].each do |example| %>
+        <%= link_to example, ask_path(q: example), class: "chip" %>
+      <% end %>
+    </div>
+  <% end %>
+</section>
+
+<% if @question.present? %>
+  <section class="agent-run" data-controller="agent" data-agent-url-value="<%= ask_stream_path(q: @question) %>" aria-live="polite">
+    <ol id="agent-steps" class="agent-steps"></ol>
+    <p class="agent-thinking" data-agent-target="status">
+      <span class="spinner" aria-hidden="true"></span>
+      <span data-agent-target="statusText">Planning which queries to run…</span>
+    </p>
+  </section>
+<% end %>

@@ -20,8 +20,9 @@
           <span class="brand__name">Trek Script Search</span>
         <% end %>
         <nav class="tabs" aria-label="Search mode">
-          <%= link_to "Describe a scene", episode_texts_path, class: ["tabs__tab", ("is-active" if controller_name == "episode_texts")] %>
-          <%= link_to "Find a quote", dialogues_path, class: ["tabs__tab", ("is-active" if controller_name == "dialogues")] %>
+          <%= link_to dialogues_path, class: ["tabs__tab", ("is-active" if controller_name == "dialogues")], title: "Level 1: keyword search" do %><span class="tabs__num">1</span><span class="tabs__long">Find a quote</span><span class="tabs__short">Quote</span><% end %>
+          <%= link_to episode_texts_path, class: ["tabs__tab", ("is-active" if controller_name == "episode_texts")], title: "Level 2: RAG with AI summaries" do %><span class="tabs__num">2</span><span class="tabs__long">Describe a scene</span><span class="tabs__short">Scene</span><% end %>
+          <%= link_to ask_path, class: ["tabs__tab", ("is-active" if controller_name == "questions")], title: "Level 3: AI agent with SQL" do %><span class="tabs__num">3</span><span class="tabs__long">Ask a question</span><span class="tabs__short">Ask</span><% end %>
         </nav>
       </div>
     </header>

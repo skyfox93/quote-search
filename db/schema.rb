@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_22_010000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_010000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -25,8 +25,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_22_010000) do
     t.integer "index"
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('simple'::regconfig, (COALESCE(line, ''::character varying))::text), 'B'::\"char\") || setweight(to_tsvector('simple'::regconfig, (COALESCE(\"character\", ''::character varying))::text), 'A'::\"char\"))", stored: true
     t.virtual "searchable_english", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(line, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(\"character\", ''::character varying))::text), 'B'::\"char\"))", stored: true
+    t.string "character_raw"
+    t.string "delivery"
     t.index ["searchable"], name: "dialogues_search_index", using: :gin
     t.index ["searchable"], name: "index_dialogues_on_searchable", using: :gin
+    t.index ["series", "character"], name: "index_dialogues_on_series_and_character"
   end
 
   create_table "episode_chunks", force: :cascade do |t|

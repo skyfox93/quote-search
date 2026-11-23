@@ -75,7 +75,8 @@ class DialoguesController < ApplicationController
     # The transcript line holding this dialogue, as a Range for highlighting.
     def quoted_line_range
       wanted = @dialogue.line.to_s.squish
-      line = @lines.find { |l| l.speaker == @dialogue.character && l.text.squish == wanted } ||
+      speaker = @dialogue.try(:character_raw).presence || @dialogue.character # as written in the transcript
+      line = @lines.find { |l| l.speaker == speaker && l.text.squish == wanted } ||
              @lines.find { |l| wanted.present? && l.text.squish.include?(wanted) }
       line && (line.index..line.index)
     end

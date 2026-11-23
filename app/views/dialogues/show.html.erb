@@ -1,6 +1,6 @@
 <% content_for :title, "#{@dialogue.character}: #{@dialogue.line.truncate(60)}" %>
 
-<%= render "episode_texts/episode_header", episode: @episode, back: true %>
+<%= render "application/episode_header", episode: @episode, back: true %>
 
 <figure class="card featured-quote">
   <blockquote class="featured-quote__line">“<%= @dialogue.line %>”</blockquote>

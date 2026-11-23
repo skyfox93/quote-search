@@ -1,6 +1,6 @@
 <% content_for :title, @episode.display_title %>
 
-<%= render "episode_texts/episode_header", episode: @episode, back: true %>
+<%= render "application/episode_header", episode: @episode, back: true %>
 
 <% if @highlight %>
   <p class="jump-note">

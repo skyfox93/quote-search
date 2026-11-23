@@ -35,6 +35,7 @@ gem "bootsnap", require: false
 gem "pg_search"
 
 # Vector similarity search with pgvector
+gem "csv" # no longer a default gem in Ruby 3.4+
 gem "neighbor"
 
 gem "dotenv-rails", groups: [:development, :test]

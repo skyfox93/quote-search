@@ -23,36 +23,19 @@ for i in 0..(data.length/100) do
 end
 
 
-file = File.read('./db/all_scripts_raw.json')
-data = JSON.parse(file)
-data.each do |series, details|
-        data[series].each do |episode, char_lines|
-            char_dialogue = []
-            episode_dialogue = []
-            char_lines.split(/\s(?=[A-Z,'-]{3,}.+:)/).each_with_index do |charline, index|
-                split_line = charline.split(/([A-Z,'-]{3,}.*):/)
-                if split_line.length == 1
+# Episodes and their lines. TranscriptParser splits each raw transcript into
+# speeches ("NAME: ..." at the start of a line) and SCENE text (stage
+# directions, locations, narration), and CharacterName standardizes speakers.
+scripts = JSON.parse(File.read('./db/all_scripts_raw.json'))
+scripts.each do |series, episodes|
+  episodes.each do |episode, raw|
+    parser = TranscriptParser.new(raw)
+    next if parser.blocks.empty?
 
-                    cleaned= split_line[0].gsub("\n", ' ').strip()
-                    episode_dialogue.push(cleaned)
-                    char_dialogue.push({"index": index, "line": cleaned, "character": "SCENE", episode: episode, series: series})
-                
-                elsif split_line.length >= 3
-                    char = split_line[1]
-                    line =  split_line[2].gsub("\n", ' ').strip()
-                    cleaned = "#{char}: #{line}"
-                    episode_dialogue.push(cleaned)
-                    char_dialogue.push({"index": index, "line": line, "character": char, episode: episode, series: series})
-                end
-            end
-            if char_dialogue.length > 0
-                number = EpisodeText.numbers.dig(series, episode) || {}
-                EpisodeText.create({episode:episode, text: episode_dialogue.join("\n"), series:series,
-                                    title: EpisodeText.title_from_script(char_lines),
-                                    season: number["season"], episode_number: number["number"]})
-                Dialogue.insert_all(char_dialogue)
-            end
-
-        end
+    number = EpisodeText.numbers.dig(series, episode) || {}
+    EpisodeText.create!(episode: episode, series: series, text: parser.text,
+                        title: EpisodeText.title_from_script(raw),
+                        season: number["season"], episode_number: number["number"])
+    Dialogue.insert_all!(parser.dialogue_rows(series: series, episode: episode))
+  end
 end
-

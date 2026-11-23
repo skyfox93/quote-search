@@ -41,6 +41,7 @@
             <blockquote class="quote-item__line"><%= dialogue.line %></blockquote>
             <div class="quote-item__meta">
               <span class="speaker"><%= dialogue.character %></span>
+              <% if dialogue.try(:delivery).present? %><span class="delivery"><%= dialogue.delivery %></span><% end %>
               <span class="dot" aria-hidden="true">·</span>
               <span class="badge badge--small"><%= dialogue.series %></span>
               <span><%= @titles[[dialogue.series, dialogue.episode]] || dialogue.episode %></span>

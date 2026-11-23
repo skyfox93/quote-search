@@ -39,3 +39,23 @@
  Query plans, embeddings and AI answers are cached in `Rails.cache`, so repeat searches skip OpenAI. Optional settings:
  `OPENAI_SEARCH_MODEL` / `OPENAI_SEARCH_REASONING` (default `gpt-5.4-mini` / `low`) and
  `OPENAI_SUMMARY_MODEL` / `OPENAI_SUMMARY_REASONING` (default `gpt-5.4-mini` / `none`).
+
+ ## Ask a question (AI agent with SQL)
+ "Ask a question" (`/ask`) gives an OpenAI model one tool, `run_sql`, and lets it query the `dialogues` and `episode_texts` tables until it can answer (e.g. "Which TNG character has the most lines?"). Every query and its results are shown as it works.
+
+ The SQL is untrusted, so `ReadonlySql` runs it with several guards: a single SELECT, no comments or file/SQL-executing functions, a read-only transaction with a 4s timeout that is always rolled back, an `EXPLAIN` check that only those two tables are read, and at most 50 rows. For a hard boundary, run the migration that creates the `search_agent_reader` role (SELECT on those two tables only); queries then run as that role:
+
+ `bin/rails db:migrate`
+
+ Optional settings: `OPENAI_AGENT_MODEL` / `OPENAI_AGENT_REASONING` (default `gpt-5.4-mini` / `low`).
+
+ The home page (`/`) compares the three levels (keyword search, RAG, agent) with a live example of each.
+
+ ## Dialogue lines and character names
+ `db/seeds.rb` parses each raw transcript with `TranscriptParser` (a speech starts with `NAME:` at the start of a line, so one-letter speakers like Q are kept; stage directions, locations and narration become `SCENE` rows) and standardizes speakers with `CharacterName` (`PICARD [OC]` becomes `PICARD`, with `OC` in `delivery`; the name as written stays in `character_raw`).
+
+ To re-parse the dialogues in an existing database without touching episodes or embeddings (dialogue ids change):
+
+ `bin/rails dialogues:rebuild`
+
+ `bin/rails characters:list` writes every name, raw and standardized, to `tmp/character_names.csv`.
