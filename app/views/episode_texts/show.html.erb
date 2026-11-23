@@ -1,6 +1,11 @@
   <%= link_to 'Back', :back %>
 
+  <h2><%= @episode.full_title %> <small>(<%= @episode.series %>)</small></h2>
+  <% if @episode.summary.present? %>
+    <p class="episode-summary"><%= @episode.summary %></p>
+  <% end %>
+
   <div class="episode-text">
-  <h3> Full Episode Text </h2>
+  <h3> Full Episode Text </h3>
       <%=@episode_text.html_safe%>
   </div>

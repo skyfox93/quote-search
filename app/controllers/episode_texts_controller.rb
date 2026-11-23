@@ -6,13 +6,20 @@ class EpisodeTextsController < ApplicationController
     # GET /dialogues or /dialogues.json
     def index
       query = params[:query].to_s.strip
-      @results = query.present? ? EpisodeChunk.semantic_search(query, limit: 10) : []
+      @results = []
+      return if query.blank?
+
+      @plan = SearchQueryPlanner.plan(query)
+      @results = EpisodeChunk.semantic_search(@plan.query, limit: 10, filters: @plan.filters)
+    rescue OpenaiApi::Error => e
+      Rails.logger.error("[semantic search] #{e.message}")
+      flash.now[:alert] = "Semantic search is unavailable right now."
     end
   
     # GET /dialogues/1 or /dialogues/1.json
     def show
-      episode = EpisodeText.find(params[:id])
-      @episode_text = episode.text
+      @episode = EpisodeText.find(params[:id])
+      @episode_text = @episode.text
     end
   
     # GET /dialogues/new

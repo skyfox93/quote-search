@@ -1,4 +1,5 @@
 <p style="color: green"><%= notice %></p>
+<% if flash[:alert] %><p style="color: red"><%= flash[:alert] %></p><% end %>
 <div class='heading-section'>
 <h2>
    Star Trek Dialogue Search
@@ -12,6 +13,14 @@
     <%=submit_tag("Search")%>
 <% end %>
 
+<% if @plan&.rewritten %>
+  <p class="search-plan">
+    Searching for “<%= @plan.query %>”
+    <% if @plan.series %>
+      in <%= EpisodeText::SERIES[@plan.series] %>
+    <% end %>
+  </p>
+<% end %>
 
 <div class='search-results'>
 <% @results.each do |chunk| %>
@@ -20,7 +29,7 @@
            <%=link_to chunk.content, episode_text_url(chunk.episode_text_id) %>
         </h3>
         <div>
-         <%= chunk.episode_text.series %> <%= chunk.episode_text.episode %> · Similarity: <%= (1 - chunk.neighbor_distance).round(3) %>
+         <%= chunk.episode_text.full_title %> (<%= chunk.episode_text.series %>) · Similarity: <%= (1 - chunk.neighbor_distance).round(3) %>
         </div>
     </div>
 <% end %>

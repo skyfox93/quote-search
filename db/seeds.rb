@@ -46,7 +46,10 @@ data.each do |series, details|
                 end
             end
             if char_dialogue.length > 0
-                EpisodeText.create({episode:episode, text: episode_dialogue.join("\n"), series:series})
+                number = EpisodeText.numbers.dig(series, episode) || {}
+                EpisodeText.create({episode:episode, text: episode_dialogue.join("\n"), series:series,
+                                    title: EpisodeText.title_from_script(char_lines),
+                                    season: number["season"], episode_number: number["number"]})
                 Dialogue.insert_all(char_dialogue)
             end
 

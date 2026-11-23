@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_22_010000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -47,6 +47,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_21_000000) do
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "title"
+    t.text "summary"
+    t.integer "season"
+    t.integer "episode_number"
+    t.index ["series", "episode"], name: "index_episode_texts_on_series_and_episode"
   end
 
   create_table "quotes", force: :cascade do |t|

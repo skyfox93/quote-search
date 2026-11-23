@@ -25,7 +25,7 @@
            <%=link_to dialogue.line, "#{dialogue_url(dialogue.id)}\##{dialogue.id}"%>
         </h3>
         <div class='author'>
-         - <%=dialogue.character%>, <%=dialogue.series%> <%=dialogue.episode%>
+         - <%=dialogue.character%>, <%= @titles[[dialogue.series, dialogue.episode]] || dialogue.episode %> (<%=dialogue.series%>)
         </div>
     </li>
 <% end %>

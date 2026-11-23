@@ -1,7 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
 <h3><%= @dialogue.line %></h3>
--<%=@dialogue.character%>, <%=@dialogue.series%>, <%=@dialogue.episode%>
+-<%=@dialogue.character%>, <%= @episode.full_title %> (<%=@dialogue.series%>)
+<% if @episode.summary.present? %>
+  <p class="episode-summary"><%= @episode.summary %></p>
+<% end %>
 
 <div>
   <%= link_to 'Back', :back %>

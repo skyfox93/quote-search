@@ -1,0 +1,3554 @@
+{
+  "TOS": {
+    "episode 0": {
+      "season": 1,
+      "number": null,
+      "tvmaze_name": "The Cage"
+    },
+    "episode 1": {
+      "season": 1,
+      "number": 1,
+      "tvmaze_name": "The Man Trap"
+    },
+    "episode 2": {
+      "season": 1,
+      "number": 2,
+      "tvmaze_name": "Charlie X"
+    },
+    "episode 3": {
+      "season": 1,
+      "number": 3,
+      "tvmaze_name": "Where No Man Has Gone Before"
+    },
+    "episode 4": {
+      "season": 1,
+      "number": 4,
+      "tvmaze_name": "The Naked Time"
+    },
+    "episode 5": {
+      "season": 1,
+      "number": 5,
+      "tvmaze_name": "The Enemy Within"
+    },
+    "episode 6": {
+      "season": 1,
+      "number": 6,
+      "tvmaze_name": "Mudd's Women"
+    },
+    "episode 7": {
+      "season": 1,
+      "number": 7,
+      "tvmaze_name": "What Are Little Girls Made of?"
+    },
+    "episode 8": {
+      "season": 1,
+      "number": 8,
+      "tvmaze_name": "Miri"
+    },
+    "episode 9": {
+      "season": 1,
+      "number": 9,
+      "tvmaze_name": "Dagger of the Mind"
+    },
+    "episode 10": {
+      "season": 1,
+      "number": 10,
+      "tvmaze_name": "The Corbomite Maneuver"
+    },
+    "episode 11": {
+      "season": 1,
+      "number": 11,
+      "tvmaze_name": "The Menagerie Part I"
+    },
+    "episode 12": {
+      "season": 1,
+      "number": 12,
+      "tvmaze_name": "The Menagerie Part II"
+    },
+    "episode 13": {
+      "season": 1,
+      "number": 13,
+      "tvmaze_name": "The Conscience of the King"
+    },
+    "episode 14": {
+      "season": 1,
+      "number": 14,
+      "tvmaze_name": "Balance of Terror"
+    },
+    "episode 15": {
+      "season": 1,
+      "number": 15,
+      "tvmaze_name": "Shore Leave"
+    },
+    "episode 16": {
+      "season": 1,
+      "number": 16,
+      "tvmaze_name": "The Galileo Seven"
+    },
+    "episode 17": {
+      "season": 1,
+      "number": 17,
+      "tvmaze_name": "The Squire of Gothos"
+    },
+    "episode 18": {
+      "season": 1,
+      "number": 18,
+      "tvmaze_name": "Arena"
+    },
+    "episode 19": {
+      "season": 1,
+      "number": 19,
+      "tvmaze_name": "Tomorrow Is Yesterday"
+    },
+    "episode 20": {
+      "season": 1,
+      "number": 20,
+      "tvmaze_name": "Court Martial"
+    },
+    "episode 21": {
+      "season": 1,
+      "number": 21,
+      "tvmaze_name": "The Return of the Archons"
+    },
+    "episode 22": {
+      "season": 1,
+      "number": 22,
+      "tvmaze_name": "Space Seed"
+    },
+    "episode 23": {
+      "season": 1,
+      "number": 23,
+      "tvmaze_name": "A Taste of Armageddon"
+    },
+    "episode 24": {
+      "season": 1,
+      "number": 24,
+      "tvmaze_name": "This Side of Paradise"
+    },
+    "episode 25": {
+      "season": 1,
+      "number": 25,
+      "tvmaze_name": "The Devil in the Dark"
+    },
+    "episode 26": {
+      "season": 1,
+      "number": 26,
+      "tvmaze_name": "Errand of Mercy"
+    },
+    "episode 27": {
+      "season": 1,
+      "number": 27,
+      "tvmaze_name": "The Alternative Factor"
+    },
+    "episode 28": {
+      "season": 1,
+      "number": 28,
+      "tvmaze_name": "The City on the Edge of Forever"
+    },
+    "episode 29": {
+      "season": 1,
+      "number": 29,
+      "tvmaze_name": "Operation: Annihilate!"
+    },
+    "episode 30": {
+      "season": 2,
+      "number": 1,
+      "tvmaze_name": "Amok Time"
+    },
+    "episode 31": {
+      "season": 2,
+      "number": 2,
+      "tvmaze_name": "Who Mourns for Adonais?"
+    },
+    "episode 32": {
+      "season": 2,
+      "number": 3,
+      "tvmaze_name": "The Changeling"
+    },
+    "episode 33": {
+      "season": 2,
+      "number": 4,
+      "tvmaze_name": "Mirror, Mirror"
+    },
+    "episode 34": {
+      "season": 2,
+      "number": 5,
+      "tvmaze_name": "The Apple"
+    },
+    "episode 35": {
+      "season": 2,
+      "number": 6,
+      "tvmaze_name": "The Doomsday Machine"
+    },
+    "episode 36": {
+      "season": 2,
+      "number": 7,
+      "tvmaze_name": "Catspaw"
+    },
+    "episode 37": {
+      "season": 2,
+      "number": 8,
+      "tvmaze_name": "I, Mudd"
+    },
+    "episode 38": {
+      "season": 2,
+      "number": 9,
+      "tvmaze_name": "Metamorphosis"
+    },
+    "episode 39": {
+      "season": 2,
+      "number": 10,
+      "tvmaze_name": "Journey to Babel"
+    },
+    "episode 40": {
+      "season": 2,
+      "number": 11,
+      "tvmaze_name": "Friday's Child"
+    },
+    "episode 41": {
+      "season": 2,
+      "number": 12,
+      "tvmaze_name": "The Deadly Years"
+    },
+    "episode 42": {
+      "season": 2,
+      "number": 13,
+      "tvmaze_name": "Obsession"
+    },
+    "episode 43": {
+      "season": 2,
+      "number": 14,
+      "tvmaze_name": "Wolf in the Fold"
+    },
+    "episode 44": {
+      "season": 2,
+      "number": 15,
+      "tvmaze_name": "The Trouble with Tribbles"
+    },
+    "episode 45": {
+      "season": 2,
+      "number": 16,
+      "tvmaze_name": "The Gamesters of Triskelion"
+    },
+    "episode 46": {
+      "season": 2,
+      "number": 17,
+      "tvmaze_name": "A Piece of the Action"
+    },
+    "episode 47": {
+      "season": 2,
+      "number": 18,
+      "tvmaze_name": "The Immunity Syndrome"
+    },
+    "episode 48": {
+      "season": 2,
+      "number": 19,
+      "tvmaze_name": "A Private Little War"
+    },
+    "episode 49": {
+      "season": 2,
+      "number": 20,
+      "tvmaze_name": "Return to Tomorrow"
+    },
+    "episode 50": {
+      "season": 2,
+      "number": 21,
+      "tvmaze_name": "Patterns of Force"
+    },
+    "episode 51": {
+      "season": 2,
+      "number": 22,
+      "tvmaze_name": "By Any Other Name"
+    },
+    "episode 52": {
+      "season": 2,
+      "number": 23,
+      "tvmaze_name": "The Omega Glory"
+    },
+    "episode 53": {
+      "season": 2,
+      "number": 24,
+      "tvmaze_name": "The Ultimate Computer"
+    },
+    "episode 54": {
+      "season": 2,
+      "number": 25,
+      "tvmaze_name": "Bread and Circuses"
+    },
+    "episode 55": {
+      "season": 2,
+      "number": 26,
+      "tvmaze_name": "Assignment: Earth"
+    },
+    "episode 56": {
+      "season": 3,
+      "number": 1,
+      "tvmaze_name": "Spock's Brain"
+    },
+    "episode 57": {
+      "season": 3,
+      "number": 2,
+      "tvmaze_name": "The Enterprise Incident"
+    },
+    "episode 58": {
+      "season": 3,
+      "number": 3,
+      "tvmaze_name": "The Paradise Syndrome"
+    },
+    "episode 59": {
+      "season": 3,
+      "number": 4,
+      "tvmaze_name": "And the Children Shall Lead"
+    },
+    "episode 60": {
+      "season": 3,
+      "number": 5,
+      "tvmaze_name": "Is There in Truth No Beauty?"
+    },
+    "episode 61": {
+      "season": 3,
+      "number": 6,
+      "tvmaze_name": "Spectre of the Gun"
+    },
+    "episode 62": {
+      "season": 3,
+      "number": 7,
+      "tvmaze_name": "Day of the Dove"
+    },
+    "episode 63": {
+      "season": 3,
+      "number": 8,
+      "tvmaze_name": "For the World is Hollow and I Have Touched the Sky"
+    },
+    "episode 64": {
+      "season": 3,
+      "number": 9,
+      "tvmaze_name": "The Tholian Web"
+    },
+    "episode 65": {
+      "season": 3,
+      "number": 10,
+      "tvmaze_name": "Plato's Stepchildren"
+    },
+    "episode 66": {
+      "season": 3,
+      "number": 11,
+      "tvmaze_name": "Wink of an Eye"
+    },
+    "episode 67": {
+      "season": 3,
+      "number": 12,
+      "tvmaze_name": "The Empath"
+    },
+    "episode 68": {
+      "season": 3,
+      "number": 13,
+      "tvmaze_name": "Elaan of Troyius"
+    },
+    "episode 69": {
+      "season": 3,
+      "number": 14,
+      "tvmaze_name": "Whom Gods Destroy"
+    },
+    "episode 70": {
+      "season": 3,
+      "number": 15,
+      "tvmaze_name": "Let That Be Your Last Battlefield"
+    },
+    "episode 71": {
+      "season": 3,
+      "number": 16,
+      "tvmaze_name": "The Mark of Gideon"
+    },
+    "episode 72": {
+      "season": 3,
+      "number": 17,
+      "tvmaze_name": "That Which Survives"
+    },
+    "episode 73": {
+      "season": 3,
+      "number": 18,
+      "tvmaze_name": "The Lights of Zetar"
+    },
+    "episode 74": {
+      "season": 3,
+      "number": 19,
+      "tvmaze_name": "Requiem for Methuselah"
+    },
+    "episode 75": {
+      "season": 3,
+      "number": 20,
+      "tvmaze_name": "The Way to Eden"
+    },
+    "episode 76": {
+      "season": 3,
+      "number": 21,
+      "tvmaze_name": "The Cloud Minders"
+    },
+    "episode 77": {
+      "season": 3,
+      "number": 22,
+      "tvmaze_name": "The Savage Curtain"
+    },
+    "episode 78": {
+      "season": 3,
+      "number": 23,
+      "tvmaze_name": "All Our Yesterdays"
+    },
+    "episode 79": {
+      "season": 3,
+      "number": 24,
+      "tvmaze_name": "Turnabout Intruder"
+    }
+  },
+  "TAS": {
+    "episode 0": {
+      "season": 1,
+      "number": 1,
+      "tvmaze_name": "Beyond the Farthest Star"
+    },
+    "episode 1": {
+      "season": 1,
+      "number": 2,
+      "tvmaze_name": "Yesteryear"
+    },
+    "episode 2": {
+      "season": 1,
+      "number": 3,
+      "tvmaze_name": "One of Our Planets Is Missing"
+    },
+    "episode 3": {
+      "season": 1,
+      "number": 4,
+      "tvmaze_name": "The Lorelei Signal"
+    },
+    "episode 4": {
+      "season": 1,
+      "number": 5,
+      "tvmaze_name": "More Tribbles, More Troubles"
+    },
+    "episode 5": {
+      "season": 1,
+      "number": 6,
+      "tvmaze_name": "The Survivor"
+    },
+    "episode 6": {
+      "season": 1,
+      "number": 7,
+      "tvmaze_name": "The Infinite Vulcan"
+    },
+    "episode 7": {
+      "season": 1,
+      "number": 8,
+      "tvmaze_name": "The Magicks of Megas-Tu"
+    },
+    "episode 8": {
+      "season": 1,
+      "number": 9,
+      "tvmaze_name": "Once Upon a Planet"
+    },
+    "episode 9": {
+      "season": 1,
+      "number": 10,
+      "tvmaze_name": "Mudd's Passion"
+    },
+    "episode 10": {
+      "season": 1,
+      "number": 11,
+      "tvmaze_name": "The Terratin Incident"
+    },
+    "episode 11": {
+      "season": 1,
+      "number": 12,
+      "tvmaze_name": "The Time Trap"
+    },
+    "episode 12": {
+      "season": 1,
+      "number": 13,
+      "tvmaze_name": "The Ambergris Element"
+    },
+    "episode 13": {
+      "season": 1,
+      "number": 14,
+      "tvmaze_name": "The Slaver Weapon"
+    },
+    "episode 14": {
+      "season": 1,
+      "number": 15,
+      "tvmaze_name": "The Eye of the Beholder"
+    },
+    "episode 15": {
+      "season": 1,
+      "number": 16,
+      "tvmaze_name": "The Jihad"
+    },
+    "episode 16": {
+      "season": 2,
+      "number": 1,
+      "tvmaze_name": "The Pirates of Orion"
+    },
+    "episode 17": {
+      "season": 2,
+      "number": 2,
+      "tvmaze_name": "Bem"
+    },
+    "episode 18": {
+      "season": 2,
+      "number": 3,
+      "tvmaze_name": "The Practical Joker"
+    },
+    "episode 19": {
+      "season": 2,
+      "number": 4,
+      "tvmaze_name": "Albatross"
+    },
+    "episode 20": {
+      "season": 2,
+      "number": 5,
+      "tvmaze_name": "How Sharper Than a Serpent's Tooth"
+    },
+    "episode 21": {
+      "season": 2,
+      "number": 6,
+      "tvmaze_name": "The Counter-Clock Incident"
+    }
+  },
+  "TNG": {
+    "episode 0": {
+      "season": 1,
+      "number": 1,
+      "tvmaze_name": "Encounter at Farpoint"
+    },
+    "episode 1": {
+      "season": 1,
+      "number": 3,
+      "tvmaze_name": "The Naked Now"
+    },
+    "episode 2": {
+      "season": 1,
+      "number": 4,
+      "tvmaze_name": "Code of Honor"
+    },
+    "episode 3": {
+      "season": 1,
+      "number": 5,
+      "tvmaze_name": "The Last Outpost"
+    },
+    "episode 4": {
+      "season": 1,
+      "number": 6,
+      "tvmaze_name": "Where No One Has Gone Before"
+    },
+    "episode 5": {
+      "season": 1,
+      "number": 7,
+      "tvmaze_name": "Lonely Among Us"
+    },
+    "episode 6": {
+      "season": 1,
+      "number": 8,
+      "tvmaze_name": "Justice"
+    },
+    "episode 7": {
+      "season": 1,
+      "number": 9,
+      "tvmaze_name": "The Battle"
+    },
+    "episode 8": {
+      "season": 1,
+      "number": 10,
+      "tvmaze_name": "Hide and Q"
+    },
+    "episode 9": {
+      "season": 1,
+      "number": 11,
+      "tvmaze_name": "Haven"
+    },
+    "episode 10": {
+      "season": 1,
+      "number": 12,
+      "tvmaze_name": "The Big Goodbye"
+    },
+    "episode 11": {
+      "season": 1,
+      "number": 13,
+      "tvmaze_name": "Datalore"
+    },
+    "episode 12": {
+      "season": 1,
+      "number": 14,
+      "tvmaze_name": "Angel One"
+    },
+    "episode 13": {
+      "season": 1,
+      "number": 15,
+      "tvmaze_name": "11001001"
+    },
+    "episode 14": {
+      "season": 1,
+      "number": 16,
+      "tvmaze_name": "Too Short a Season"
+    },
+    "episode 15": {
+      "season": 1,
+      "number": 17,
+      "tvmaze_name": "When the Bough Breaks"
+    },
+    "episode 16": {
+      "season": 1,
+      "number": 18,
+      "tvmaze_name": "Home Soil"
+    },
+    "episode 17": {
+      "season": 1,
+      "number": 19,
+      "tvmaze_name": "Coming of Age"
+    },
+    "episode 18": {
+      "season": 1,
+      "number": 20,
+      "tvmaze_name": "Heart of Glory"
+    },
+    "episode 19": {
+      "season": 1,
+      "number": 21,
+      "tvmaze_name": "The Arsenal of Freedom"
+    },
+    "episode 20": {
+      "season": 1,
+      "number": 22,
+      "tvmaze_name": "Symbiosis"
+    },
+    "episode 21": {
+      "season": 1,
+      "number": 23,
+      "tvmaze_name": "Skin of Evil"
+    },
+    "episode 22": {
+      "season": 1,
+      "number": 24,
+      "tvmaze_name": "We'll Always Have Paris"
+    },
+    "episode 23": {
+      "season": 1,
+      "number": 25,
+      "tvmaze_name": "Conspiracy"
+    },
+    "episode 24": {
+      "season": 1,
+      "number": 26,
+      "tvmaze_name": "The Neutral Zone"
+    },
+    "episode 25": {
+      "season": 2,
+      "number": 1,
+      "tvmaze_name": "The Child"
+    },
+    "episode 26": {
+      "season": 2,
+      "number": 2,
+      "tvmaze_name": "Where Silence Has Lease"
+    },
+    "episode 27": {
+      "season": 2,
+      "number": 3,
+      "tvmaze_name": "Elementary, Dear Data"
+    },
+    "episode 28": {
+      "season": 2,
+      "number": 4,
+      "tvmaze_name": "The Outrageous Okona"
+    },
+    "episode 29": {
+      "season": 2,
+      "number": 5,
+      "tvmaze_name": "Loud as a Whisper"
+    },
+    "episode 30": {
+      "season": 2,
+      "number": 6,
+      "tvmaze_name": "The Schizoid Man"
+    },
+    "episode 31": {
+      "season": 2,
+      "number": 7,
+      "tvmaze_name": "Unnatural Selection"
+    },
+    "episode 32": {
+      "season": 2,
+      "number": 8,
+      "tvmaze_name": "A Matter of Honor"
+    },
+    "episode 33": {
+      "season": 2,
+      "number": 9,
+      "tvmaze_name": "The Measure of a Man"
+    },
+    "episode 34": {
+      "season": 2,
+      "number": 10,
+      "tvmaze_name": "The Dauphin"
+    },
+    "episode 35": {
+      "season": 2,
+      "number": 11,
+      "tvmaze_name": "Contagion"
+    },
+    "episode 36": {
+      "season": 2,
+      "number": 12,
+      "tvmaze_name": "The Royale"
+    },
+    "episode 37": {
+      "season": 2,
+      "number": 13,
+      "tvmaze_name": "Time Squared"
+    },
+    "episode 38": {
+      "season": 2,
+      "number": 14,
+      "tvmaze_name": "The Icarus Factor"
+    },
+    "episode 39": {
+      "season": 2,
+      "number": 15,
+      "tvmaze_name": "Pen Pals"
+    },
+    "episode 40": {
+      "season": 2,
+      "number": 16,
+      "tvmaze_name": "Q Who?"
+    },
+    "episode 41": {
+      "season": 2,
+      "number": 17,
+      "tvmaze_name": "Samaritan Snare"
+    },
+    "episode 42": {
+      "season": 2,
+      "number": 18,
+      "tvmaze_name": "Up the Long Ladder"
+    },
+    "episode 43": {
+      "season": 2,
+      "number": 19,
+      "tvmaze_name": "Manhunt"
+    },
+    "episode 44": {
+      "season": 2,
+      "number": 20,
+      "tvmaze_name": "The Emissary"
+    },
+    "episode 45": {
+      "season": 2,
+      "number": 21,
+      "tvmaze_name": "Peak Performance"
+    },
+    "episode 46": {
+      "season": 2,
+      "number": 22,
+      "tvmaze_name": "Shades of Gray"
+    },
+    "episode 47": {
+      "season": 3,
+      "number": 1,
+      "tvmaze_name": "Evolution"
+    },
+    "episode 48": {
+      "season": 3,
+      "number": 2,
+      "tvmaze_name": "The Ensigns of Command"
+    },
+    "episode 49": {
+      "season": 3,
+      "number": 3,
+      "tvmaze_name": "The Survivors"
+    },
+    "episode 50": {
+      "season": 3,
+      "number": 4,
+      "tvmaze_name": "Who Watches the Watchers"
+    },
+    "episode 51": {
+      "season": 3,
+      "number": 5,
+      "tvmaze_name": "The Bonding"
+    },
+    "episode 52": {
+      "season": 3,
+      "number": 6,
+      "tvmaze_name": "Booby Trap"
+    },
+    "episode 53": {
+      "season": 3,
+      "number": 7,
+      "tvmaze_name": "The Enemy"
+    },
+    "episode 54": {
+      "season": 3,
+      "number": 8,
+      "tvmaze_name": "The Price"
+    },
+    "episode 55": {
+      "season": 3,
+      "number": 9,
+      "tvmaze_name": "The Vengeance Factor"
+    },
+    "episode 56": {
+      "season": 3,
+      "number": 10,
+      "tvmaze_name": "The Defector"
+    },
+    "episode 57": {
+      "season": 3,
+      "number": 11,
+      "tvmaze_name": "The Hunted"
+    },
+    "episode 58": {
+      "season": 3,
+      "number": 12,
+      "tvmaze_name": "The High Ground"
+    },
+    "episode 59": {
+      "season": 3,
+      "number": 13,
+      "tvmaze_name": "Déjà Q"
+    },
+    "episode 60": {
+      "season": 3,
+      "number": 14,
+      "tvmaze_name": "A Matter of Perspective"
+    },
+    "episode 61": {
+      "season": 3,
+      "number": 15,
+      "tvmaze_name": "Yesterday's Enterprise"
+    },
+    "episode 62": {
+      "season": 3,
+      "number": 16,
+      "tvmaze_name": "The Offspring"
+    },
+    "episode 63": {
+      "season": 3,
+      "number": 17,
+      "tvmaze_name": "Sins of the Father"
+    },
+    "episode 64": {
+      "season": 3,
+      "number": 18,
+      "tvmaze_name": "Allegiance"
+    },
+    "episode 65": {
+      "season": 3,
+      "number": 19,
+      "tvmaze_name": "Captain's Holiday"
+    },
+    "episode 66": {
+      "season": 3,
+      "number": 20,
+      "tvmaze_name": "Tin Man"
+    },
+    "episode 67": {
+      "season": 3,
+      "number": 21,
+      "tvmaze_name": "Hollow Pursuits"
+    },
+    "episode 68": {
+      "season": 3,
+      "number": 22,
+      "tvmaze_name": "The Most Toys"
+    },
+    "episode 69": {
+      "season": 3,
+      "number": 23,
+      "tvmaze_name": "Sarek"
+    },
+    "episode 70": {
+      "season": 3,
+      "number": 24,
+      "tvmaze_name": "Ménage à Troi"
+    },
+    "episode 71": {
+      "season": 3,
+      "number": 25,
+      "tvmaze_name": "Transfigurations"
+    },
+    "episode 72": {
+      "season": 3,
+      "number": 26,
+      "tvmaze_name": "The Best of Both Worlds"
+    },
+    "episode 73": {
+      "season": 4,
+      "number": 1,
+      "tvmaze_name": "The Best of Both Worlds Part II"
+    },
+    "episode 74": {
+      "season": 4,
+      "number": 2,
+      "tvmaze_name": "Family"
+    },
+    "episode 75": {
+      "season": 4,
+      "number": 3,
+      "tvmaze_name": "Brothers"
+    },
+    "episode 76": {
+      "season": 4,
+      "number": 4,
+      "tvmaze_name": "Suddenly Human"
+    },
+    "episode 77": {
+      "season": 4,
+      "number": 5,
+      "tvmaze_name": "Remember Me"
+    },
+    "episode 78": {
+      "season": 4,
+      "number": 6,
+      "tvmaze_name": "Legacy"
+    },
+    "episode 79": {
+      "season": 4,
+      "number": 7,
+      "tvmaze_name": "Reunion"
+    },
+    "episode 80": {
+      "season": 4,
+      "number": 8,
+      "tvmaze_name": "Future Imperfect"
+    },
+    "episode 81": {
+      "season": 4,
+      "number": 9,
+      "tvmaze_name": "Final Mission"
+    },
+    "episode 82": {
+      "season": 4,
+      "number": 10,
+      "tvmaze_name": "The Loss"
+    },
+    "episode 83": {
+      "season": 4,
+      "number": 11,
+      "tvmaze_name": "Data's Day"
+    },
+    "episode 84": {
+      "season": 4,
+      "number": 12,
+      "tvmaze_name": "The Wounded"
+    },
+    "episode 85": {
+      "season": 4,
+      "number": 13,
+      "tvmaze_name": "Devil's Due"
+    },
+    "episode 86": {
+      "season": 4,
+      "number": 14,
+      "tvmaze_name": "Clues"
+    },
+    "episode 87": {
+      "season": 4,
+      "number": 15,
+      "tvmaze_name": "First Contact"
+    },
+    "episode 88": {
+      "season": 4,
+      "number": 16,
+      "tvmaze_name": "Galaxy's Child"
+    },
+    "episode 89": {
+      "season": 4,
+      "number": 17,
+      "tvmaze_name": "Night Terrors"
+    },
+    "episode 90": {
+      "season": 4,
+      "number": 18,
+      "tvmaze_name": "Identity Crisis"
+    },
+    "episode 91": {
+      "season": 4,
+      "number": 19,
+      "tvmaze_name": "The Nth Degree"
+    },
+    "episode 92": {
+      "season": 4,
+      "number": 20,
+      "tvmaze_name": "Qpid"
+    },
+    "episode 93": {
+      "season": 4,
+      "number": 21,
+      "tvmaze_name": "The Drumhead"
+    },
+    "episode 94": {
+      "season": 4,
+      "number": 22,
+      "tvmaze_name": "Half a Life"
+    },
+    "episode 95": {
+      "season": 4,
+      "number": 23,
+      "tvmaze_name": "The Host"
+    },
+    "episode 96": {
+      "season": 4,
+      "number": 24,
+      "tvmaze_name": "The Mind's Eye"
+    },
+    "episode 97": {
+      "season": 4,
+      "number": 25,
+      "tvmaze_name": "In Theory"
+    },
+    "episode 98": {
+      "season": 4,
+      "number": 26,
+      "tvmaze_name": "Redemption"
+    },
+    "episode 99": {
+      "season": 5,
+      "number": 1,
+      "tvmaze_name": "Redemption II"
+    },
+    "episode 100": {
+      "season": 5,
+      "number": 2,
+      "tvmaze_name": "Darmok"
+    },
+    "episode 101": {
+      "season": 5,
+      "number": 3,
+      "tvmaze_name": "Ensign Ro"
+    },
+    "episode 102": {
+      "season": 5,
+      "number": 4,
+      "tvmaze_name": "Silicon Avatar"
+    },
+    "episode 103": {
+      "season": 5,
+      "number": 5,
+      "tvmaze_name": "Disaster"
+    },
+    "episode 104": {
+      "season": 5,
+      "number": 6,
+      "tvmaze_name": "The Game"
+    },
+    "episode 105": {
+      "season": 5,
+      "number": 7,
+      "tvmaze_name": "Unification I"
+    },
+    "episode 106": {
+      "season": 5,
+      "number": 8,
+      "tvmaze_name": "Unification II"
+    },
+    "episode 107": {
+      "season": 5,
+      "number": 9,
+      "tvmaze_name": "A Matter of Time"
+    },
+    "episode 108": {
+      "season": 5,
+      "number": 10,
+      "tvmaze_name": "New Ground"
+    },
+    "episode 109": {
+      "season": 5,
+      "number": 11,
+      "tvmaze_name": "Hero Worship"
+    },
+    "episode 110": {
+      "season": 5,
+      "number": 12,
+      "tvmaze_name": "Violations"
+    },
+    "episode 111": {
+      "season": 5,
+      "number": 13,
+      "tvmaze_name": "The Masterpiece Society"
+    },
+    "episode 112": {
+      "season": 5,
+      "number": 14,
+      "tvmaze_name": "Conundrum"
+    },
+    "episode 113": {
+      "season": 5,
+      "number": 15,
+      "tvmaze_name": "Power Play"
+    },
+    "episode 114": {
+      "season": 5,
+      "number": 16,
+      "tvmaze_name": "Ethics"
+    },
+    "episode 115": {
+      "season": 5,
+      "number": 17,
+      "tvmaze_name": "The Outcast"
+    },
+    "episode 116": {
+      "season": 5,
+      "number": 18,
+      "tvmaze_name": "Cause and Effect"
+    },
+    "episode 117": {
+      "season": 5,
+      "number": 19,
+      "tvmaze_name": "The First Duty"
+    },
+    "episode 118": {
+      "season": 5,
+      "number": 20,
+      "tvmaze_name": "Cost of Living"
+    },
+    "episode 119": {
+      "season": 5,
+      "number": 21,
+      "tvmaze_name": "The Perfect Mate"
+    },
+    "episode 120": {
+      "season": 5,
+      "number": 22,
+      "tvmaze_name": "Imaginary Friend"
+    },
+    "episode 121": {
+      "season": 5,
+      "number": 23,
+      "tvmaze_name": "I, Borg"
+    },
+    "episode 122": {
+      "season": 5,
+      "number": 24,
+      "tvmaze_name": "The Next Phase"
+    },
+    "episode 123": {
+      "season": 5,
+      "number": 25,
+      "tvmaze_name": "The Inner Light"
+    },
+    "episode 124": {
+      "season": 5,
+      "number": 26,
+      "tvmaze_name": "Time's Arrow"
+    },
+    "episode 125": {
+      "season": 6,
+      "number": 1,
+      "tvmaze_name": "Time's Arrow, Part II"
+    },
+    "episode 126": {
+      "season": 6,
+      "number": 2,
+      "tvmaze_name": "Realm of Fear"
+    },
+    "episode 127": {
+      "season": 6,
+      "number": 3,
+      "tvmaze_name": "Man of the People"
+    },
+    "episode 128": {
+      "season": 6,
+      "number": 4,
+      "tvmaze_name": "Relics"
+    },
+    "episode 129": {
+      "season": 6,
+      "number": 5,
+      "tvmaze_name": "Schisms"
+    },
+    "episode 130": {
+      "season": 6,
+      "number": 6,
+      "tvmaze_name": "True Q"
+    },
+    "episode 131": {
+      "season": 6,
+      "number": 7,
+      "tvmaze_name": "Rascals"
+    },
+    "episode 132": {
+      "season": 6,
+      "number": 8,
+      "tvmaze_name": "A Fistful of Datas"
+    },
+    "episode 133": {
+      "season": 6,
+      "number": 9,
+      "tvmaze_name": "The Quality of Life"
+    },
+    "episode 134": {
+      "season": 6,
+      "number": 10,
+      "tvmaze_name": "Chain of Command, Part I"
+    },
+    "episode 135": {
+      "season": 6,
+      "number": 11,
+      "tvmaze_name": "Chain of Command, Part II"
+    },
+    "episode 136": {
+      "season": 6,
+      "number": 12,
+      "tvmaze_name": "Ship in a Bottle"
+    },
+    "episode 137": {
+      "season": 6,
+      "number": 13,
+      "tvmaze_name": "Aquiel"
+    },
+    "episode 138": {
+      "season": 6,
+      "number": 14,
+      "tvmaze_name": "Face of the Enemy"
+    },
+    "episode 139": {
+      "season": 6,
+      "number": 15,
+      "tvmaze_name": "Tapestry"
+    },
+    "episode 140": {
+      "season": 6,
+      "number": 16,
+      "tvmaze_name": "Birthright, Part I"
+    },
+    "episode 141": {
+      "season": 6,
+      "number": 17,
+      "tvmaze_name": "Birthright, Part II"
+    },
+    "episode 142": {
+      "season": 6,
+      "number": 18,
+      "tvmaze_name": "Starship Mine"
+    },
+    "episode 143": {
+      "season": 6,
+      "number": 19,
+      "tvmaze_name": "Lessons"
+    },
+    "episode 144": {
+      "season": 6,
+      "number": 20,
+      "tvmaze_name": "The Chase"
+    },
+    "episode 145": {
+      "season": 6,
+      "number": 21,
+      "tvmaze_name": "Frame of Mind"
+    },
+    "episode 146": {
+      "season": 6,
+      "number": 22,
+      "tvmaze_name": "Suspicions"
+    },
+    "episode 147": {
+      "season": 6,
+      "number": 23,
+      "tvmaze_name": "Rightful Heir"
+    },
+    "episode 148": {
+      "season": 6,
+      "number": 24,
+      "tvmaze_name": "Second Chances"
+    },
+    "episode 149": {
+      "season": 6,
+      "number": 25,
+      "tvmaze_name": "Timescape"
+    },
+    "episode 150": {
+      "season": 6,
+      "number": 26,
+      "tvmaze_name": "Descent, Part I"
+    },
+    "episode 151": {
+      "season": 7,
+      "number": 1,
+      "tvmaze_name": "Descent, Part II"
+    },
+    "episode 152": {
+      "season": 7,
+      "number": 2,
+      "tvmaze_name": "Liaisons"
+    },
+    "episode 153": {
+      "season": 7,
+      "number": 3,
+      "tvmaze_name": "Interface"
+    },
+    "episode 154": {
+      "season": 7,
+      "number": 4,
+      "tvmaze_name": "Gambit, Part I"
+    },
+    "episode 155": {
+      "season": 7,
+      "number": 5,
+      "tvmaze_name": "Gambit, Part II"
+    },
+    "episode 156": {
+      "season": 7,
+      "number": 6,
+      "tvmaze_name": "Phantasms"
+    },
+    "episode 157": {
+      "season": 7,
+      "number": 7,
+      "tvmaze_name": "Dark Page"
+    },
+    "episode 158": {
+      "season": 7,
+      "number": 8,
+      "tvmaze_name": "Attached"
+    },
+    "episode 159": {
+      "season": 7,
+      "number": 9,
+      "tvmaze_name": "Force of Nature"
+    },
+    "episode 160": {
+      "season": 7,
+      "number": 10,
+      "tvmaze_name": "Inheritance"
+    },
+    "episode 161": {
+      "season": 7,
+      "number": 11,
+      "tvmaze_name": "Parallels"
+    },
+    "episode 162": {
+      "season": 7,
+      "number": 12,
+      "tvmaze_name": "The Pegasus"
+    },
+    "episode 163": {
+      "season": 7,
+      "number": 13,
+      "tvmaze_name": "Homeward"
+    },
+    "episode 164": {
+      "season": 7,
+      "number": 14,
+      "tvmaze_name": "Sub Rosa"
+    },
+    "episode 165": {
+      "season": 7,
+      "number": 15,
+      "tvmaze_name": "Lower Decks"
+    },
+    "episode 166": {
+      "season": 7,
+      "number": 16,
+      "tvmaze_name": "Thine Own Self"
+    },
+    "episode 167": {
+      "season": 7,
+      "number": 17,
+      "tvmaze_name": "Masks"
+    },
+    "episode 168": {
+      "season": 7,
+      "number": 18,
+      "tvmaze_name": "Eye of the Beholder"
+    },
+    "episode 169": {
+      "season": 7,
+      "number": 19,
+      "tvmaze_name": "Genesis"
+    },
+    "episode 170": {
+      "season": 7,
+      "number": 20,
+      "tvmaze_name": "Journey's End"
+    },
+    "episode 171": {
+      "season": 7,
+      "number": 21,
+      "tvmaze_name": "Firstborn"
+    },
+    "episode 172": {
+      "season": 7,
+      "number": 22,
+      "tvmaze_name": "Bloodlines"
+    },
+    "episode 173": {
+      "season": 7,
+      "number": 23,
+      "tvmaze_name": "Emergence"
+    },
+    "episode 174": {
+      "season": 7,
+      "number": 24,
+      "tvmaze_name": "Preemptive Strike"
+    },
+    "episode 175": {
+      "season": 7,
+      "number": 25,
+      "tvmaze_name": "All Good Things... (1)"
+    }
+  },
+  "DS9": {
+    "episode 0": {
+      "season": 1,
+      "number": 1,
+      "tvmaze_name": "Emissary, Part I"
+    },
+    "episode 1": {
+      "season": 1,
+      "number": 3,
+      "tvmaze_name": "Past Prologue"
+    },
+    "episode 2": {
+      "season": 1,
+      "number": 4,
+      "tvmaze_name": "A Man Alone"
+    },
+    "episode 3": {
+      "season": 1,
+      "number": 5,
+      "tvmaze_name": "Babel"
+    },
+    "episode 4": {
+      "season": 1,
+      "number": 6,
+      "tvmaze_name": "Captive Pursuit"
+    },
+    "episode 5": {
+      "season": 1,
+      "number": 7,
+      "tvmaze_name": "Q-Less"
+    },
+    "episode 6": {
+      "season": 1,
+      "number": 8,
+      "tvmaze_name": "Dax"
+    },
+    "episode 7": {
+      "season": 1,
+      "number": 9,
+      "tvmaze_name": "The Passenger"
+    },
+    "episode 8": {
+      "season": 1,
+      "number": 10,
+      "tvmaze_name": "Move Along Home"
+    },
+    "episode 9": {
+      "season": 1,
+      "number": 11,
+      "tvmaze_name": "The Nagus"
+    },
+    "episode 10": {
+      "season": 1,
+      "number": 12,
+      "tvmaze_name": "Vortex"
+    },
+    "episode 11": {
+      "season": 1,
+      "number": 13,
+      "tvmaze_name": "Battle Lines"
+    },
+    "episode 12": {
+      "season": 1,
+      "number": 14,
+      "tvmaze_name": "The Storyteller"
+    },
+    "episode 13": {
+      "season": 1,
+      "number": 15,
+      "tvmaze_name": "Progress"
+    },
+    "episode 14": {
+      "season": 1,
+      "number": 16,
+      "tvmaze_name": "If Wishes Were Horses"
+    },
+    "episode 15": {
+      "season": 1,
+      "number": 17,
+      "tvmaze_name": "The Forsaken"
+    },
+    "episode 16": {
+      "season": 1,
+      "number": 18,
+      "tvmaze_name": "Dramatis Personae"
+    },
+    "episode 17": {
+      "season": 1,
+      "number": 19,
+      "tvmaze_name": "Duet"
+    },
+    "episode 18": {
+      "season": 1,
+      "number": 20,
+      "tvmaze_name": "In the Hands of the Prophets"
+    },
+    "episode 19": {
+      "season": 2,
+      "number": 1,
+      "tvmaze_name": "The Homecoming"
+    },
+    "episode 20": {
+      "season": 2,
+      "number": 2,
+      "tvmaze_name": "The Circle"
+    },
+    "episode 21": {
+      "season": 2,
+      "number": 3,
+      "tvmaze_name": "The Siege"
+    },
+    "episode 22": {
+      "season": 2,
+      "number": 4,
+      "tvmaze_name": "Invasive Procedures"
+    },
+    "episode 23": {
+      "season": 2,
+      "number": 5,
+      "tvmaze_name": "Cardassians"
+    },
+    "episode 24": {
+      "season": 2,
+      "number": 6,
+      "tvmaze_name": "Melora"
+    },
+    "episode 25": {
+      "season": 2,
+      "number": 7,
+      "tvmaze_name": "Rules of Acquisition"
+    },
+    "episode 26": {
+      "season": 2,
+      "number": 8,
+      "tvmaze_name": "Necessary Evil"
+    },
+    "episode 27": {
+      "season": 2,
+      "number": 9,
+      "tvmaze_name": "Second Sight"
+    },
+    "episode 28": {
+      "season": 2,
+      "number": 10,
+      "tvmaze_name": "Sanctuary"
+    },
+    "episode 29": {
+      "season": 2,
+      "number": 11,
+      "tvmaze_name": "Rivals"
+    },
+    "episode 30": {
+      "season": 2,
+      "number": 12,
+      "tvmaze_name": "The Alternate"
+    },
+    "episode 31": {
+      "season": 2,
+      "number": 13,
+      "tvmaze_name": "Armageddon Game"
+    },
+    "episode 32": {
+      "season": 2,
+      "number": 14,
+      "tvmaze_name": "Whispers"
+    },
+    "episode 33": {
+      "season": 2,
+      "number": 15,
+      "tvmaze_name": "Paradise"
+    },
+    "episode 34": {
+      "season": 2,
+      "number": 16,
+      "tvmaze_name": "Shadowplay"
+    },
+    "episode 35": {
+      "season": 2,
+      "number": 17,
+      "tvmaze_name": "Playing God"
+    },
+    "episode 36": {
+      "season": 2,
+      "number": 18,
+      "tvmaze_name": "Profit and Loss"
+    },
+    "episode 37": {
+      "season": 2,
+      "number": 19,
+      "tvmaze_name": "Blood Oath"
+    },
+    "episode 38": {
+      "season": 2,
+      "number": 20,
+      "tvmaze_name": "The Maquis, Part I"
+    },
+    "episode 39": {
+      "season": 2,
+      "number": 21,
+      "tvmaze_name": "The Maquis, Part II"
+    },
+    "episode 40": {
+      "season": 2,
+      "number": 22,
+      "tvmaze_name": "The Wire"
+    },
+    "episode 41": {
+      "season": 2,
+      "number": 23,
+      "tvmaze_name": "Crossover"
+    },
+    "episode 42": {
+      "season": 2,
+      "number": 24,
+      "tvmaze_name": "The Collaborator"
+    },
+    "episode 43": {
+      "season": 2,
+      "number": 25,
+      "tvmaze_name": "Tribunal"
+    },
+    "episode 44": {
+      "season": 2,
+      "number": 26,
+      "tvmaze_name": "The Jem'Hadar"
+    },
+    "episode 45": {
+      "season": 3,
+      "number": 1,
+      "tvmaze_name": "The Search, Part I"
+    },
+    "episode 46": {
+      "season": 3,
+      "number": 2,
+      "tvmaze_name": "The Search, Part II"
+    },
+    "episode 47": {
+      "season": 3,
+      "number": 3,
+      "tvmaze_name": "The House of Quark"
+    },
+    "episode 48": {
+      "season": 3,
+      "number": 4,
+      "tvmaze_name": "Equilibrium"
+    },
+    "episode 49": {
+      "season": 3,
+      "number": 5,
+      "tvmaze_name": "Second Skin"
+    },
+    "episode 50": {
+      "season": 3,
+      "number": 6,
+      "tvmaze_name": "The Abandoned"
+    },
+    "episode 51": {
+      "season": 3,
+      "number": 7,
+      "tvmaze_name": "Civil Defense"
+    },
+    "episode 52": {
+      "season": 3,
+      "number": 8,
+      "tvmaze_name": "Meridian"
+    },
+    "episode 53": {
+      "season": 3,
+      "number": 9,
+      "tvmaze_name": "Defiant"
+    },
+    "episode 54": {
+      "season": 3,
+      "number": 10,
+      "tvmaze_name": "Fascination"
+    },
+    "episode 55": {
+      "season": 3,
+      "number": 11,
+      "tvmaze_name": "Past Tense, Part I"
+    },
+    "episode 56": {
+      "season": 3,
+      "number": 12,
+      "tvmaze_name": "Past Tense, Part II"
+    },
+    "episode 57": {
+      "season": 3,
+      "number": 13,
+      "tvmaze_name": "Life Support"
+    },
+    "episode 58": {
+      "season": 3,
+      "number": 14,
+      "tvmaze_name": "Heart of Stone"
+    },
+    "episode 59": {
+      "season": 3,
+      "number": 15,
+      "tvmaze_name": "Destiny"
+    },
+    "episode 60": {
+      "season": 3,
+      "number": 16,
+      "tvmaze_name": "Prophet Motive"
+    },
+    "episode 61": {
+      "season": 3,
+      "number": 17,
+      "tvmaze_name": "Visionary"
+    },
+    "episode 62": {
+      "season": 3,
+      "number": 18,
+      "tvmaze_name": "Distant Voices"
+    },
+    "episode 63": {
+      "season": 3,
+      "number": 19,
+      "tvmaze_name": "Through the Looking Glass"
+    },
+    "episode 64": {
+      "season": 3,
+      "number": 20,
+      "tvmaze_name": "Improbable Cause"
+    },
+    "episode 65": {
+      "season": 3,
+      "number": 21,
+      "tvmaze_name": "The Die is Cast"
+    },
+    "episode 66": {
+      "season": 3,
+      "number": 22,
+      "tvmaze_name": "Explorers"
+    },
+    "episode 67": {
+      "season": 3,
+      "number": 23,
+      "tvmaze_name": "Family Business"
+    },
+    "episode 68": {
+      "season": 3,
+      "number": 24,
+      "tvmaze_name": "Shakaar"
+    },
+    "episode 69": {
+      "season": 3,
+      "number": 25,
+      "tvmaze_name": "Facets"
+    },
+    "episode 70": {
+      "season": 3,
+      "number": 26,
+      "tvmaze_name": "The Adversary"
+    },
+    "episode 71": {
+      "season": 4,
+      "number": 1,
+      "tvmaze_name": "The Way of the Warrior, Part I"
+    },
+    "episode 72": {
+      "season": 4,
+      "number": 3,
+      "tvmaze_name": "The Visitor"
+    },
+    "episode 73": {
+      "season": 4,
+      "number": 4,
+      "tvmaze_name": "Hippocratic Oath"
+    },
+    "episode 74": {
+      "season": 4,
+      "number": 5,
+      "tvmaze_name": "Indiscretion"
+    },
+    "episode 75": {
+      "season": 4,
+      "number": 6,
+      "tvmaze_name": "Rejoined"
+    },
+    "episode 76": {
+      "season": 4,
+      "number": 7,
+      "tvmaze_name": "Starship Down"
+    },
+    "episode 77": {
+      "season": 4,
+      "number": 8,
+      "tvmaze_name": "Little Green Men"
+    },
+    "episode 78": {
+      "season": 4,
+      "number": 9,
+      "tvmaze_name": "The Sword of Kahless"
+    },
+    "episode 79": {
+      "season": 4,
+      "number": 10,
+      "tvmaze_name": "Our Man Bashir"
+    },
+    "episode 80": {
+      "season": 4,
+      "number": 11,
+      "tvmaze_name": "Homefront"
+    },
+    "episode 81": {
+      "season": 4,
+      "number": 12,
+      "tvmaze_name": "Paradise Lost"
+    },
+    "episode 82": {
+      "season": 4,
+      "number": 13,
+      "tvmaze_name": "Crossfire"
+    },
+    "episode 83": {
+      "season": 4,
+      "number": 14,
+      "tvmaze_name": "Return to Grace"
+    },
+    "episode 84": {
+      "season": 4,
+      "number": 15,
+      "tvmaze_name": "Sons of Mogh"
+    },
+    "episode 85": {
+      "season": 4,
+      "number": 16,
+      "tvmaze_name": "Bar Association"
+    },
+    "episode 86": {
+      "season": 4,
+      "number": 17,
+      "tvmaze_name": "Accession"
+    },
+    "episode 87": {
+      "season": 4,
+      "number": 18,
+      "tvmaze_name": "Rules of Engagement"
+    },
+    "episode 88": {
+      "season": 4,
+      "number": 19,
+      "tvmaze_name": "Hard Time"
+    },
+    "episode 89": {
+      "season": 4,
+      "number": 20,
+      "tvmaze_name": "Shattered Mirror"
+    },
+    "episode 90": {
+      "season": 4,
+      "number": 21,
+      "tvmaze_name": "The Muse"
+    },
+    "episode 91": {
+      "season": 4,
+      "number": 22,
+      "tvmaze_name": "For the Cause"
+    },
+    "episode 92": {
+      "season": 4,
+      "number": 23,
+      "tvmaze_name": "To the Death"
+    },
+    "episode 93": {
+      "season": 4,
+      "number": 24,
+      "tvmaze_name": "The Quickening"
+    },
+    "episode 94": {
+      "season": 4,
+      "number": 25,
+      "tvmaze_name": "Body Parts"
+    },
+    "episode 95": {
+      "season": 4,
+      "number": 26,
+      "tvmaze_name": "Broken Link"
+    },
+    "episode 96": {
+      "season": 5,
+      "number": 1,
+      "tvmaze_name": "Apocalypse Rising"
+    },
+    "episode 97": {
+      "season": 5,
+      "number": 2,
+      "tvmaze_name": "The Ship"
+    },
+    "episode 98": {
+      "season": 5,
+      "number": 3,
+      "tvmaze_name": "Looking for par'Mach in All the Wrong Places"
+    },
+    "episode 99": {
+      "season": 5,
+      "number": 4,
+      "tvmaze_name": "...Nor the Battle to the Strong"
+    },
+    "episode 100": {
+      "season": 5,
+      "number": 5,
+      "tvmaze_name": "The Assignment"
+    },
+    "episode 101": {
+      "season": 5,
+      "number": 6,
+      "tvmaze_name": "Trials and Tribble-ations"
+    },
+    "episode 102": {
+      "season": 5,
+      "number": 7,
+      "tvmaze_name": "Let He Who is Without Sin..."
+    },
+    "episode 103": {
+      "season": 5,
+      "number": 8,
+      "tvmaze_name": "Things Past"
+    },
+    "episode 104": {
+      "season": 5,
+      "number": 9,
+      "tvmaze_name": "The Ascent"
+    },
+    "episode 105": {
+      "season": 5,
+      "number": 10,
+      "tvmaze_name": "Rapture"
+    },
+    "episode 106": {
+      "season": 5,
+      "number": 11,
+      "tvmaze_name": "The Darkness and the Light"
+    },
+    "episode 107": {
+      "season": 5,
+      "number": 12,
+      "tvmaze_name": "The Begotten"
+    },
+    "episode 108": {
+      "season": 5,
+      "number": 13,
+      "tvmaze_name": "For the Uniform"
+    },
+    "episode 109": {
+      "season": 5,
+      "number": 14,
+      "tvmaze_name": "In Purgatory's Shadow"
+    },
+    "episode 110": {
+      "season": 5,
+      "number": 15,
+      "tvmaze_name": "By Inferno's Light"
+    },
+    "episode 111": {
+      "season": 5,
+      "number": 16,
+      "tvmaze_name": "Doctor Bashir, I Presume"
+    },
+    "episode 112": {
+      "season": 5,
+      "number": 17,
+      "tvmaze_name": "A Simple Investigation"
+    },
+    "episode 113": {
+      "season": 5,
+      "number": 18,
+      "tvmaze_name": "Business as Usual"
+    },
+    "episode 114": {
+      "season": 5,
+      "number": 19,
+      "tvmaze_name": "Ties of Blood and Water"
+    },
+    "episode 115": {
+      "season": 5,
+      "number": 20,
+      "tvmaze_name": "Ferengi Love Songs"
+    },
+    "episode 116": {
+      "season": 5,
+      "number": 21,
+      "tvmaze_name": "Soldiers of the Empire"
+    },
+    "episode 117": {
+      "season": 5,
+      "number": 22,
+      "tvmaze_name": "Children of Time"
+    },
+    "episode 118": {
+      "season": 5,
+      "number": 23,
+      "tvmaze_name": "Blaze of Glory"
+    },
+    "episode 119": {
+      "season": 5,
+      "number": 24,
+      "tvmaze_name": "Empok Nor"
+    },
+    "episode 120": {
+      "season": 5,
+      "number": 25,
+      "tvmaze_name": "In the Cards"
+    },
+    "episode 121": {
+      "season": 5,
+      "number": 26,
+      "tvmaze_name": "Call to Arms"
+    },
+    "episode 122": {
+      "season": 6,
+      "number": 1,
+      "tvmaze_name": "A Time to Stand"
+    },
+    "episode 123": {
+      "season": 6,
+      "number": 2,
+      "tvmaze_name": "Rocks and Shoals"
+    },
+    "episode 124": {
+      "season": 6,
+      "number": 3,
+      "tvmaze_name": "Sons and Daughters"
+    },
+    "episode 125": {
+      "season": 6,
+      "number": 4,
+      "tvmaze_name": "Behind the Lines"
+    },
+    "episode 126": {
+      "season": 6,
+      "number": 5,
+      "tvmaze_name": "Favor the Bold"
+    },
+    "episode 127": {
+      "season": 6,
+      "number": 6,
+      "tvmaze_name": "Sacrifice of Angels"
+    },
+    "episode 128": {
+      "season": 6,
+      "number": 7,
+      "tvmaze_name": "You Are Cordially Invited"
+    },
+    "episode 129": {
+      "season": 6,
+      "number": 8,
+      "tvmaze_name": "Resurrection"
+    },
+    "episode 130": {
+      "season": 6,
+      "number": 9,
+      "tvmaze_name": "Statistical Probabilities"
+    },
+    "episode 131": {
+      "season": 6,
+      "number": 10,
+      "tvmaze_name": "The Magnificent Ferengi"
+    },
+    "episode 132": {
+      "season": 6,
+      "number": 11,
+      "tvmaze_name": "Waltz"
+    },
+    "episode 133": {
+      "season": 6,
+      "number": 12,
+      "tvmaze_name": "Who Mourns for Morn?"
+    },
+    "episode 134": {
+      "season": 6,
+      "number": 13,
+      "tvmaze_name": "Far Beyond the Stars"
+    },
+    "episode 135": {
+      "season": 6,
+      "number": 14,
+      "tvmaze_name": "One Little Ship"
+    },
+    "episode 136": {
+      "season": 6,
+      "number": 15,
+      "tvmaze_name": "Honor Among Thieves"
+    },
+    "episode 137": {
+      "season": 6,
+      "number": 16,
+      "tvmaze_name": "Change of Heart"
+    },
+    "episode 138": {
+      "season": 6,
+      "number": 17,
+      "tvmaze_name": "Wrongs Darker Than Death or Night"
+    },
+    "episode 139": {
+      "season": 6,
+      "number": 18,
+      "tvmaze_name": "Inquisition"
+    },
+    "episode 140": {
+      "season": 6,
+      "number": 19,
+      "tvmaze_name": "In the Pale Moonlight"
+    },
+    "episode 141": {
+      "season": 6,
+      "number": 20,
+      "tvmaze_name": "His Way"
+    },
+    "episode 142": {
+      "season": 6,
+      "number": 21,
+      "tvmaze_name": "The Reckoning"
+    },
+    "episode 143": {
+      "season": 6,
+      "number": 22,
+      "tvmaze_name": "Valiant"
+    },
+    "episode 144": {
+      "season": 6,
+      "number": 23,
+      "tvmaze_name": "Profit and Lace"
+    },
+    "episode 145": {
+      "season": 6,
+      "number": 24,
+      "tvmaze_name": "Time's Orphan"
+    },
+    "episode 146": {
+      "season": 6,
+      "number": 25,
+      "tvmaze_name": "The Sound of Her Voice"
+    },
+    "episode 147": {
+      "season": 6,
+      "number": 26,
+      "tvmaze_name": "Tears of the Prophets"
+    },
+    "episode 148": {
+      "season": 7,
+      "number": 1,
+      "tvmaze_name": "Image in the Sand"
+    },
+    "episode 149": {
+      "season": 7,
+      "number": 2,
+      "tvmaze_name": "Shadows and Symbols"
+    },
+    "episode 150": {
+      "season": 7,
+      "number": 3,
+      "tvmaze_name": "Afterimage"
+    },
+    "episode 151": {
+      "season": 7,
+      "number": 4,
+      "tvmaze_name": "Take Me Out to the Holosuite"
+    },
+    "episode 152": {
+      "season": 7,
+      "number": 5,
+      "tvmaze_name": "Chrysalis"
+    },
+    "episode 153": {
+      "season": 7,
+      "number": 6,
+      "tvmaze_name": "Treachery, Faith and the Great River"
+    },
+    "episode 154": {
+      "season": 7,
+      "number": 7,
+      "tvmaze_name": "Once More Unto the Breach"
+    },
+    "episode 155": {
+      "season": 7,
+      "number": 8,
+      "tvmaze_name": "The Siege of AR-558"
+    },
+    "episode 156": {
+      "season": 7,
+      "number": 9,
+      "tvmaze_name": "Covenant"
+    },
+    "episode 157": {
+      "season": 7,
+      "number": 10,
+      "tvmaze_name": "It's Only a Paper Moon"
+    },
+    "episode 158": {
+      "season": 7,
+      "number": 11,
+      "tvmaze_name": "Prodigal Daughter"
+    },
+    "episode 159": {
+      "season": 7,
+      "number": 12,
+      "tvmaze_name": "The Emperor's New Cloak"
+    },
+    "episode 160": {
+      "season": 7,
+      "number": 13,
+      "tvmaze_name": "Field of Fire"
+    },
+    "episode 161": {
+      "season": 7,
+      "number": 14,
+      "tvmaze_name": "Chimera"
+    },
+    "episode 162": {
+      "season": 7,
+      "number": 15,
+      "tvmaze_name": "Badda-Bing, Badda-Bang"
+    },
+    "episode 163": {
+      "season": 7,
+      "number": 16,
+      "tvmaze_name": "Inter Arma Enim Silent Leges"
+    },
+    "episode 164": {
+      "season": 7,
+      "number": 17,
+      "tvmaze_name": "Penumbra"
+    },
+    "episode 165": {
+      "season": 7,
+      "number": 18,
+      "tvmaze_name": "'Til Death Do Us Part"
+    },
+    "episode 166": {
+      "season": 7,
+      "number": 19,
+      "tvmaze_name": "Strange Bedfellows"
+    },
+    "episode 167": {
+      "season": 7,
+      "number": 20,
+      "tvmaze_name": "The Changing Face of Evil"
+    },
+    "episode 168": {
+      "season": 7,
+      "number": 21,
+      "tvmaze_name": "When It Rains..."
+    },
+    "episode 169": {
+      "season": 7,
+      "number": 22,
+      "tvmaze_name": "Tacking Into the Wind"
+    },
+    "episode 170": {
+      "season": 7,
+      "number": 23,
+      "tvmaze_name": "Extreme Measures"
+    },
+    "episode 171": {
+      "season": 7,
+      "number": 24,
+      "tvmaze_name": "The Dogs of War"
+    },
+    "episode 172": {
+      "season": 7,
+      "number": 25,
+      "tvmaze_name": "What You Leave Behind, Part I"
+    }
+  },
+  "VOY": {
+    "episode 0": {
+      "season": 1,
+      "number": 1,
+      "tvmaze_name": "Caretaker, Part I"
+    },
+    "episode 1": {
+      "season": 1,
+      "number": 3,
+      "tvmaze_name": "Parallax"
+    },
+    "episode 2": {
+      "season": 1,
+      "number": 4,
+      "tvmaze_name": "Time and Again"
+    },
+    "episode 3": {
+      "season": 1,
+      "number": 5,
+      "tvmaze_name": "Phage"
+    },
+    "episode 4": {
+      "season": 1,
+      "number": 6,
+      "tvmaze_name": "The Cloud"
+    },
+    "episode 5": {
+      "season": 1,
+      "number": 7,
+      "tvmaze_name": "Eye of the Needle"
+    },
+    "episode 6": {
+      "season": 1,
+      "number": 8,
+      "tvmaze_name": "Ex Post Facto"
+    },
+    "episode 7": {
+      "season": 1,
+      "number": 9,
+      "tvmaze_name": "Emanations"
+    },
+    "episode 8": {
+      "season": 1,
+      "number": 10,
+      "tvmaze_name": "Prime Factors"
+    },
+    "episode 9": {
+      "season": 1,
+      "number": 11,
+      "tvmaze_name": "State of Flux"
+    },
+    "episode 10": {
+      "season": 1,
+      "number": 12,
+      "tvmaze_name": "Heroes and Demons"
+    },
+    "episode 11": {
+      "season": 1,
+      "number": 13,
+      "tvmaze_name": "Cathexis"
+    },
+    "episode 12": {
+      "season": 1,
+      "number": 14,
+      "tvmaze_name": "Faces"
+    },
+    "episode 13": {
+      "season": 1,
+      "number": 15,
+      "tvmaze_name": "Jetrel"
+    },
+    "episode 14": {
+      "season": 1,
+      "number": 16,
+      "tvmaze_name": "Learning Curve"
+    },
+    "episode 15": {
+      "season": 2,
+      "number": 1,
+      "tvmaze_name": "The 37's"
+    },
+    "episode 16": {
+      "season": 2,
+      "number": 2,
+      "tvmaze_name": "Initiations"
+    },
+    "episode 17": {
+      "season": 2,
+      "number": 3,
+      "tvmaze_name": "Projections"
+    },
+    "episode 18": {
+      "season": 2,
+      "number": 4,
+      "tvmaze_name": "Elogium"
+    },
+    "episode 19": {
+      "season": 2,
+      "number": 5,
+      "tvmaze_name": "Non Sequitur"
+    },
+    "episode 20": {
+      "season": 2,
+      "number": 6,
+      "tvmaze_name": "Twisted"
+    },
+    "episode 21": {
+      "season": 2,
+      "number": 7,
+      "tvmaze_name": "Parturition"
+    },
+    "episode 22": {
+      "season": 2,
+      "number": 8,
+      "tvmaze_name": "Persistence of Vision"
+    },
+    "episode 23": {
+      "season": 2,
+      "number": 9,
+      "tvmaze_name": "Tattoo"
+    },
+    "episode 24": {
+      "season": 2,
+      "number": 10,
+      "tvmaze_name": "Cold Fire"
+    },
+    "episode 25": {
+      "season": 2,
+      "number": 11,
+      "tvmaze_name": "Maneuvers"
+    },
+    "episode 26": {
+      "season": 2,
+      "number": 12,
+      "tvmaze_name": "Resistance"
+    },
+    "episode 27": {
+      "season": 2,
+      "number": 13,
+      "tvmaze_name": "Prototype"
+    },
+    "episode 28": {
+      "season": 2,
+      "number": 14,
+      "tvmaze_name": "Alliances"
+    },
+    "episode 29": {
+      "season": 2,
+      "number": 15,
+      "tvmaze_name": "Threshold"
+    },
+    "episode 30": {
+      "season": 2,
+      "number": 16,
+      "tvmaze_name": "Meld"
+    },
+    "episode 31": {
+      "season": 2,
+      "number": 17,
+      "tvmaze_name": "Dreadnought"
+    },
+    "episode 32": {
+      "season": 2,
+      "number": 18,
+      "tvmaze_name": "Death Wish"
+    },
+    "episode 33": {
+      "season": 2,
+      "number": 19,
+      "tvmaze_name": "Lifesigns"
+    },
+    "episode 34": {
+      "season": 2,
+      "number": 20,
+      "tvmaze_name": "Investigations"
+    },
+    "episode 35": {
+      "season": 2,
+      "number": 21,
+      "tvmaze_name": "Deadlock"
+    },
+    "episode 36": {
+      "season": 2,
+      "number": 22,
+      "tvmaze_name": "Innocence"
+    },
+    "episode 37": {
+      "season": 2,
+      "number": 23,
+      "tvmaze_name": "The Thaw"
+    },
+    "episode 38": {
+      "season": 2,
+      "number": 24,
+      "tvmaze_name": "Tuvix"
+    },
+    "episode 39": {
+      "season": 2,
+      "number": 25,
+      "tvmaze_name": "Resolutions"
+    },
+    "episode 40": {
+      "season": 2,
+      "number": 26,
+      "tvmaze_name": "Basics, Part I"
+    },
+    "episode 41": {
+      "season": 3,
+      "number": 2,
+      "tvmaze_name": "Flashback"
+    },
+    "episode 42": {
+      "season": 3,
+      "number": 3,
+      "tvmaze_name": "The Chute"
+    },
+    "episode 43": {
+      "season": 3,
+      "number": 4,
+      "tvmaze_name": "The Swarm"
+    },
+    "episode 44": {
+      "season": 3,
+      "number": 5,
+      "tvmaze_name": "False Profits"
+    },
+    "episode 45": {
+      "season": 3,
+      "number": 6,
+      "tvmaze_name": "Remember"
+    },
+    "episode 46": {
+      "season": 3,
+      "number": 7,
+      "tvmaze_name": "Sacred Ground"
+    },
+    "episode 47": {
+      "season": 3,
+      "number": 8,
+      "tvmaze_name": "Future's End, Part I"
+    },
+    "episode 48": {
+      "season": 3,
+      "number": 10,
+      "tvmaze_name": "Warlord"
+    },
+    "episode 49": {
+      "season": 3,
+      "number": 11,
+      "tvmaze_name": "The Q and the Grey"
+    },
+    "episode 50": {
+      "season": 3,
+      "number": 12,
+      "tvmaze_name": "Macrocosm"
+    },
+    "episode 51": {
+      "season": 3,
+      "number": 13,
+      "tvmaze_name": "Fair Trade"
+    },
+    "episode 52": {
+      "season": 3,
+      "number": 14,
+      "tvmaze_name": "Alter Ego"
+    },
+    "episode 53": {
+      "season": 3,
+      "number": 15,
+      "tvmaze_name": "Coda"
+    },
+    "episode 54": {
+      "season": 3,
+      "number": 16,
+      "tvmaze_name": "Blood Fever"
+    },
+    "episode 55": {
+      "season": 3,
+      "number": 17,
+      "tvmaze_name": "Unity"
+    },
+    "episode 56": {
+      "season": 3,
+      "number": 18,
+      "tvmaze_name": "The Darkling"
+    },
+    "episode 57": {
+      "season": 3,
+      "number": 19,
+      "tvmaze_name": "Rise"
+    },
+    "episode 58": {
+      "season": 3,
+      "number": 20,
+      "tvmaze_name": "Favorite Son"
+    },
+    "episode 59": {
+      "season": 3,
+      "number": 21,
+      "tvmaze_name": "Before and After"
+    },
+    "episode 60": {
+      "season": 3,
+      "number": 22,
+      "tvmaze_name": "Real Life"
+    },
+    "episode 61": {
+      "season": 3,
+      "number": 23,
+      "tvmaze_name": "Distant Origin"
+    },
+    "episode 62": {
+      "season": 3,
+      "number": 24,
+      "tvmaze_name": "Displaced"
+    },
+    "episode 63": {
+      "season": 3,
+      "number": 25,
+      "tvmaze_name": "Worst Case Scenario"
+    },
+    "episode 64": {
+      "season": 3,
+      "number": 26,
+      "tvmaze_name": "Scorpion, Part I"
+    },
+    "episode 65": {
+      "season": 4,
+      "number": 2,
+      "tvmaze_name": "The Gift"
+    },
+    "episode 66": {
+      "season": 4,
+      "number": 3,
+      "tvmaze_name": "Day of Honor"
+    },
+    "episode 67": {
+      "season": 4,
+      "number": 4,
+      "tvmaze_name": "Nemesis"
+    },
+    "episode 68": {
+      "season": 4,
+      "number": 5,
+      "tvmaze_name": "Revulsion"
+    },
+    "episode 69": {
+      "season": 4,
+      "number": 6,
+      "tvmaze_name": "The Raven"
+    },
+    "episode 70": {
+      "season": 4,
+      "number": 7,
+      "tvmaze_name": "Scientific Method"
+    },
+    "episode 71": {
+      "season": 4,
+      "number": 8,
+      "tvmaze_name": "Year of Hell, Part I"
+    },
+    "episode 72": {
+      "season": 4,
+      "number": 10,
+      "tvmaze_name": "Random Thoughts"
+    },
+    "episode 73": {
+      "season": 4,
+      "number": 11,
+      "tvmaze_name": "Concerning Flight"
+    },
+    "episode 74": {
+      "season": 4,
+      "number": 12,
+      "tvmaze_name": "Mortal Coil"
+    },
+    "episode 75": {
+      "season": 4,
+      "number": 13,
+      "tvmaze_name": "Waking Moments"
+    },
+    "episode 76": {
+      "season": 4,
+      "number": 14,
+      "tvmaze_name": "Message in a Bottle"
+    },
+    "episode 77": {
+      "season": 4,
+      "number": 15,
+      "tvmaze_name": "Hunters"
+    },
+    "episode 78": {
+      "season": 4,
+      "number": 16,
+      "tvmaze_name": "Prey"
+    },
+    "episode 79": {
+      "season": 4,
+      "number": 17,
+      "tvmaze_name": "Retrospect"
+    },
+    "episode 80": {
+      "season": 4,
+      "number": 18,
+      "tvmaze_name": "The Killing Game, Part I"
+    },
+    "episode 81": {
+      "season": 4,
+      "number": 20,
+      "tvmaze_name": "Vis à Vis"
+    },
+    "episode 82": {
+      "season": 4,
+      "number": 21,
+      "tvmaze_name": "The Omega Directive"
+    },
+    "episode 83": {
+      "season": 4,
+      "number": 22,
+      "tvmaze_name": "Unforgettable"
+    },
+    "episode 84": {
+      "season": 4,
+      "number": 23,
+      "tvmaze_name": "Living Witness"
+    },
+    "episode 85": {
+      "season": 4,
+      "number": 24,
+      "tvmaze_name": "Demon"
+    },
+    "episode 86": {
+      "season": 4,
+      "number": 25,
+      "tvmaze_name": "One"
+    },
+    "episode 87": {
+      "season": 4,
+      "number": 26,
+      "tvmaze_name": "Hope and Fear"
+    },
+    "episode 88": {
+      "season": 5,
+      "number": 1,
+      "tvmaze_name": "Night"
+    },
+    "episode 89": {
+      "season": 5,
+      "number": 2,
+      "tvmaze_name": "Drone"
+    },
+    "episode 90": {
+      "season": 5,
+      "number": 3,
+      "tvmaze_name": "Extreme Risk"
+    },
+    "episode 91": {
+      "season": 5,
+      "number": 4,
+      "tvmaze_name": "In the Flesh"
+    },
+    "episode 92": {
+      "season": 5,
+      "number": 5,
+      "tvmaze_name": "Once Upon a Time"
+    },
+    "episode 93": {
+      "season": 5,
+      "number": 6,
+      "tvmaze_name": "Timeless"
+    },
+    "episode 94": {
+      "season": 5,
+      "number": 7,
+      "tvmaze_name": "Infinite Regress"
+    },
+    "episode 95": {
+      "season": 5,
+      "number": 8,
+      "tvmaze_name": "Nothing Human"
+    },
+    "episode 96": {
+      "season": 5,
+      "number": 9,
+      "tvmaze_name": "Thirty Days"
+    },
+    "episode 97": {
+      "season": 5,
+      "number": 10,
+      "tvmaze_name": "Counterpoint"
+    },
+    "episode 98": {
+      "season": 5,
+      "number": 11,
+      "tvmaze_name": "Latent Image"
+    },
+    "episode 99": {
+      "season": 5,
+      "number": 12,
+      "tvmaze_name": "Bride of Chaotica!"
+    },
+    "episode 100": {
+      "season": 5,
+      "number": 13,
+      "tvmaze_name": "Gravity"
+    },
+    "episode 101": {
+      "season": 5,
+      "number": 14,
+      "tvmaze_name": "Bliss"
+    },
+    "episode 102": {
+      "season": 5,
+      "number": 15,
+      "tvmaze_name": "Dark Frontier, Part I"
+    },
+    "episode 103": {
+      "season": 5,
+      "number": 17,
+      "tvmaze_name": "The Disease"
+    },
+    "episode 104": {
+      "season": 5,
+      "number": 18,
+      "tvmaze_name": "Course: Oblivion"
+    },
+    "episode 105": {
+      "season": 5,
+      "number": 19,
+      "tvmaze_name": "The Fight"
+    },
+    "episode 106": {
+      "season": 5,
+      "number": 20,
+      "tvmaze_name": "Think Tank"
+    },
+    "episode 107": {
+      "season": 5,
+      "number": 21,
+      "tvmaze_name": "Juggernaut"
+    },
+    "episode 108": {
+      "season": 5,
+      "number": 22,
+      "tvmaze_name": "Someone to Watch Over Me"
+    },
+    "episode 109": {
+      "season": 5,
+      "number": 23,
+      "tvmaze_name": "11:59"
+    },
+    "episode 110": {
+      "season": 5,
+      "number": 24,
+      "tvmaze_name": "Relativity"
+    },
+    "episode 111": {
+      "season": 5,
+      "number": 25,
+      "tvmaze_name": "Warhead"
+    },
+    "episode 112": {
+      "season": 5,
+      "number": 26,
+      "tvmaze_name": "Equinox, Part I"
+    },
+    "episode 113": {
+      "season": 6,
+      "number": 2,
+      "tvmaze_name": "Survival Instinct"
+    },
+    "episode 114": {
+      "season": 6,
+      "number": 3,
+      "tvmaze_name": "Barge of the Dead"
+    },
+    "episode 115": {
+      "season": 6,
+      "number": 4,
+      "tvmaze_name": "Tinker, Tenor, Doctor, Spy"
+    },
+    "episode 116": {
+      "season": 6,
+      "number": 5,
+      "tvmaze_name": "Alice"
+    },
+    "episode 117": {
+      "season": 6,
+      "number": 6,
+      "tvmaze_name": "Riddles"
+    },
+    "episode 118": {
+      "season": 6,
+      "number": 7,
+      "tvmaze_name": "Dragon's Teeth"
+    },
+    "episode 119": {
+      "season": 6,
+      "number": 8,
+      "tvmaze_name": "One Small Step"
+    },
+    "episode 120": {
+      "season": 6,
+      "number": 9,
+      "tvmaze_name": "The Voyager Conspiracy"
+    },
+    "episode 121": {
+      "season": 6,
+      "number": 10,
+      "tvmaze_name": "Pathfinder"
+    },
+    "episode 122": {
+      "season": 6,
+      "number": 11,
+      "tvmaze_name": "Fair Haven"
+    },
+    "episode 123": {
+      "season": 6,
+      "number": 12,
+      "tvmaze_name": "Blink of an Eye"
+    },
+    "episode 124": {
+      "season": 6,
+      "number": 13,
+      "tvmaze_name": "Virtuoso"
+    },
+    "episode 125": {
+      "season": 6,
+      "number": 14,
+      "tvmaze_name": "Memorial"
+    },
+    "episode 126": {
+      "season": 6,
+      "number": 15,
+      "tvmaze_name": "Tsunkatse"
+    },
+    "episode 127": {
+      "season": 6,
+      "number": 16,
+      "tvmaze_name": "Collective"
+    },
+    "episode 128": {
+      "season": 6,
+      "number": 17,
+      "tvmaze_name": "Spirit Folk"
+    },
+    "episode 129": {
+      "season": 6,
+      "number": 18,
+      "tvmaze_name": "Ashes to Ashes"
+    },
+    "episode 130": {
+      "season": 6,
+      "number": 19,
+      "tvmaze_name": "Child's Play"
+    },
+    "episode 131": {
+      "season": 6,
+      "number": 20,
+      "tvmaze_name": "Good Shepherd"
+    },
+    "episode 132": {
+      "season": 6,
+      "number": 21,
+      "tvmaze_name": "Live Fast and Prosper"
+    },
+    "episode 133": {
+      "season": 6,
+      "number": 22,
+      "tvmaze_name": "Muse"
+    },
+    "episode 134": {
+      "season": 6,
+      "number": 23,
+      "tvmaze_name": "Fury"
+    },
+    "episode 135": {
+      "season": 6,
+      "number": 24,
+      "tvmaze_name": "Life Line"
+    },
+    "episode 136": {
+      "season": 6,
+      "number": 25,
+      "tvmaze_name": "The Haunting of Deck Twelve"
+    },
+    "episode 137": {
+      "season": 6,
+      "number": 26,
+      "tvmaze_name": "Unimatrix Zero, Part I"
+    },
+    "episode 138": {
+      "season": 7,
+      "number": 2,
+      "tvmaze_name": "Imperfection"
+    },
+    "episode 139": {
+      "season": 7,
+      "number": 3,
+      "tvmaze_name": "Drive"
+    },
+    "episode 140": {
+      "season": 7,
+      "number": 4,
+      "tvmaze_name": "Repression"
+    },
+    "episode 141": {
+      "season": 7,
+      "number": 5,
+      "tvmaze_name": "Critical Care"
+    },
+    "episode 142": {
+      "season": 7,
+      "number": 6,
+      "tvmaze_name": "Inside Man"
+    },
+    "episode 143": {
+      "season": 7,
+      "number": 7,
+      "tvmaze_name": "Body and Soul"
+    },
+    "episode 144": {
+      "season": 7,
+      "number": 8,
+      "tvmaze_name": "Nightingale"
+    },
+    "episode 145": {
+      "season": 7,
+      "number": 9,
+      "tvmaze_name": "Flesh and Blood, Part I"
+    },
+    "episode 146": {
+      "season": 7,
+      "number": 11,
+      "tvmaze_name": "Shattered"
+    },
+    "episode 147": {
+      "season": 7,
+      "number": 12,
+      "tvmaze_name": "Lineage"
+    },
+    "episode 148": {
+      "season": 7,
+      "number": 13,
+      "tvmaze_name": "Repentance"
+    },
+    "episode 149": {
+      "season": 7,
+      "number": 14,
+      "tvmaze_name": "Prophecy"
+    },
+    "episode 150": {
+      "season": 7,
+      "number": 15,
+      "tvmaze_name": "The Void"
+    },
+    "episode 151": {
+      "season": 7,
+      "number": 16,
+      "tvmaze_name": "Workforce, Part I"
+    },
+    "episode 152": {
+      "season": 7,
+      "number": 18,
+      "tvmaze_name": "Human Error"
+    },
+    "episode 153": {
+      "season": 7,
+      "number": 19,
+      "tvmaze_name": "Q2"
+    },
+    "episode 154": {
+      "season": 7,
+      "number": 20,
+      "tvmaze_name": "Author, Author"
+    },
+    "episode 155": {
+      "season": 7,
+      "number": 21,
+      "tvmaze_name": "Friendship One"
+    },
+    "episode 156": {
+      "season": 7,
+      "number": 22,
+      "tvmaze_name": "Natural Law"
+    },
+    "episode 157": {
+      "season": 7,
+      "number": 23,
+      "tvmaze_name": "Homestead"
+    },
+    "episode 158": {
+      "season": 7,
+      "number": 24,
+      "tvmaze_name": "Renaissance Man"
+    },
+    "episode 159": {
+      "season": 7,
+      "number": 25,
+      "tvmaze_name": "Endgame, Part I"
+    }
+  },
+  "ENT": {
+    "episode 0": {
+      "season": 1,
+      "number": 1,
+      "tvmaze_name": "Broken Bow"
+    },
+    "episode 1": {
+      "season": 1,
+      "number": 3,
+      "tvmaze_name": "Fight or Flight"
+    },
+    "episode 2": {
+      "season": 1,
+      "number": 4,
+      "tvmaze_name": "Strange New World"
+    },
+    "episode 3": {
+      "season": 1,
+      "number": 5,
+      "tvmaze_name": "Unexpected"
+    },
+    "episode 4": {
+      "season": 1,
+      "number": 6,
+      "tvmaze_name": "Terra Nova"
+    },
+    "episode 5": {
+      "season": 1,
+      "number": 7,
+      "tvmaze_name": "The Andorian Incident"
+    },
+    "episode 6": {
+      "season": 1,
+      "number": 8,
+      "tvmaze_name": "Breaking the Ice"
+    },
+    "episode 7": {
+      "season": 1,
+      "number": 9,
+      "tvmaze_name": "Civilization"
+    },
+    "episode 8": {
+      "season": 1,
+      "number": 10,
+      "tvmaze_name": "Fortunate Son"
+    },
+    "episode 9": {
+      "season": 1,
+      "number": 11,
+      "tvmaze_name": "Cold Front"
+    },
+    "episode 10": {
+      "season": 1,
+      "number": 12,
+      "tvmaze_name": "Silent Enemy"
+    },
+    "episode 11": {
+      "season": 1,
+      "number": 13,
+      "tvmaze_name": "Dear Doctor"
+    },
+    "episode 12": {
+      "season": 1,
+      "number": 14,
+      "tvmaze_name": "Sleeping Dogs"
+    },
+    "episode 13": {
+      "season": 1,
+      "number": 15,
+      "tvmaze_name": "Shadows of P'Jem"
+    },
+    "episode 14": {
+      "season": 1,
+      "number": 16,
+      "tvmaze_name": "Shuttlepod One"
+    },
+    "episode 15": {
+      "season": 1,
+      "number": 17,
+      "tvmaze_name": "Fusion"
+    },
+    "episode 16": {
+      "season": 1,
+      "number": 18,
+      "tvmaze_name": "Rogue Planet"
+    },
+    "episode 17": {
+      "season": 1,
+      "number": 19,
+      "tvmaze_name": "Acquisition"
+    },
+    "episode 18": {
+      "season": 1,
+      "number": 20,
+      "tvmaze_name": "Oasis"
+    },
+    "episode 19": {
+      "season": 1,
+      "number": 21,
+      "tvmaze_name": "Detained"
+    },
+    "episode 20": {
+      "season": 1,
+      "number": 22,
+      "tvmaze_name": "Vox Sola"
+    },
+    "episode 21": {
+      "season": 1,
+      "number": 23,
+      "tvmaze_name": "Fallen Hero"
+    },
+    "episode 22": {
+      "season": 1,
+      "number": 24,
+      "tvmaze_name": "Desert Crossing"
+    },
+    "episode 23": {
+      "season": 1,
+      "number": 25,
+      "tvmaze_name": "Two Days and Two Nights"
+    },
+    "episode 24": {
+      "season": 1,
+      "number": 26,
+      "tvmaze_name": "Shockwave (1)"
+    },
+    "episode 25": {
+      "season": 2,
+      "number": 1,
+      "tvmaze_name": "Shockwave (2)"
+    },
+    "episode 26": {
+      "season": 2,
+      "number": 2,
+      "tvmaze_name": "Carbon Creek"
+    },
+    "episode 27": {
+      "season": 2,
+      "number": 3,
+      "tvmaze_name": "Minefield"
+    },
+    "episode 28": {
+      "season": 2,
+      "number": 4,
+      "tvmaze_name": "Dead Stop"
+    },
+    "episode 29": {
+      "season": 2,
+      "number": 5,
+      "tvmaze_name": "A Night in Sickbay"
+    },
+    "episode 30": {
+      "season": 2,
+      "number": 6,
+      "tvmaze_name": "Marauders"
+    },
+    "episode 31": {
+      "season": 2,
+      "number": 7,
+      "tvmaze_name": "The Seventh"
+    },
+    "episode 32": {
+      "season": 2,
+      "number": 8,
+      "tvmaze_name": "The Communicator"
+    },
+    "episode 33": {
+      "season": 2,
+      "number": 9,
+      "tvmaze_name": "Singularity"
+    },
+    "episode 34": {
+      "season": 2,
+      "number": 10,
+      "tvmaze_name": "Vanishing Point"
+    },
+    "episode 35": {
+      "season": 2,
+      "number": 11,
+      "tvmaze_name": "Precious Cargo"
+    },
+    "episode 36": {
+      "season": 2,
+      "number": 12,
+      "tvmaze_name": "The Catwalk"
+    },
+    "episode 37": {
+      "season": 2,
+      "number": 13,
+      "tvmaze_name": "Dawn"
+    },
+    "episode 38": {
+      "season": 2,
+      "number": 14,
+      "tvmaze_name": "Stigma"
+    },
+    "episode 39": {
+      "season": 2,
+      "number": 15,
+      "tvmaze_name": "Cease Fire"
+    },
+    "episode 40": {
+      "season": 2,
+      "number": 16,
+      "tvmaze_name": "Future Tense"
+    },
+    "episode 41": {
+      "season": 2,
+      "number": 17,
+      "tvmaze_name": "Canamar"
+    },
+    "episode 42": {
+      "season": 2,
+      "number": 18,
+      "tvmaze_name": "The Crossing"
+    },
+    "episode 43": {
+      "season": 2,
+      "number": 19,
+      "tvmaze_name": "Judgment"
+    },
+    "episode 44": {
+      "season": 2,
+      "number": 20,
+      "tvmaze_name": "Horizon"
+    },
+    "episode 45": {
+      "season": 2,
+      "number": 21,
+      "tvmaze_name": "The Breach"
+    },
+    "episode 46": {
+      "season": 2,
+      "number": 22,
+      "tvmaze_name": "Cogenitor"
+    },
+    "episode 47": {
+      "season": 2,
+      "number": 23,
+      "tvmaze_name": "Regeneration"
+    },
+    "episode 48": {
+      "season": 2,
+      "number": 24,
+      "tvmaze_name": "First Flight"
+    },
+    "episode 49": {
+      "season": 2,
+      "number": 25,
+      "tvmaze_name": "Bounty"
+    },
+    "episode 50": {
+      "season": 2,
+      "number": 26,
+      "tvmaze_name": "The Expanse"
+    },
+    "episode 51": {
+      "season": 3,
+      "number": 1,
+      "tvmaze_name": "The Xindi"
+    },
+    "episode 52": {
+      "season": 3,
+      "number": 2,
+      "tvmaze_name": "Anomaly"
+    },
+    "episode 53": {
+      "season": 3,
+      "number": 3,
+      "tvmaze_name": "Extinction"
+    },
+    "episode 54": {
+      "season": 3,
+      "number": 4,
+      "tvmaze_name": "Rajiin"
+    },
+    "episode 55": {
+      "season": 3,
+      "number": 5,
+      "tvmaze_name": "Impulse"
+    },
+    "episode 56": {
+      "season": 3,
+      "number": 6,
+      "tvmaze_name": "Exile"
+    },
+    "episode 57": {
+      "season": 3,
+      "number": 7,
+      "tvmaze_name": "The Shipment"
+    },
+    "episode 58": {
+      "season": 3,
+      "number": 8,
+      "tvmaze_name": "Twilight"
+    },
+    "episode 59": {
+      "season": 3,
+      "number": 9,
+      "tvmaze_name": "North Star"
+    },
+    "episode 60": {
+      "season": 3,
+      "number": 10,
+      "tvmaze_name": "Similitude"
+    },
+    "episode 61": {
+      "season": 3,
+      "number": 11,
+      "tvmaze_name": "Carpenter Street"
+    },
+    "episode 62": {
+      "season": 3,
+      "number": 12,
+      "tvmaze_name": "Chosen Realm"
+    },
+    "episode 63": {
+      "season": 3,
+      "number": 13,
+      "tvmaze_name": "Proving Ground"
+    },
+    "episode 64": {
+      "season": 3,
+      "number": 14,
+      "tvmaze_name": "Stratagem"
+    },
+    "episode 65": {
+      "season": 3,
+      "number": 15,
+      "tvmaze_name": "Harbinger"
+    },
+    "episode 66": {
+      "season": 3,
+      "number": 16,
+      "tvmaze_name": "Doctor's Orders"
+    },
+    "episode 67": {
+      "season": 3,
+      "number": 17,
+      "tvmaze_name": "Hatchery"
+    },
+    "episode 68": {
+      "season": 3,
+      "number": 18,
+      "tvmaze_name": "Azati Prime"
+    },
+    "episode 69": {
+      "season": 3,
+      "number": 19,
+      "tvmaze_name": "Damage"
+    },
+    "episode 70": {
+      "season": 3,
+      "number": 20,
+      "tvmaze_name": "The Forgotten"
+    },
+    "episode 71": {
+      "season": 3,
+      "number": 21,
+      "tvmaze_name": "E²"
+    },
+    "episode 72": {
+      "season": 3,
+      "number": 22,
+      "tvmaze_name": "The Council"
+    },
+    "episode 73": {
+      "season": 3,
+      "number": 23,
+      "tvmaze_name": "Countdown"
+    },
+    "episode 74": {
+      "season": 3,
+      "number": 24,
+      "tvmaze_name": "Zero Hour"
+    },
+    "episode 75": {
+      "season": 4,
+      "number": 1,
+      "tvmaze_name": "Storm Front (1)"
+    },
+    "episode 76": {
+      "season": 4,
+      "number": 2,
+      "tvmaze_name": "Storm Front (2)"
+    },
+    "episode 77": {
+      "season": 4,
+      "number": 3,
+      "tvmaze_name": "Home"
+    },
+    "episode 78": {
+      "season": 4,
+      "number": 4,
+      "tvmaze_name": "Borderland (1)"
+    },
+    "episode 79": {
+      "season": 4,
+      "number": 5,
+      "tvmaze_name": "Cold Station 12 (2)"
+    },
+    "episode 80": {
+      "season": 4,
+      "number": 6,
+      "tvmaze_name": "The Augments (3)"
+    },
+    "episode 81": {
+      "season": 4,
+      "number": 7,
+      "tvmaze_name": "The Forge (1)"
+    },
+    "episode 82": {
+      "season": 4,
+      "number": 8,
+      "tvmaze_name": "Awakening (2)"
+    },
+    "episode 83": {
+      "season": 4,
+      "number": 9,
+      "tvmaze_name": "Kir'Shara (3)"
+    },
+    "episode 84": {
+      "season": 4,
+      "number": 10,
+      "tvmaze_name": "Daedalus"
+    },
+    "episode 85": {
+      "season": 4,
+      "number": 11,
+      "tvmaze_name": "Observer Effect"
+    },
+    "episode 86": {
+      "season": 4,
+      "number": 12,
+      "tvmaze_name": "Babel One (1)"
+    },
+    "episode 87": {
+      "season": 4,
+      "number": 13,
+      "tvmaze_name": "United (2)"
+    },
+    "episode 88": {
+      "season": 4,
+      "number": 14,
+      "tvmaze_name": "The Aenar (3)"
+    },
+    "episode 89": {
+      "season": 4,
+      "number": 15,
+      "tvmaze_name": "Affliction (1)"
+    },
+    "episode 90": {
+      "season": 4,
+      "number": 16,
+      "tvmaze_name": "Divergence (2)"
+    },
+    "episode 91": {
+      "season": 4,
+      "number": 17,
+      "tvmaze_name": "Bound"
+    },
+    "episode 92": {
+      "season": 4,
+      "number": 18,
+      "tvmaze_name": "In a Mirror, Darkly (1)"
+    },
+    "episode 93": {
+      "season": 4,
+      "number": 19,
+      "tvmaze_name": "In a Mirror, Darkly (2)"
+    },
+    "episode 94": {
+      "season": 4,
+      "number": 20,
+      "tvmaze_name": "Demons (1)"
+    },
+    "episode 95": {
+      "season": 4,
+      "number": 21,
+      "tvmaze_name": "Terra Prime (2)"
+    },
+    "episode 96": {
+      "season": 4,
+      "number": 22,
+      "tvmaze_name": "These Are the Voyages..."
+    }
+  }
+}

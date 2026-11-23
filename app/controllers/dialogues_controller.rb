@@ -9,12 +9,14 @@ class DialoguesController < ApplicationController
     else
       @dialogues = Dialogue.search(params[:query], conn).limit(300)
     end
+    @titles = EpisodeText.titles_for(@dialogues)
   end
 
   # GET /dialogues/1 or /dialogues/1.json
   def show
     @dialogue = Dialogue.find(params[:id])
-    @text = EpisodeText.where(episode: @dialogue.episode, series: @dialogue.series).first().text
+    @episode = EpisodeText.find_by!(episode: @dialogue.episode, series: @dialogue.series)
+    @text = @episode.text
     @with_highlights = @text.gsub("#{@dialogue.character}: #{@dialogue.line}", "<span id=#{@dialogue.id} class=\"highlighted\">#{@dialogue.character}: #{@dialogue.line}</span>")
   end
 
