@@ -557,7 +557,8 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
   margin: 4px 0 22px; padding: 14px 16px; overflow-x: auto; border-radius: 10px;
   background: #0f1420; color: #d7e0f0; border: 1px solid #1f2736; font: 13.5px/1.6 var(--font-mono);
 }
-.post .code code { padding: 0; border: 0; background: none; color: inherit; font: inherit; white-space: pre; }
+/* Code inside a block (the post's snippets and the examples' SQL) isn't inline code. */
+.post pre code { padding: 0; border: 0; border-radius: 0; background: none; color: inherit; font: inherit; white-space: inherit; }
 .post ul { padding-left: 22px; }
 .post li { margin: 4px 0; }
 .post strong { font-weight: 700; }
