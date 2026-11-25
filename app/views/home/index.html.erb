@@ -71,8 +71,8 @@ ORDER BY rank DESC;</code></pre>
     </p>
     <p>
       To create the document embeddings in the example below, I split each transcript into scenes, cutting wherever
-      the script names a new location (<code>[Bridge]</code>, <code>[Ten Forward]</code>), embedded each scene with
-      <code>text-embedding-3-small</code>, and stored them in a vector database. That's
+      the script names a new location (<code>[Bridge]</code>, <code>[Ten Forward]</code>), generated an embedding for
+      each scene, and stored them in a vector database. That's
       <%= number_with_delimiter(@stats[:chunks]) %> scenes so far (<%= @indexed_series.to_sentence.presence || "none yet" %>).
       A search embeds the query and asks for its nearest neighbors.
     </p>
