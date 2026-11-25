@@ -2,17 +2,19 @@
 
 <article class="post">
   <header class="post__header">
-    <p class="post__kicker">
-    <h1 class="post__title"> AI search by example - from keyword search to agentic AI </h1>
+    <h1 class="post__title">AI search by example: from keyword search to agentic AI</h1>
     <p class="post__dek">
-   Three different ways of building a search tool with rankings: traditional keyword queries using a dictionray, RAG (embedding assisted answer), and agentic AI
+      Three different ways of building a search tool with rankings: traditional keyword queries using a dictionary,
+      RAG (an embedding-assisted answer), and agentic AI.
     </p>
   </header>
 
   <p>
-  This tool uses real star trek episode scripts to demonstrate common implementations of document search. 
-  I implemented three strategies: starting with standard keyword searches, an embedding-driven semantic search , with an AI summary (called Retrieval Augmented Search, or RAG), and, finally an agentic AI with the ability to query the database itself.
-   </p> 
+    This tool uses real Star Trek episode scripts to demonstrate common implementations of document search.
+    I implemented three strategies: standard keyword search; an embedding-driven semantic search with an AI summary
+    (called Retrieval-Augmented Generation, or RAG); and finally, an agentic AI with the ability to query the
+    database itself.
+  </p>
 
 
   <nav class="post__toc" aria-label="In this post">
@@ -28,17 +30,20 @@
     <p class="post__eyebrow">Level 1</p>
     <h2 id="level-1-title" class="level__title">Keyword search with a dictionary</h2>
     <p>
-      Postgres has support for google-like search syntax build in through  <code>web_search_to_ts_query<code>. It requires adding a column to your database which compares individual words against a dictionary to standardize them. It allows you to use AND OR operators in your search. If you're willing to do a little more configuration, it's also possible to correct common query mispellings on the fly. Fin 
+      Postgres has support for Google-like search syntax built in through <code>websearch_to_tsquery</code>. It
+      requires adding a column to your database which compares individual words against a dictionary to standardize
+      them. It allows you to use AND and OR operators in your search. If you're willing to do a little more
+      configuration, it's also possible to correct common query misspellings on the fly.
     </p>
 <pre class="code"><code>SELECT *, ts_rank_cd(searchable_english, q) AS rank
 FROM dialogues, websearch_to_tsquery('english', 'assimilating') q
 WHERE searchable_english @@ q
 ORDER BY rank DESC;</code></pre>
     <p>
-      <code>websearch_to_tsquery</code> checks your document using  Google-style syntax : <code>"exact phrases"</code>,
-      <code>OR</code> AND <code>-exclusions</code> When you add 
-    english dictionary config, Postgres reduces words to their stems, so “assimilating” matches “assimilate”,
-      “assimilated” and “assimilation”, as well as some common mispellings
+      <code>websearch_to_tsquery</code> checks your document using Google-style syntax: <code>"exact phrases"</code>,
+      <code>OR</code> and <code>-exclusions</code>. When you add the English dictionary config, Postgres reduces
+      words to their stems, so “assimilating” matches “assimilate”, “assimilated” and “assimilation”, as well as
+      some common misspellings.
     </p>
 
     <figure class="post__figure">
@@ -57,15 +62,19 @@ ORDER BY rank DESC;</code></pre>
     <p class="post__eyebrow">Level 2</p>
     <h2 id="level-2-title" class="level__title">RAG: retrieval with an AI summary</h2>
     <p>
-      Searching by meaning starts with embeddings, numerical representations of what a term "means". Or more precisely, its distance from other words in roughly 1700 dimensions (not labeled dimensions, or known dimensions, but distinctions the model learned to make in its training). Semantic search involves comparing the query embedding with a short passage from the text and seeing how similar the topic or "meaning" of that text. 
-      The embedding for “swimming"  would be more similar to "beach" than "dessert", for example. The model has learned this by association - which words commonly pair together. 
-      </p>
+      Searching by meaning starts with embeddings, numerical representations of what a term “means”. Or more
+      precisely, its distance from other words in 1,536 dimensions (not labeled or known dimensions, but
+      distinctions the model learned to make in its training). Semantic search involves comparing the query
+      embedding with the embedding of a short passage from the text, and seeing how similar the topic or “meaning”
+      of that text is. The embedding for “swimming” would be more similar to “beach” than to “dessert”, for
+      example. The model has learned this by association: which words commonly pair together.
+    </p>
     <p>
-      To create docuent embedding in the example below,  each transcript is split into scenes, cutting wherever the
-      script names a new location (<code>[Bridge]</code>, <code>[Ten Forward]</code>), embedded each scene with
-      <code>text-embedding-3-small</code>, and stored in a vector database. That's
+      To create the document embeddings in the example below, I split each transcript into scenes, cutting wherever
+      the script names a new location (<code>[Bridge]</code>, <code>[Ten Forward]</code>), embedded each scene with
+      <code>text-embedding-3-small</code>, and stored them in a vector database. That's
       <%= number_with_delimiter(@stats[:chunks]) %> scenes so far (<%= @indexed_series.to_sentence.presence || "none yet" %>).
-      A search embeds the query and asks for its nearest neighbours.
+      A search embeds the query and asks for its nearest neighbors.
     </p>
     <p class="footnote">
       My first version cut every 2,000 characters, overlapping each chunk with the last so a conversation split
@@ -73,8 +82,6 @@ ORDER BY rank DESC;</code></pre>
       ignores the script's own structure. A scene is the unit people actually describe (“the scene where…”):
       one place, one set of characters, one beat of plot. Very short scenes are merged into the next one, and
       the few over 3,000 characters are split on line breaks.
-    </p>
-    <p>
     </p>
 <pre class="code"><code>SELECT episode_text_id, content, embedding &lt;=&gt; $1 AS distance
 FROM episode_chunks
@@ -89,7 +96,11 @@ LIMIT 40;</code></pre>
                  placeholder: "Try your own: describe a scene, e.g. Picard plays the flute", button: "Search" %>
 
     <p>
-      <strong>Where it begins to fall short:</strong> Semantic search may be good at finding relevant snippets, but it returns just that - snippets of text relevant to a single query. Questions that touch multiple topics might not be answerable with a single query, and when it comes to counting or answering numerical questions, text snippets are completely the wrong tool. Which brings us to our next "level-up" in sophistication...
+      <strong>Where it begins to fall short:</strong> semantic search may be good at finding relevant snippets, but
+      it returns just that: snippets of text relevant to a single query. Questions that touch multiple topics might
+      not be answerable with a single query, and when it comes to counting or answering numerical questions, text
+      snippets are completely the wrong tool. Which brings us to our next “level-up” in sophistication…
+    </p>
   </section>
 
   <section class="post__section" id="level-3" aria-labelledby="level-3-title">
@@ -107,22 +118,24 @@ LIMIT 40;</code></pre>
   input &lt;&lt; run_tool(output).to_json   # rows, matching episodes, or the error to fix
 end</code></pre>
     <p>
-      Letting a language model run SQL against your database warrents some security precautions. Here are some ways to prevent AI agents from tampering with your data: 
+      Letting a language model run SQL against your database warrants some security precautions. Here are some
+      ways to prevent AI agents from tampering with your data:
     </p>
     <ul>
-      <li> Call your AI queries as a subquery inside a <code>Select </code> clause </li>
-      <li>at most 50 rows back;</li>
-      <li>a 4-second timeout, in a transaction that is always rolled back;</li>
-      <li>most importantly, a separate database login for the agent: a Postgres role that can <code>SELECT</code> those
-        two tables and nothing else. Postgres itself then refuses writes, other tables and file-reading functions,
-        however the SQL is written.</li>
+      <li>run the AI's query as a subquery inside a <code>SELECT</code>, so it can only be a single read;</li>
+      <li>send at most 50 rows back;</li>
+      <li>set a 4-second timeout, in a read-only transaction that is always rolled back;</li>
+      <li>most importantly, give the agent a separate database login: a Postgres role that can <code>SELECT</code>
+        the <code>dialogues</code> and <code>episode_texts</code> tables and nothing else. Postgres itself then
+        refuses writes, other tables and file-reading functions, however the SQL is written.</li>
     </ul>
     <p class="footnote">
       My first version switched roles on the app's own connection (<code>SET ROLE</code>) and backed it up with a
       blocklist of dangerous functions and an <code>EXPLAIN</code> check of which tables a query touched. The role
       switch turned out not to be a boundary: the app logs in as a superuser, and a query can switch itself back
       with <code>set_config('role', 'none', true)</code>. With its own login there's nothing to switch back to, so
-      the blocklist and the <code>EXPLAIN</code> check went.
+      the blocklist and the <code>EXPLAIN</code> check went. (This hosted demo runs on a database plan that can't
+      add logins, so here the agent shares the app's login and the read-only transaction is what stops writes.)
     </p>
 
     <figure class="post__figure">
@@ -149,7 +162,11 @@ end</code></pre>
       </table>
     </div>
     <p>
-       My personal take, although I'm not a data scientist - If you have some background knowledge about what keywords to search for, anecdotally, I can't say that a "zero config" search of embeddings is better at returning what a user would consider "accurate" results. Its strength is it's ability to cast a wide net and pull in documents on a relavant topic, and with the wide context windows of todays LLMs, its usually more than enough context. 
+      My personal take, although I'm not a data scientist: if you have some background knowledge about what
+      keywords to search for, then anecdotally, I can't say that a “zero config” search of embeddings is better at
+      returning what a user would consider “accurate” results. Its strength is its ability to cast a wide net and
+      pull in documents on a relevant topic, and with the wide context windows of today's LLMs, it's usually more
+      than enough context.
     </p>
   </section>
 </article>
