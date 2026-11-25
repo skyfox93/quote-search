@@ -47,7 +47,7 @@ class ReadonlySqlTest < ActiveSupport::TestCase
 
   test "can't write, even through a CTE or a row lock" do
     assert_blocked "WITH d AS (DELETE FROM dialogues RETURNING *) SELECT count(*) FROM d"
-    assert_blocked "SELECT * FROM dialogues LIMIT 1 FOR UPDATE", /permission denied/
+    assert_blocked "SELECT * FROM dialogues LIMIT 1 FOR UPDATE", /read-only transaction/
 
     assert Dialogue.exists?(episode: "episode 970")
   end
