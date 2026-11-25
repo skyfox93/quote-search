@@ -6,27 +6,30 @@ class SearchQueryPlannerTest < ActiveSupport::TestCase
   end
 
   def valid_output(**overrides)
-    {
-      "semantic_query" => "LAFORGE: (dazed) I have my orders.\nPICARD: Geordi?",
-      "keyword_query" => "Geordi assassin Romulan",
-      "series" => "TNG",
-      "episode_guesses" => [{ "series" => "TNG", "title" => "The Mind's Eye" }]
-    }.merge(overrides.transform_keys(&:to_s))
+    { "search_query" => "Geordi become an assassin", "series" => "TNG" }.merge(overrides.transform_keys(&:to_s))
   end
 
   test "keeps valid model output" do
     plan = planner.sanitize(valid_output)
 
-    assert_equal "LAFORGE: (dazed) I have my orders.\nPICARD: Geordi?", plan.query
-    assert_equal "Geordi assassin Romulan", plan.keywords
+    assert_equal "Geordi become an assassin", plan.query
     assert_equal({ series: "TNG" }, plan.filters)
-    assert_equal [SearchQueryPlanner::Guess.new(series: "TNG", title: "The Mind's Eye")], plan.guesses
     assert plan.rewritten
   end
 
-  test "keeps single line breaks in the script passage but squishes the rest" do
-    plan = planner.sanitize(valid_output(semantic_query: "  PICARD:   Engage.  \n\n\n  RIKER: Aye.  "))
-    assert_equal "PICARD: Engage.\nRIKER: Aye.", plan.query
+  test "drops words the user didn't write" do
+    plan = planner.sanitize(valid_output(search_query: "LAFORGE: Geordi becomes an assassin. The Mind's Eye, Romulan"))
+    assert_equal "Geordi an assassin.", plan.query
+  end
+
+  test "matches the user's words regardless of case and punctuation" do
+    plan = planner("Find where Scotty says \"he's dead, Jim\"").sanitize(valid_output(search_query: "scotty says He's dead, jim!"))
+    assert_equal "scotty says He's dead, jim!", plan.query
+  end
+
+  test "falls back to the raw query when nothing the model wrote is the user's" do
+    plan = planner("Data's cat").sanitize(valid_output(search_query: "Spot"))
+    assert_equal "Data's cat", plan.query
   end
 
   test "drops a series outside the allow-list" do
@@ -35,55 +38,26 @@ class SearchQueryPlannerTest < ActiveSupport::TestCase
     assert_not plan.filtered?
   end
 
-  test "drops malformed guesses and guesses outside the filtered series" do
-    plan = planner.sanitize(valid_output(episode_guesses: [
-      { "series" => "XYZ", "title" => "Nope" },
-      { "series" => "DS9", "title" => "Wrong series" },
-      "not a hash",
-      { "series" => "TNG", "title" => "   " },
-      { "series" => "TNG", "title" => "Darmok" }
-    ]))
-    assert_equal ["Darmok"], plan.guesses.map(&:title)
-  end
-
-  test "keeps at most three guesses" do
-    guesses = %w[A B C D E].map { { "series" => "TNG", "title" => _1 } }
-    assert_equal 3, planner.sanitize(valid_output(episode_guesses: guesses)).guesses.size
-  end
-
-  test "empty or non-string keyword queries become nil" do
-    assert_nil planner.sanitize(valid_output(keyword_query: "  ")).keywords
-    assert_nil planner.sanitize(valid_output(keyword_query: 42)).keywords
-    assert_nil planner.sanitize("semantic_query" => "x").keywords
-  end
-
-  test "falls back to the raw query when the model returns no semantic query" do
-    plan = planner("Data's cat").sanitize("semantic_query" => "  ", "series" => nil)
+  test "falls back to the raw query when the model returns no query" do
+    plan = planner("Data's cat").sanitize("search_query" => "  ", "series" => nil)
     assert_equal "Data's cat", plan.query
   end
 
   test "handles output that is not an object" do
     plan = planner.sanitize(["not", "a", "hash"])
     assert_empty plan.filters
-    assert_empty plan.guesses
-    assert_nil plan.keywords
     assert plan.query.present?
   end
 
-  test "truncates long values" do
-    plan = planner.sanitize(valid_output(semantic_query: "a" * 5_000, keyword_query: "b" * 5_000,
-                                         episode_guesses: [{ "series" => "TNG", "title" => "c" * 5_000 }]))
-    assert_equal SearchQueryPlanner::MAX_QUERY_LENGTH, plan.query.length
-    assert_equal SearchQueryPlanner::MAX_TITLE_LENGTH, plan.keywords.length
-    assert_equal SearchQueryPlanner::MAX_TITLE_LENGTH, plan.guesses.first.title.length
+  test "truncates long queries" do
+    plan = planner("a" * 5_000)
+    assert_equal SearchQueryPlanner::MAX_QUERY_LENGTH, plan.sanitize(valid_output(search_query: "a" * 5_000)).query.length
   end
 
   test "schema lists every property as required, as strict mode needs" do
-    schemas = [SearchQueryPlanner::SCHEMA, SearchQueryPlanner::SCHEMA.dig(:properties, :episode_guesses, :items)]
-    schemas.each do |schema|
-      assert_equal schema[:properties].keys.map(&:to_s).sort, schema[:required].sort
-      assert_equal false, schema[:additionalProperties]
-    end
+    schema = SearchQueryPlanner::SCHEMA
+    assert_equal schema[:properties].keys.map(&:to_s).sort, schema[:required].sort
+    assert_equal false, schema[:additionalProperties]
   end
 
   test "prompt lists the series codes" do
@@ -94,9 +68,7 @@ class SearchQueryPlannerTest < ActiveSupport::TestCase
     with_env("OPENAI_API_KEY" => nil) do
       plan = SearchQueryPlanner.plan("Picard plays the flute")
       assert_equal "Picard plays the flute", plan.query
-      assert_nil plan.keywords
       assert_empty plan.filters
-      assert_empty plan.guesses
       assert_not plan.rewritten
     end
   end

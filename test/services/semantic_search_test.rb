@@ -1,11 +1,8 @@
 require "test_helper"
 
-# Runs the real vector queries against pgvector; only the OpenAI calls
-# (planner and embeddings) are stubbed.
+# Runs the real vector queries against pgvector; only the embedding call is
+# stubbed.
 class SemanticSearchTest < ActiveSupport::TestCase
-  Plan = SearchQueryPlanner::Plan
-  Guess = SearchQueryPlanner::Guess
-
   def vec(weights)
     Array.new(OpenaiEmbeddings::DIMENSIONS, 0.0).tap { |v| weights.each { |i, w| v[i] = w } }
   end
@@ -15,7 +12,6 @@ class SemanticSearchTest < ActiveSupport::TestCase
     @a = episode("Alpha", vec(0 => 1.0))
     @b = episode("Beta", vec(1 => 1.0))
     @c = episode("Gamma", vec(2 => 1.0))
-    @unembedded = EpisodeText.create!(series: "TNG", episode: "episode 904", title: "Delta", text: "x")
   end
 
   def episode(title, embedding)
@@ -25,64 +21,64 @@ class SemanticSearchTest < ActiveSupport::TestCase
     end
   end
 
-  # Stubs the planner and the embeddings: the planner's passage embeds as
-  # `passage`, the user's words as `raw`.
-  def search(query = "q", passage:, raw:, series: nil, guesses: [], **opts)
-    plan = Plan.new(query: "passage", keywords: nil, series: series, guesses: guesses, rewritten: true)
-    vectors = { "passage" => passage, query => raw }
-    stub_method(SearchQueryPlanner, :plan, plan) do
-      stub_method(OpenaiEmbeddings, :embed_cached, ->(texts) { texts.map { vectors.fetch(_1) } }) do
+  # Stubs the embedding of the query, checking it's embedded as typed (only
+  # squished), and that the planner isn't asked.
+  def search(query = "  in what episode   does Geordi become an assassin ", vector:, **opts)
+    planner = ->(*) { flunk "the search shouldn't use the planner" }
+    stub_method(SearchQueryPlanner, :plan, planner) do
+      stub_method(OpenaiEmbeddings, :embed_cached, ->(texts) { assert_equal [query.squish], texts; [vector] }) do
         SemanticSearch.call(query, **opts)
       end
     end
   end
 
-  test "ranks episodes by both vectors, with scenes and similarity" do
-    result = search(passage: vec(0 => 1.0, 1 => 0.5), raw: vec(0 => 1.0, 1 => 0.2))
+  test "ranks episodes by score, with scenes" do
+    result = search(vector: vec(0 => 1.0, 1 => 0.5))
 
     assert_equal [@a, @b, @c].map(&:id), result.hits.map { _1.episode.id }.first(3)
     assert_equal [1, 2, 3], result.hits.first(3).map(&:rank)
-    # Best of the two vectors' cosine similarities to Alpha's chunk (1, 0).
-    assert_in_delta 1 / Math.sqrt(1.04), result.hits.first.similarity, 0.001
+    # One chunk each, so each score is a third of that chunk's similarity.
+    assert_in_delta 1 / Math.sqrt(1.25) / 3, result.hits.first.score, 0.001
     assert_equal "ALPHA: hello", result.hits.first.scenes.first.content
     assert_nil result.hits.first.episode.attributes["text"], "lists shouldn't load full transcripts"
   end
 
-  test "a guessed episode is ranked up" do
-    result = search(passage: vec(0 => 1.0, 1 => 0.5), raw: vec(0 => 1.0, 1 => 0.2),
-                    guesses: [Guess.new(series: "TNG", title: "Beta")])
+  test "an episode's scenes are its matching chunks, closest first" do
+    @b.episode_chunks.create!(position: 1, content: "BETA: later", embedding: vec(0 => 1.0, 1 => 1.0))
+    result = search(vector: vec(0 => 1.0))
 
-    assert_equal @b.id, result.hits.first.episode.id
-    assert result.hits.first.guessed
+    assert_equal [@a.id, @b.id], result.hits.first(2).map { _1.episode.id }
+    assert_equal ["BETA: later", "BETA: hello"], result.hits.second.scenes.map(&:content)
   end
 
-  test "guessed episodes without embeddings are left out" do
-    result = search(passage: vec(0 => 1.0), raw: vec(0 => 1.0), guesses: [Guess.new(series: "TNG", title: "Delta")])
-    assert_not_includes result.hits.map { _1.episode.id }, @unembedded.id
+  test "averages an episode's top three chunks, so several good matches beat one close one" do
+    # Beta: ~1.0 and 0, averaged over three: ~0.33. Gamma: two at ~0.96 and
+    # one at 0: ~0.64, so it ranks first.
+    @b.episode_chunks.create!(position: 1, content: "BETA: close", embedding: vec(0 => 1.0, 3 => 0.01))
+    2.times { |i| @c.episode_chunks.create!(position: i + 1, content: "GAMMA: near", embedding: vec(0 => 1.0, 4 => 0.3)) }
+    result = search(vector: vec(0 => 1.0))
+
+    assert_equal [@c, @a, @b].map(&:id), result.hits.map { _1.episode.id }
+    assert_in_delta 2 / Math.sqrt(1.09) / 3, result.hits.first.score, 0.001
+    assert_equal "BETA: close", result.hits.third.scenes.first.content
   end
 
   test "falls back to all series when the filter matches nothing" do
-    result = search(passage: vec(0 => 1.0), raw: vec(0 => 1.0), series: "DS9")
+    result = search(vector: vec(0 => 1.0), series: "DS9")
 
     assert result.relaxed_filters
     assert_equal "DS9", result.series_filter
     assert_equal @a.id, result.hits.first.episode.id
   end
 
-  test "use_filters: false ignores the plan's series" do
-    result = search(passage: vec(0 => 1.0), raw: vec(0 => 1.0), series: "DS9", use_filters: false)
+  test "a series filter keeps other series out" do
+    other = EpisodeText.create!(series: "DS9", episode: "episode 999", title: "Delta", text: "DELTA: hello")
+    other.episode_chunks.create!(position: 0, content: "DELTA: hello", embedding: vec(0 => 1.0))
+    result = search(vector: vec(0 => 1.0), series: "TNG")
 
     assert_not result.relaxed_filters
-    assert_nil result.series_filter
-    assert result.hits.any?
-  end
-
-  test "nearest_in_episodes returns each episode's closest chunks" do
-    @a.episode_chunks.create!(position: 1, content: "ALPHA: later", embedding: vec(0 => 0.5, 3 => 1.0))
-    found = EpisodeChunk.nearest_in_episodes(vec(0 => 1.0), [@a.id, @b.id], per: 1)
-
-    assert_equal ["ALPHA: hello"], found[@a.id].map(&:content)
-    assert_equal ["BETA: hello"], found[@b.id].map(&:content)
-    assert_in_delta 0.0, found[@a.id].first.neighbor_distance, 0.001
+    assert_equal "TNG", result.series_filter
+    assert_not_includes result.hits.map { _1.episode.id }, other.id
+    assert_includes search(vector: vec(0 => 1.0)).hits.map { _1.episode.id }, other.id
   end
 end

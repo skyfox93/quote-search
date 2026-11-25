@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Streams the AI answer for a search into the page as it's written.
+// Streams the AI summary of a search into the page as it's written.
 // The answer is untrusted model output: it is only ever inserted as text
 // nodes, and "[2]" citations become links built with the DOM API.
 export default class extends Controller {
@@ -82,7 +82,7 @@ export default class extends Controller {
     if (partial.trim()) return this.render(partial)
     const message = document.createElement("p")
     message.className = "ai-answer__error"
-    message.textContent = "The AI answer isn't available right now, but the matching scenes are below."
+    message.textContent = "The AI summary isn't available right now, but the matching scenes are below."
     this.outputTarget.replaceChildren(message)
   }
 }

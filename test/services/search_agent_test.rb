@@ -1,11 +1,11 @@
 require "test_helper"
 
 # The OpenAI Responses API is replaced by a script of canned outputs; the
-# SQL really runs (through ReadonlySql) against the test database.
+# SQL really runs (through ReadonlySql) against the test database, reading
+# the make_it_so dialogue fixture.
 class SearchAgentTest < ActiveSupport::TestCase
   setup do
     Rails.cache.clear
-    Dialogue.create!(series: "TNG", episode: "episode 980", character: "PICARD", line: "Make it so.")
   end
 
   def tool_call(query, purpose = "Count lines", id: "call_1")
@@ -13,7 +13,12 @@ class SearchAgentTest < ActiveSupport::TestCase
       "arguments" => { purpose: purpose, query: query }.to_json }
   end
 
-  def answer_output(text)
+  def scene_call(description, purpose = "Find the scene", id: "call_s")
+  { "type" => "function_call", "call_id" => id, "name" => "search_scenes",
+    "arguments" => { purpose: purpose, description: description }.to_json }
+end
+
+def answer_output(text)
     { "type" => "message", "content" => [{ "type" => "output_text", "text" => text }] }
   end
 
@@ -32,7 +37,7 @@ class SearchAgentTest < ActiveSupport::TestCase
 
   test "runs the model's queries, feeds back the results, and answers" do
     with_responses(
-      [{ "type" => "reasoning", "id" => "rs_1", "encrypted_content" => "abc" }, tool_call("SELECT count(*) AS n FROM dialogues WHERE episode = 'episode 980'")],
+      [{ "type" => "reasoning", "id" => "rs_1", "encrypted_content" => "abc" }, tool_call("SELECT count(*) AS n FROM dialogues WHERE episode = 'episode 970'")],
       [answer_output("Picard says it once.")]
     ) do |requests|
       events = SearchAgent.new("How often does Picard say make it so?").run
@@ -54,7 +59,7 @@ class SearchAgentTest < ActiveSupport::TestCase
   test "sends SQL errors back so the model can fix its query" do
     with_responses(
       [tool_call("DELETE FROM dialogues")],
-      [tool_call("SELECT count(*) FROM dialogues WHERE episode = 'episode 980'", id: "call_2")],
+      [tool_call("SELECT count(*) FROM dialogues WHERE episode = 'episode 970'", id: "call_2")],
       [answer_output("Done.")]
     ) do |requests|
       events = SearchAgent.new("q").run
@@ -62,7 +67,7 @@ class SearchAgentTest < ActiveSupport::TestCase
       assert_not events.first.result.ok?
       assert events.second.result.ok?
       error_output = requests[1][:input].find { (_1[:type] || _1["type"]) == "function_call_output" }
-      assert_match(/single SELECT/, JSON.parse(error_output[:output])["error"])
+      assert_match(/syntax error/, JSON.parse(error_output[:output])["error"])
     end
   end
 
@@ -101,6 +106,59 @@ class SearchAgentTest < ActiveSupport::TestCase
     end
   end
 
+  test "search_scenes runs the vector search on the model's description and returns episodes to follow up on" do
+    episode = EpisodeText.create!(series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, text: "x")
+    chunk = episode.episode_chunks.create!(position: 1, content: "PICARD: Robert, I...\nROBERT: Go on.")
+    chunk.define_singleton_method(:neighbor_distance) { 0.4 }
+    hit = SemanticSearch::Hit.new(rank: 1, episode: episode, scenes: [chunk], score: 0.6)
+    result = SemanticSearch::Result.new(query: "Picard argues with his brother", hits: [hit], filters: {}, relaxed_filters: false, timings: { embed: 5, db: 7 })
+    called_with = nil
+    search = ->(query, **opts) { called_with = [query, opts]; result }
+  
+    stub_method(SemanticSearch, :call, search) do
+      with_responses([scene_call("Picard argues with his brother")], [answer_output("Probably Family.")]) do |requests|
+        events = SearchAgent.new("Which episode has Picard fighting his brother?").run
+  
+        assert_equal ["Picard argues with his brother", {}], called_with
+        assert_equal %i[search answer], events.map(&:kind)
+        assert_equal "Find the scene", events.first.text
+        found = events.first.result.episodes.first
+        assert_equal({ rank: 1, series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, similarity: 0.6 },
+                     found.except(:scene))
+        assert_equal "PICARD: Robert, I...\nROBERT: Go on.", found[:scene], "the whole chunk"
+        assert_equal 12, events.first.result.ms
+  
+        output = requests.last[:input].find { (_1[:type] || _1["type"]) == "function_call_output" }
+        assert_equal "Family", JSON.parse(output[:output])["results"].first["title"]
+      end
+    end
+  end
+  
+  test "search_scenes asks for a description when the model sends none" do
+    with_responses([scene_call("  ")], [answer_output("Sorry.")]) do |requests|
+      events = SearchAgent.new("q").run
+  
+      assert_not events.first.result.ok?
+      output = requests.last[:input].find { (_1[:type] || _1["type"]) == "function_call_output" }
+      assert_match(/Describe the scene/, JSON.parse(output[:output])["error"])
+    end
+  end
+  
+  test "both tools are offered with strict schemas" do
+    assert_equal %w[run_sql search_scenes], SearchAgent::TOOLS.map { _1[:name] }
+    SearchAgent::TOOLS.each do |tool|
+      params = tool[:parameters]
+      assert_equal params[:properties].keys.map(&:to_s).sort, params[:required].sort
+      assert_equal false, params[:additionalProperties]
+    end
+  end
+  
+  test "search events survive a round trip through the cache format" do
+    found = { rank: 1, series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, similarity: 0.6, scene: "PICARD: Robert." }
+    event = SearchAgent::Event.search(SearchAgent::SceneSearch.new(description: "brothers", episodes: [found], ms: 12), "why")
+    assert_equal event, SearchAgent::Event.from_h(JSON.parse(event.to_h.to_json))
+  end
+  
   test "events survive a round trip through the cache format" do
     result = ReadonlySql::Result.new(sql: "SELECT 1", columns: ["x"], rows: [[1]], truncated: false, error: nil, ms: 3)
     event = SearchAgent::Event.sql(result, "why")

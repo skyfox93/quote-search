@@ -1,41 +1,26 @@
 require "test_helper"
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
-  test "landing page explains the three levels with lazy examples" do
+  test "landing page explains the three levels, each with an example and a search box" do
     get root_path
 
     assert_response :success
     assert_select "#level-1 .level__title", /Keyword search/
     assert_select "#level-2 .level__title", /RAG/
     assert_select "#level-3 .level__title", /agent/
-    %w[keyword rag agent].each do |level|
-      assert_select "turbo-frame#example-#{level}[loading=lazy][src=?]", landing_example_path(level)
-    end
+    assert_select "turbo-frame", false, "examples are snapshots, not live frames"
+
+    assert_select "#level-1 .example .compare__item--win .compare__num", "295"
+    assert_select "#level-1 form.post__try[action=?] input[name=query]", dialogues_path
+    assert_select "#level-1 form.post__try input[type=hidden][name=dictionary][value='1']"
+    assert_select "#level-2 .example .mini-result", 3
+    assert_select "#level-2 form.post__try[action=?] input[name=query]", episode_texts_path
+    assert_select "#level-3 .example .agent-step--sql", 2
+    assert_select "#level-3 form.post__try[action=?] input[name=q]", ask_path
   end
 
-  test "keyword example compares exact and dictionary matches" do
-    Dialogue.create!(series: "TNG", episode: "episode 990", character: "BORG", line: "You will be assimilated.")
-    Dialogue.create!(series: "TNG", episode: "episode 990", character: "PICARD", line: "They are assimilating the colony.")
-
-    get landing_example_path("keyword")
-
-    assert_response :success
-    assert_select "turbo-frame#example-keyword"
-    assert_select ".compare__item--win .compare__num", "2"
-    assert_select ".quote-item mark", minimum: 1
-  end
-
-  test "AI examples explain when the API isn't available" do
-    with_env("OPENAI_API_KEY" => nil) do
-      get landing_example_path("rag")
-      assert_select "turbo-frame#example-rag .example__note", /OpenAI API/
-      get landing_example_path("agent")
-      assert_select "turbo-frame#example-agent .example__note", /OpenAI API/
-    end
-  end
-
-  test "unknown example levels aren't routed" do
-    get "/examples/nope"
-    assert_response :not_found
+  test "headline_marks escapes text and marks the matches" do
+    helper = Class.new { include ActionView::Helpers, HomeHelper }.new
+    assert_equal "You will be <mark>assimilated</mark> &lt;b&gt;", helper.headline_marks("You will be ⟦assimilated⟧ <b>")
   end
 end

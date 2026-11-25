@@ -1,28 +1,45 @@
-# SQLite. Versions 3.8.0 and up are supported.
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem "sqlite3"
-#
 default: &default
   adapter: postgresql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+# The AI agent's SQL (ReadonlySql, through AgentRecord) runs on its own
+# connection that logs in as search_agent_reader, a role that can only
+# SELECT the transcript tables, so Postgres enforces what it can read. It
+# shares the primary database and never runs migrations or other db tasks.
+agent: &agent
+  adapter: postgresql
+  pool: 2
+  timeout: 5000
+  username: search_agent_reader
+  password: <%= ENV["SEARCH_AGENT_DB_PASSWORD"] %>
+  database_tasks: false
 
 development:
-  <<: *default
-  database: quotes
-  username: postgres
-  password: postgres
+  primary:
+    <<: *default
+    database: quotes
+    username: postgres
+    password: postgres
+  agent:
+    <<: *agent
+    database: quotes
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: quotes_test
+  primary:
+    <<: *default
+    database: quotes_test
+  agent:
+    <<: *agent
+    database: quotes_test # test_helper points this at each parallel worker's database
 
 production:
-  <<: *default
-  database: quotes_prod
+  primary:
+    <<: *default
+    database: quotes_prod
+  agent:
+    <<: *agent
+    database: quotes_prod

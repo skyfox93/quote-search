@@ -1,7 +1,7 @@
-# GET /search/summary?query=...
-# Streams the AI answer for a search as plain text while the model writes it.
+# GET /search/summary?query=...&series=...
+# Streams the AI summary of a search as plain text while the model writes it.
 # The results page fetches this once its results have loaded (by then the
-# query plan and embeddings are cached, so the search here is fast).
+# query's embedding is cached, so the search here is fast).
 class SearchSummariesController < ApplicationController
   include ActionController::Live
 
@@ -10,7 +10,7 @@ class SearchSummariesController < ApplicationController
     return head(:bad_request) if query.blank?
     return head(:service_unavailable) unless OpenaiApi.configured?
 
-    search = SemanticSearch.call(query, use_filters: params[:all] != "1")
+    search = SemanticSearch.call(query, series: params[:series].presence_in(EpisodeText::SERIES.keys))
     return head(:no_content) if search.hits.empty?
 
     response.headers["Content-Type"] = "text/plain; charset=utf-8"

@@ -25,7 +25,10 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
   test "stream renders each step as an escaped turbo-stream" do
     result = ReadonlySql::Result.new(sql: "SELECT '<script>x</script>' AS c", columns: ["c"], rows: [["<script>x</script>"]],
                                      truncated: false, error: nil, ms: 2)
-    events = [SearchAgent::Event.sql(result, "Look <b>up</b>"), SearchAgent::Event.answer("It's <img src=x onerror=alert(1)>.")]
+    found = { rank: 1, series: "TNG", episode: "episode 1", title: "<i>Family</i>", season: 4, episode_number: 2, similarity: 0.61, scene: "x" }
+    scenes = SearchAgent::SceneSearch.new(description: "<u>brothers</u>", episodes: [found], ms: 9)
+    events = [SearchAgent::Event.sql(result, "Look <b>up</b>"), SearchAgent::Event.search(scenes, "Find scenes"),
+              SearchAgent::Event.answer("It's <img src=x onerror=alert(1)>.")]
     run = ->(&block) { events.each(&block); events }
 
     with_env("OPENAI_API_KEY" => "test-key") do
@@ -36,7 +39,10 @@ class QuestionsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :success
-    assert_equal 2, response.body.scan("<turbo-stream").size
+    assert_equal 3, response.body.scan("<turbo-stream").size
+    assert_match(/vector search · 1 episode/, response.body)
+    assert_match(/0\.61/, response.body)
+    assert_no_match(/<i>Family|<u>brothers/, response.body)
     assert_no_match(/<script>x/, response.body)
     assert_no_match(/<img/, response.body)
     assert_no_match(/<b>up/, response.body)

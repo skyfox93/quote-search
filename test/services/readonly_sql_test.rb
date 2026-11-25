@@ -1,11 +1,9 @@
 require "test_helper"
 
+# Queries run on the agent connection as search_agent_reader, so these check
+# what Postgres itself refuses. They read the make_it_so fixtures: rows
+# created inside a test aren't visible to that connection.
 class ReadonlySqlTest < ActiveSupport::TestCase
-  setup do
-    EpisodeText.create!(series: "TNG", episode: "episode 970", title: "Test Episode", text: "PICARD: Make it so.")
-    Dialogue.create!(series: "TNG", episode: "episode 970", character: "PICARD", line: "Make it so.")
-  end
-
   def assert_blocked(sql, message = nil)
     result = ReadonlySql.run(sql)
     assert_not result.ok?, "expected #{sql.inspect} to be blocked"
@@ -27,6 +25,11 @@ class ReadonlySqlTest < ActiveSupport::TestCase
     assert_equal [["Test Episode"]], ReadonlySql.run(sql).rows
   end
 
+  test "runs as search_agent_reader, and a query can't switch back" do
+    assert_equal [["search_agent_reader"]], ReadonlySql.run("SELECT current_user").rows
+    assert_equal [["search_agent_reader"]], ReadonlySql.run("SELECT current_user FROM (SELECT set_config('role', 'none', true)) s").rows
+  end
+
   test "caps rows and long values" do
     result = ReadonlySql.run("SELECT repeat('x', 1000) AS long FROM generate_series(1, 80)")
 
@@ -36,47 +39,45 @@ class ReadonlySqlTest < ActiveSupport::TestCase
     assert_equal ReadonlySql::CELL_CHARS, result.rows.first.first.length
   end
 
-  test "blocks anything but a single SELECT" do
-    assert_blocked "DELETE FROM dialogues", /single SELECT/
-    assert_blocked "SELECT 1; DROP TABLE dialogues", /";"/
-    assert_blocked "SELECT 1 -- comment", /"--"/
-    assert_blocked "SELECT 1 /* comment */", /"\/\*"/
+  test "only a single SELECT fits in the wrapper" do
+    assert_blocked "DELETE FROM dialogues", /syntax error/
+    assert_blocked "SELECT 1; DROP TABLE dialogues", /syntax error|multiple commands/
+    assert_blocked "SELECT * INTO evil FROM dialogues", /INTO/
   end
 
-  test "can't write, even through a CTE, SELECT INTO or locks" do
+  test "can't write, even through a CTE or a row lock" do
     assert_blocked "WITH d AS (DELETE FROM dialogues RETURNING *) SELECT count(*) FROM d"
-    assert_blocked "WITH u AS (UPDATE episode_texts SET title = 'x' RETURNING 1) SELECT * FROM u"
-    assert_blocked "SELECT * INTO evil FROM dialogues"
-    assert_blocked "SELECT * FROM dialogues LIMIT 1 FOR UPDATE"
+    assert_blocked "SELECT * FROM dialogues LIMIT 1 FOR UPDATE", /permission denied/
 
-    assert_equal 0, EpisodeText.where(title: "x").count
     assert Dialogue.exists?(episode: "episode 970")
   end
 
-  test "only the allowed tables can be read" do
-    assert_blocked "SELECT * FROM quotes", /Only these tables/
-    assert_blocked "SELECT * FROM schema_migrations", /Only these tables/
-    assert_blocked "SELECT table_name FROM information_schema.tables", /Only these tables/
-    assert_blocked "SELECT rolname FROM pg_authid", /pg_authid/
-    assert_blocked "SELECT * FROM json_each('{}')", /Function scans/
+  test "Postgres refuses other tables" do
+    assert_blocked "SELECT * FROM quotes", /permission denied for table quotes/
+    assert_blocked "SELECT * FROM schema_migrations", /permission denied/
+    assert_blocked "SELECT * FROM episode_chunks", /permission denied/
+    assert_blocked "SELECT rolname FROM pg_authid", /permission denied/
+
+    tables = ReadonlySql.run("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY 1").rows.flatten
+    assert_equal %w[dialogues episode_texts], tables, "the role only sees the tables it can read"
   end
 
-  test "dangerous functions are refused" do
-    assert_blocked "SELECT pg_read_file('/etc/passwd')", /pg_read_file/
-    assert_blocked %(SELECT "pg_read_file"('/etc/passwd')), /pg_read_file/
-    assert_blocked "SELECT query_to_xml('select * from quotes', true, true, '')", /query_to_xml/
-    assert_blocked "SELECT * FROM ts_stat('select searchable from quotes')", /ts_stat/
-    assert_blocked "SELECT set_config('role', 'postgres', true)", /set_config/
-    assert_blocked "SELECT pg_sleep(10)", /pg_sleep/
-    assert_blocked %(SELECT * FROM U&"\\0071uotes"), /U&/
+  test "Postgres refuses superuser functions, including through SQL in a string" do
+    assert_blocked "SELECT pg_read_file('/etc/passwd')", /permission denied for function pg_read_file/
+    assert_blocked "SELECT query_to_xml('select * from quotes', true, true, '')", /permission denied for table quotes/
+    assert_blocked "SELECT query_to_xml('select pg_read_file(''/etc/passwd'')', true, true, '') FROM (SELECT set_config('role', 'none', true)) s",
+                   /permission denied for function pg_read_file/
   end
 
-  test "leaves the connection as it found it" do
-    ReadonlySql.run("SELECT 1 AS x FROM dialogues LIMIT 1")
-    ReadonlySql.run("DELETE FROM dialogues")
+  test "slow queries time out" do
+    result = ReadonlySql.run("SELECT pg_sleep(1)", timeout_ms: 50)
+    assert_not result.ok?
+    assert_match(/statement timeout/, result.error)
+  end
 
-    conn = ActiveRecord::Base.connection
-    assert_equal "off", conn.select_value("SHOW transaction_read_only")
-    assert_not_equal ReadonlySql::ROLE, conn.select_value("SELECT current_user")
+  test "settings a query changes don't carry over" do
+    ReadonlySql.run("SELECT set_config('search_path', 'pg_catalog', false)")
+    assert_equal [["search_agent_reader"]], ReadonlySql.run("SELECT current_user FROM dialogues LIMIT 1").rows
+    assert_not_equal [["pg_catalog"]], ReadonlySql.run("SELECT current_setting('search_path')").rows
   end
 end

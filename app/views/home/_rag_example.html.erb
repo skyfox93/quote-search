@@ -1,0 +1,66 @@
+<%# A snapshot of a real search (November 2026), so the post loads instantly. %>
+<div class="card example">
+  <div class="example__query"><span class="example__label">Example</span> <span>“Data tries to learn how to be funny”</span></div>
+
+  <div class="ai-answer ai-answer--inline">
+    <header class="ai-answer__header">
+      <svg class="ai-answer__icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2Zm7 12 .95 2.55L22.5 17.5l-2.55.95L19 21l-.95-2.55L15.5 17.5l2.55-.95L19 14Z" fill="currentColor"/></svg>
+      <h3 class="ai-answer__title">AI summary</h3>
+    </header>
+    <p class="ai-answer__body">
+      In “The Outrageous Okona” <a class="cite" href="#rag-hit-1" aria-label="Result 1">1</a>, Data tries to learn
+      what makes humans laugh during a comedy exercise, prompting childish physical jokes. In “Elementary, Dear
+      Data” <a class="cite" href="#rag-hit-2" aria-label="Result 2">2</a>, Data’s Holmes-style game is argued to be
+      less fun because it’s all memorized, leading to a new challenge in the holodeck. “Data’s Day”
+      <span class="cite" aria-label="Result 4">4</span> shows Data learning human expression through dance practice
+      and gradual improvisation.
+    </p>
+  </div>
+
+  <ol class="mini-results">
+    <li id="rag-hit-1" class="mini-result">
+      <div class="mini-result__head">
+        <span class="mini-result__rank">1</span>
+        <span class="badge badge--small">TNG</span>
+        <span class="result__number">S2 · E4</span>
+        <span class="mini-result__title">The Outrageous Okona</span>
+        <span class="result__score">similarity 0.56</span>
+      </div>
+      <div class="script script--excerpt script--small">
+        <p class="line line--dialogue"><span class="speaker">COMIC</span>Well, I think whatever makes you laugh is <mark>funny</mark>. <span class="direction">(They sit at a table)</span></p>
+        <p class="line line--dialogue"><span class="speaker">DATA</span>Nothing makes me laugh. I wish to <mark>learn</mark>.</p>
+        <p class="line line--dialogue"><span class="speaker">COMIC</span>How much time do we have here?</p>
+      </div>
+    </li>
+    <li id="rag-hit-2" class="mini-result">
+      <div class="mini-result__head">
+        <span class="mini-result__rank">2</span>
+        <span class="badge badge--small">TNG</span>
+        <span class="result__number">S2 · E3</span>
+        <span class="mini-result__title">Elementary, Dear Data</span>
+        <span class="result__score">similarity 0.41</span>
+      </div>
+      <div class="script script--excerpt script--small">
+        <p class="line line--dialogue"><span class="speaker">DATA</span>Are you suggesting that there is some value in losing?</p>
+        <p class="line line--dialogue"><span class="speaker">PULASKI</span>Yes. Yes, that's the great teacher. We humans <mark>learn</mark> more often from a failure or a mistake than we do from an easy success. But not you. You <mark>learn</mark> by rote. To you all is memorisation and recitation.</p>
+        <p class="line line--dialogue"><span class="speaker">LAFORGE</span>I don't know about that. Deductive reasoning is one of <mark>Data</mark>'s strengths.</p>
+      </div>
+    </li>
+    <li id="rag-hit-3" class="mini-result">
+      <div class="mini-result__head">
+        <span class="mini-result__rank">3</span>
+        <span class="badge badge--small">TNG</span>
+        <span class="result__number">S2 · E6</span>
+        <span class="mini-result__title">The Schizoid Man</span>
+        <span class="result__score">similarity 0.39</span>
+      </div>
+      <div class="script script--excerpt script--small">
+        <p class="line line--dialogue"><span class="speaker">DATA</span>No. I do not suppose I will ever really know.</p>
+        <p class="line line--dialogue"><span class="speaker">GRAVES</span>I feel pity for you. Your existence must be a kind of walking purgatory. Neither dead nor alive. Never really feeling anything. Just existing. Just existing. Listen to me. A dying man takes the time to mourn a man who will never know death. <mark>Funny</mark>, isn't it?</p>
+        <p class="line line--dialogue"><span class="speaker">DATA</span><mark>Funny</mark>. I have had great difficulty determining what <mark>funny</mark> is.</p>
+      </div>
+    </li>
+  </ol>
+
+  <%= link_to "See all 8 results", episode_texts_path(query: "Data tries to learn how to be funny"), class: "link-arrow example__more" %>
+</div>

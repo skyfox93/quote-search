@@ -17,9 +17,8 @@ class SearchSummariesControllerTest < ActionDispatch::IntegrationTest
     episode = EpisodeText.create!(series: "TNG", episode: "episode 960", title: "Darmok", text: "x")
     chunk = episode.episode_chunks.create!(position: 0, content: "DATHON: Darmok and Jalad at Tanagra.")
     chunk.define_singleton_method(:neighbor_distance) { 0.1 }
-    hit = SemanticSearch::Hit.new(rank: 1, episode: episode, scenes: [chunk], guessed: false)
-    plan = SearchQueryPlanner::Plan.new(query: "q", keywords: nil, series: nil, guesses: [], rewritten: true)
-    result = SemanticSearch::Result.new(query: "q", plan: plan, hits: [hit], filters: {}, relaxed_filters: false, timings: {})
+    hit = SemanticSearch::Hit.new(rank: 1, episode: episode, scenes: [chunk], score: 0.8)
+    result = SemanticSearch::Result.new(query: "q", hits: [hit], filters: {}, relaxed_filters: false, timings: {})
 
     sent = nil
     stream = lambda do |**kwargs, &block|

@@ -9,3 +9,10 @@ two:
   series: MyString
   episode: MyString
   text: MyString
+
+# Read by ReadonlySql tests (see dialogues.yml).
+make_it_so:
+  series: TNG
+  episode: episode 970
+  title: Test Episode
+  text: "PICARD: Make it so."

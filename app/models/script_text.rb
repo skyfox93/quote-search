@@ -12,7 +12,7 @@ class ScriptText
   # "LAFORGE: ...", "PICARD [OC]: ...", "Q: ...", "DAX'S MOTHER: ..."
   SPEAKER = /\A([A-Z][A-Z0-9'.\- ]{0,40}?(?:\s*\[[^\]]{1,20}\])?):\s*(.*)\z/m
   # The transcript site's header and footer, which aren't part of the script.
-  HEADER = /\A.*?Transcripts?\s*-.*?Original Airdate:\s*\d{1,2}\s+\w+,?\s+\d{4}\s*/m
+  HEADER = /\A[^\n]{0,300}?Original Airdate:\s*\d{1,2}\s+\w+,?\s+\d{4}\s*/m
   FOOTER = /\s*<Back to the episode listing.*\z/m
 
   STOPWORDS = %w[
@@ -42,12 +42,27 @@ class ScriptText
   end
 
   # Search terms worth highlighting: words of 3+ letters that aren't
-  # stopwords, from any of the given strings, at most `max`.
+  # stopwords, from any of the given strings, at most `max`. Each is cut to
+  # a rough stem, since terms match the start of a word: "jokes" -> "joke"
+  # also marks "joke" and "joking", "learning" -> "learn" marks "learned".
   def self.terms(*texts, max: 12)
     texts.compact.flat_map { _1.to_s.downcase.scan(/[a-z][a-z0-9']{2,}/) }
       .map { _1.delete_suffix("'s").delete("'") }
       .reject { STOPWORDS.include?(_1) || _1.length < 3 }
+      .map { stem(_1) }
       .uniq.first(max)
+  end
+
+  # Drops one common ending (-ing, -ed, -es, -s, not -ss) when at least four
+  # letters are left, so "lives" -> "live" but "bus" stays.
+  def self.stem(word)
+    return word if word.end_with?("ss")
+
+    %w[ing ed es s].each do |ending|
+      base = word.delete_suffix(ending)
+      return base if base != word && base.length >= 4
+    end
+    word
   end
 
   # Regexp matching any of the terms at the start of a word ("assassin"

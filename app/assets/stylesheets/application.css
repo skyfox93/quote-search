@@ -185,6 +185,8 @@ mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; pad
   color: var(--text); font: 17px var(--font);
 }
 .search-box__input::placeholder { color: var(--faint); }
+.search-suggestion { margin: 10px 4px 0; font-size: 14px; color: var(--muted); text-align: left; }
+.search-suggestion a { font-weight: 600; }
 .search-box__input:focus-visible { box-shadow: none; }
 .search-box__input--plain { padding-left: 0; }
 .search-box:has(.search-box__input--plain) { padding-left: 16px; }
@@ -268,6 +270,9 @@ mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; pad
 .result__body { min-width: 0; }
 .result__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 13px; color: var(--muted); }
 .result__number { font-family: var(--font-mono); font-size: 12px; }
+.post__try { margin: 4px 0 28px; }
+.mini-result__head .result__score { font-size: 11.5px; }
+.result__score { margin-left: auto; font: 500 12px var(--font-mono); color: var(--faint); cursor: help; }
 .result__title { font-size: 20px; font-weight: 700; }
 .result__title a { color: var(--text); text-decoration: none; }
 .result__title a:hover { color: var(--accent-strong); }
@@ -434,7 +439,6 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 .level__facts div { padding-left: 12px; border-left: 2px solid var(--border); }
 .level__facts dt { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); }
 .level__facts dd { margin: 2px 0 0; font-size: 14.5px; }
-.level__example { display: block; min-width: 0; }
 @media (max-width: 860px) {
   .level { grid-template-columns: 1fr; gap: 18px; }
 }
@@ -455,7 +459,6 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 }
 .example__note { font-size: 14px; color: var(--muted); margin: 10px 0; }
 .example__more { display: inline-block; margin-top: 12px; }
-.example .loading__status { margin: 4px 0 8px; }
 
 .compare { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--surface-2); border-radius: 10px; }
 .compare__item { display: flex; flex-direction: column; flex: 1; min-width: 0; }
@@ -487,7 +490,7 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 /* ---------- Agent steps ---------- */
 .agent-run { margin-top: 18px; }
 .agent-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: step; }
-.agent-step--sql {
+.agent-step--sql, .agent-step--search {
   counter-increment: step; position: relative; padding: 12px 14px; background: var(--surface);
   border: 1px solid var(--border); border-radius: 12px; animation: rise .25s ease-out;
 }
@@ -501,6 +504,9 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 .agent-step--failed .agent-step__stats { color: var(--danger); }
 .agent-step__error { margin-top: 8px; font: 12.5px/1.5 var(--font-mono); color: var(--danger); white-space: pre-wrap; }
 .agent-step__more { margin-top: 6px; font-size: 12.5px; color: var(--faint); }
+.agent-step__query { margin: 8px 0; font-size: 13.5px; color: var(--muted); }
+.agent-step__query q { color: var(--text); font-weight: 600; }
+.mini-table__faint { color: var(--faint); }
 
 .sql {
   margin: 10px 0 0; padding: 10px 12px; overflow-x: auto; border-radius: 8px;
@@ -530,3 +536,42 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 .agent-steps { grid-template-columns: minmax(0, 1fr); }
 .agent-step { min-width: 0; }
 .delivery { font: 600 10.5px/1 var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--faint); border: 1px solid var(--border); border-radius: 4px; padding: 2px 4px; }
+
+/* ---------- Blog-style landing post ---------- */
+.post { max-width: 720px; margin: 0 auto; font-size: 17.5px; line-height: 1.72; }
+.post > p, .post__section > p, .post__section > ul { margin: 0 0 1.1em; }
+.post a:not(.link-arrow):not(.chip):not(.quote-item__link):not(.mini-result__title):not(.cite) { color: var(--link); }
+.post__header { padding: 24px 0 8px; margin-bottom: 28px; border-bottom: 1px solid var(--border); }
+.post__kicker { margin: 0 0 14px; font: 600 13px/1.4 var(--font-mono); letter-spacing: 0.02em; color: var(--accent-strong); }
+.post__title { font-size: clamp(30px, 5.5vw, 44px); line-height: 1.12; font-weight: 780; letter-spacing: -0.035em; }
+.post__dek { margin: 16px 0 20px; font-size: 20px; line-height: 1.55; color: var(--muted); }
+.post__toc { margin: 8px 0 8px; padding: 14px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 15.5px; }
+.post__toc ol { margin: 0; padding-left: 20px; }
+.post__toc li { margin: 2px 0; }
+.post__section { padding-top: 40px; scroll-margin-top: 72px; }
+.post__section h2 { margin: 0 0 16px; font-size: 28px; font-weight: 760; letter-spacing: -0.025em; line-height: 1.2; }
+.post__eyebrow { margin: 0 0 6px !important; font: 700 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+#level-2 .post__eyebrow, #level-3 .post__eyebrow { color: var(--ai); }
+.post code { font: 0.86em/1.4 var(--font-mono); padding: 1px 5px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--border); white-space: nowrap; }
+.post .code {
+  margin: 4px 0 22px; padding: 14px 16px; overflow-x: auto; border-radius: 10px;
+  background: #0f1420; color: #d7e0f0; border: 1px solid #1f2736; font: 13.5px/1.6 var(--font-mono);
+}
+.post .code code { padding: 0; border: 0; background: none; color: inherit; font: inherit; white-space: pre; }
+.post ul { padding-left: 22px; }
+.post li { margin: 4px 0; }
+.post strong { font-weight: 700; }
+.post__figure { margin: 8px 0 26px; }
+.post__figure figcaption { margin-top: 8px; font-size: 13.5px; color: var(--faint); text-align: center; }
+.post__figure .example { font-size: 15px; line-height: 1.55; }
+.post__table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.45; }
+.post__table th, .post__table td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); }
+.post__table thead th { font: 700 12px var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); background: var(--surface-2); }
+.post__table tbody th { font-weight: 650; white-space: nowrap; color: var(--muted); }
+.post .table-wrap { margin: 0 0 22px; background: var(--surface); }
+.main:has(.post) { max-width: 860px; }
+@media (max-width: 560px) {
+  .post { font-size: 16.5px; }
+  .post__dek { font-size: 18px; }
+  .post code { white-space: normal; }
+}

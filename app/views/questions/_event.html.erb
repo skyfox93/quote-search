@@ -38,6 +38,40 @@
       <p class="agent-step__more">No rows.</p>
     <% end %>
   </li>
+<% when :search %>
+  <% search = event.result %>
+  <li class="agent-step agent-step--search<%= " agent-step--failed" unless search.ok? %>">
+    <div class="agent-step__head">
+      <span class="agent-step__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.23-1.42 1.42-4.23-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" fill="currentColor"/></svg>
+      </span>
+      <span class="agent-step__title"><%= event.text.presence || "Searched scenes" %></span>
+      <span class="agent-step__stats">
+        <%= search.ok? ? "vector search · #{pluralize(search.episodes.size, "episode")} · #{search.ms}ms" : "error" %>
+      </span>
+    </div>
+    <p class="agent-step__query">Scenes like <q><%= search.description %></q></p>
+    <% if !search.ok? %>
+      <p class="agent-step__error"><%= search.error %></p>
+    <% elsif search.episodes.any? %>
+      <div class="table-wrap">
+        <table class="mini-table">
+          <thead><tr><th>#</th><th>episode</th><th>similarity</th></tr></thead>
+          <tbody>
+            <% search.episodes.first(preview_rows).each do |ep| %>
+              <tr>
+                <td><%= ep[:rank] %></td>
+                <td><%= ep[:title] %> <span class="mini-table__faint">(<%= ep[:series] %><%= " S#{ep[:season]}E#{ep[:episode_number]}" if ep[:season] %>)</span></td>
+                <td><%= number_with_precision(ep[:similarity], precision: 2) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p class="agent-step__more">No scenes found.</p>
+    <% end %>
+  </li>
 <% when :answer %>
   <li class="agent-step agent-step--answer">
     <div class="card ai-answer">

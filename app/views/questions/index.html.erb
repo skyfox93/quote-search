@@ -4,7 +4,7 @@
   <% if @question.blank? %>
     <span class="level-tag">Level 3 · AI agent</span>
     <h1 class="search-hero__title">Ask a question about the scripts</h1>
-    <p class="search-hero__lede">An AI agent writes and runs its own SQL against 240,000 lines of dialogue and 700 transcripts, then answers. You'll see every query it runs.</p>
+    <p class="search-hero__lede">An AI agent writes its own SQL and searches scenes by meaning across 700 transcripts, then answers. You'll see every step it takes.</p>
   <% end %>
 
   <%= form_with url: ask_path, method: :get, class: "search-box", role: "search" do %>

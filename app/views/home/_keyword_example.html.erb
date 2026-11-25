@@ -1,0 +1,41 @@
+<%# A snapshot of a real keyword search (November 2026), so the post loads instantly. %>
+<div class="card example">
+  <div class="example__query"><span class="example__label">Example</span> <span>“assimilating”</span></div>
+
+  <div class="compare">
+    <div class="compare__item">
+      <span class="compare__num">18</span>
+      <span class="compare__label">lines with the exact word</span>
+    </div>
+    <div class="compare__arrow" aria-hidden="true">→</div>
+    <div class="compare__item compare__item--win">
+      <span class="compare__num">295</span>
+      <span class="compare__label">with the dictionary (stem “assimil”)</span>
+    </div>
+  </div>
+
+  <p class="example__note">Matched forms include <mark>assimilate</mark>, <mark>assimilated</mark>, <mark>assimilation</mark>.</p>
+
+  <ol class="quote-list quote-list--compact">
+    <% [
+      ["That's right. The Borg gain knowledge through ⟦assimilation⟧. What they can't ⟦assimilate⟧, they can't understand", "TORRES", "VOY", "Season 3, Ep 26: Scorpion"],
+      ["should try to enhance the immune system. Create an ⟦assimilation⟧ antibody, as it were. I doubt we can actually destroy the nanoprobes … collected so far, see if we can discover the ⟦assimilation⟧ mechanism", "EMH", "VOY", "Season 3, Ep 26: Scorpion"],
+      ["Borg. At least they tell you about their plans for ⟦assimilation⟧. You're more insidious. You ⟦assimilate⟧ people and they", "EDDINGTON", "DS9", "Season 4, Ep 22: For The Cause"],
+      ["will be ⟦assimilated⟧. You will be ⟦assimilated⟧.", "BORG", "VOY", "Season 4, Ep 6: The Raven"]
+    ].each do |line, character, series, episode| %>
+      <li class="quote-item">
+        <div class="quote-item__link">
+          <blockquote class="quote-item__line"><%= headline_marks(line) %></blockquote>
+          <div class="quote-item__meta">
+            <span class="speaker"><%= character %></span>
+            <span class="dot" aria-hidden="true">·</span>
+            <span class="badge badge--small"><%= series %></span>
+            <span><%= episode %></span>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ol>
+
+  <%= link_to "See all 295 results", dialogues_path(query: "assimilating", dictionary: 1), class: "link-arrow example__more" %>
+</div>

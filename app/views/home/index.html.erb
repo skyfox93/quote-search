@@ -1,96 +1,155 @@
-<% content_for :title, "Three levels of search" %>
+<% content_for :title, "Three ways to search 700 Star Trek scripts" %>
 
-<section class="landing-hero">
-  <h1 class="landing-hero__title">Three ways to search Star Trek</h1>
-  <p class="landing-hero__lede">
-    The same <%= number_with_delimiter(@stats[:episodes]) %> transcripts, searched three ways, from matching your exact
-    words to an AI agent that writes its own database queries. Each level hands more of the work to the machine.
-  </p>
+<article class="post">
+  <header class="post__header">
+    <p class="post__kicker">
+    <h1 class="post__title"> AI search by example - from keyword search to agentic AI </h1>
+    <p class="post__dek">
+   Three different ways of building a search tool with rankings: traditional keyword queries using a dictionray, RAG (embedding assisted answer), and agentic AI
+    </p>
+  </header>
 
-  <ol class="ladder" aria-label="Levels of search automation">
-    <li>
-      <a href="#level-1" class="ladder__step">
-        <span class="ladder__num">1</span>
-        <span class="ladder__name">Keyword search</span>
-        <span class="ladder__who">You choose the words</span>
-      </a>
-    </li>
-    <li>
-      <a href="#level-2" class="ladder__step">
-        <span class="ladder__num">2</span>
-        <span class="ladder__name">RAG + AI summary</span>
-        <span class="ladder__who">You describe, AI retrieves and explains</span>
-      </a>
-    </li>
-    <li>
-      <a href="#level-3" class="ladder__step">
-        <span class="ladder__num">3</span>
-        <span class="ladder__name">AI agent + SQL</span>
-        <span class="ladder__who">You ask, AI investigates</span>
-      </a>
-    </li>
-  </ol>
-</section>
+  <p>
+  This tool uses real star trek episode scripts to demonstrate common implementations of document search. 
+  I implemented three strategies: starting with standard keyword searches, an embedding-driven semantic search , with an AI summary (called Retrieval Augmented Search, or RAG), and, finally an agentic AI with the ability to query the database itself.
+   </p> 
 
-<section class="level" id="level-1" aria-labelledby="level-1-title">
-  <div class="level__intro">
-    <span class="level-tag">Level 1</span>
+
+  <nav class="post__toc" aria-label="In this post">
+    <ol>
+      <li><a href="#level-1">Level 1: Keyword search with a dictionary</a></li>
+      <li><a href="#level-2">Level 2: RAG with an AI summary</a></li>
+      <li><a href="#level-3">Level 3: An agent with a SQL tool</a></li>
+      <li><a href="#takeaways">So which one should you use?</a></li>
+    </ol>
+  </nav>
+
+  <section class="post__section" id="level-1" aria-labelledby="level-1-title">
+    <p class="post__eyebrow">Level 1</p>
     <h2 id="level-1-title" class="level__title">Keyword search with a dictionary</h2>
-    <p class="level__lede">
-      Postgres full-text search over <%= number_with_delimiter(@stats[:lines]) %> lines of dialogue. Each line is indexed
-      as a list of words; with the English dictionary on, words are reduced to their stems, so
-      “assimilating” also finds “assimilate”, “assimilation” and “assimilators”.
+    <p>
+      Postgres has support for google-like search syntax build in through  <code>web_search_to_ts_query<code>. It requires adding a column to your database which compares individual words against a dictionary to standardize them. It allows you to use AND OR operators in your search. If you're willing to do a little more configuration, it's also possible to correct common query mispellings on the fly. Fin 
     </p>
-    <dl class="level__facts">
-      <div><dt>How it works</dt><dd>Stemmed word index (tsvector) and ranked matching. Supports “exact phrases”, OR and -exclusions.</dd></div>
-      <div><dt>Best for</dt><dd>Quotes you remember, characters, catchphrases.</dd></div>
-      <div><dt>Misses</dt><dd>Anything you can't describe in the script's own words.</dd></div>
-    </dl>
-    <%= link_to "Try keyword search", dialogues_path, class: "link-arrow" %>
-  </div>
-  <turbo-frame id="example-keyword" class="level__example" src="<%= landing_example_path("keyword") %>" loading="lazy">
-    <%= render "home/example_loading", query: HomeController::EXAMPLES["keyword"], label: "Searching…" %>
-  </turbo-frame>
-</section>
+<pre class="code"><code>SELECT *, ts_rank_cd(searchable_english, q) AS rank
+FROM dialogues, websearch_to_tsquery('english', 'assimilating') q
+WHERE searchable_english @@ q
+ORDER BY rank DESC;</code></pre>
+    <p>
+      <code>websearch_to_tsquery</code> checks your document using  Google-style syntax : <code>"exact phrases"</code>,
+      <code>OR</code> AND <code>-exclusions</code> When you add 
+    english dictionary config, Postgres reduces words to their stems, so “assimilating” matches “assimilate”,
+      “assimilated” and “assimilation”, as well as some common mispellings
+    </p>
 
-<section class="level" id="level-2" aria-labelledby="level-2-title">
-  <div class="level__intro">
-    <span class="level-tag level-tag--ai">Level 2</span>
+    <figure class="post__figure">
+      <%= render "home/keyword_example" %>
+      <figcaption>Exact-word search vs. the English dictionary.</figcaption>
+    </figure>
+    <%= render "home/try_search", url: dialogues_path, param: :query, id: "try-keyword", label: "Search for words in the dialogue",
+                 placeholder: "Try your own: a word or phrase, e.g. tea, earl grey", button: "Search", hidden: { dictionary: 1 } %>
+
+    <p>
+      <strong>Downsides:</strong> you have to know the phrase used in the actual text.
+    </p>
+  </section>
+
+  <section class="post__section" id="level-2" aria-labelledby="level-2-title">
+    <p class="post__eyebrow">Level 2</p>
     <h2 id="level-2-title" class="level__title">RAG: retrieval with an AI summary</h2>
-    <p class="level__lede">
-      Retrieval-augmented generation. Describe a scene in your own words: a language model rewrites it as a few
-      lines of plausible script, vector search finds the closest of <%= number_with_delimiter(@stats[:chunks]) %> transcript
-      passages, and the model reads the best ones and writes an answer that cites them.
+    <p>
+      Searching by meaning starts with embeddings, numerical representations of what a term "means". Or more precisely, its distance from other words in roughly 1700 dimensions (not labeled dimensions, or known dimensions, but distinctions the model learned to make in its training). Semantic search involves comparing the query embedding with a short passage from the text and seeing how similar the topic or "meaning" of that text. 
+      The embedding for “swimming"  would be more similar to "beach" than "dessert", for example. The model has learned this by association - which words commonly pair together. 
+      </p>
+    <p>
+      To create docuent embedding in the example below,  each transcript is split into scenes, cutting wherever the
+      script names a new location (<code>[Bridge]</code>, <code>[Ten Forward]</code>), embedded each scene with
+      <code>text-embedding-3-small</code>, and stored in a vector database. That's
+      <%= number_with_delimiter(@stats[:chunks]) %> scenes so far (<%= @indexed_series.to_sentence.presence || "none yet" %>).
+      A search embeds the query and asks for its nearest neighbours.
     </p>
-    <dl class="level__facts">
-      <div><dt>How it works</dt><dd>LLM query rewrite → embeddings + pgvector → rank fusion → LLM summary of the top scenes.</dd></div>
-      <div><dt>Best for</dt><dd>“The one where…” questions when you don't know the words.</dd></div>
-      <div><dt>Misses</dt><dd>Counting and comparing: it only sees the handful of scenes it retrieved.</dd></div>
-    </dl>
-    <%= link_to "Try describing a scene", episode_texts_path, class: "link-arrow" %>
-  </div>
-  <turbo-frame id="example-rag" class="level__example" src="<%= landing_example_path("rag") %>" loading="lazy">
-    <%= render "home/example_loading", query: HomeController::EXAMPLES["rag"], label: "Retrieving scenes and writing a summary…" %>
-  </turbo-frame>
-</section>
+    <p class="footnote">
+      My first version cut every 2,000 characters, overlapping each chunk with the last so a conversation split
+      at a boundary would still appear whole in one of them. That's the usual default in RAG tutorials, but it
+      ignores the script's own structure. A scene is the unit people actually describe (“the scene where…”):
+      one place, one set of characters, one beat of plot. Very short scenes are merged into the next one, and
+      the few over 3,000 characters are split on line breaks.
+    </p>
+    <p>
+    </p>
+<pre class="code"><code>SELECT episode_text_id, content, embedding &lt;=&gt; $1 AS distance
+FROM episode_chunks
+ORDER BY distance
+LIMIT 40;</code></pre>
 
-<section class="level" id="level-3" aria-labelledby="level-3-title">
-  <div class="level__intro">
-    <span class="level-tag level-tag--ai">Level 3</span>
+    <figure class="post__figure">
+      <%= render "home/rag_example" %>
+      <figcaption>The top scenes, with their similarity scores, and a summary that cites them.</figcaption>
+    </figure>
+    <%= render "home/try_search", url: episode_texts_path, param: :query, id: "try-rag", label: "Describe a scene",
+                 placeholder: "Try your own: describe a scene, e.g. Picard plays the flute", button: "Search" %>
+
+    <p>
+      <strong>Where it begins to fall short:</strong> Semantic search may be good at finding relevant snippets, but it returns just that - snippets of text relevant to a single query. Questions that touch multiple topics might not be answerable with a single query, and when it comes to counting or answering numerical questions, text snippets are completely the wrong tool. Which brings us to our next "level-up" in sophistication...
+  </section>
+
+  <section class="post__section" id="level-3" aria-labelledby="level-3-title">
+    <p class="post__eyebrow">Level 3</p>
     <h2 id="level-3-title" class="level__title">An AI agent with a SQL tool</h2>
-    <p class="level__lede">
-      The model gets the database schema and one tool, <code>run_sql</code>. It decides what to query, reads the
-      results, fixes its own mistakes and keeps going until it can answer, so it can count, rank and compare
-      across every episode.
+    <p>
+      For the last
+      level I gave the model two tools it can run: <code>run_sql</code>, and <code>search_scenes</code>, which is
+      the vector search from level 2. The two tools work together: “how many lines does Worf have in the episode where his son
+      arrives?” is a scene search to find the episode, then a <code>COUNT</code> in that episode.
     </p>
-    <dl class="level__facts">
-      <div><dt>How it works</dt><dd>A loop: the model writes SQL, the app runs it, the model reads the rows and either queries again or answers.</dd></div>
-      <div><dt>Guardrails</dt><dd>One SELECT at a time, read-only transaction, two tables only, 4-second timeout, 50 rows.</dd></div>
-      <div><dt>Misses</dt><dd>Slower, and only as good as the data: when lines are missing, it has to notice and work around it.</dd></div>
-    </dl>
-    <%= link_to "Ask a question", ask_path, class: "link-arrow" %>
-  </div>
-  <turbo-frame id="example-agent" class="level__example" src="<%= landing_example_path("agent") %>" loading="lazy">
-    <%= render "home/example_loading", query: HomeController::EXAMPLES["agent"], label: "The agent is querying the database…" %>
-  </turbo-frame>
-</section>
+<pre class="code"><code>loop do
+  output = openai.responses(input:, tools: [run_sql, search_scenes])
+  break answer(output) unless output.tool_call?
+  input &lt;&lt; run_tool(output).to_json   # rows, matching episodes, or the error to fix
+end</code></pre>
+    <p>
+      Letting a language model run SQL against your database warrents some security precautions. Here are some ways to prevent AI agents from tampering with your data: 
+    </p>
+    <ul>
+      <li> Call your AI queries as a subquery inside a <code>Select </code> clause </li>
+      <li>at most 50 rows back;</li>
+      <li>a 4-second timeout, in a transaction that is always rolled back;</li>
+      <li>most importantly, a separate database login for the agent: a Postgres role that can <code>SELECT</code> those
+        two tables and nothing else. Postgres itself then refuses writes, other tables and file-reading functions,
+        however the SQL is written.</li>
+    </ul>
+    <p class="footnote">
+      My first version switched roles on the app's own connection (<code>SET ROLE</code>) and backed it up with a
+      blocklist of dangerous functions and an <code>EXPLAIN</code> check of which tables a query touched. The role
+      switch turned out not to be a boundary: the app logs in as a superuser, and a query can switch itself back
+      with <code>set_config('role', 'none', true)</code>. With its own login there's nothing to switch back to, so
+      the blocklist and the <code>EXPLAIN</code> check went.
+    </p>
+
+    <figure class="post__figure">
+      <%= render "home/agent_example" %>
+    </figure>
+    <%= render "home/try_search", url: ask_path, param: :q, id: "try-agent", label: "Ask a question",
+                 placeholder: "Try your own: e.g. Which TNG character has the most lines?", button: "Ask" %>
+  </section>
+
+  <section class="post__section" id="takeaways" aria-labelledby="takeaways-title">
+    <h2 id="takeaways-title">So which one should you use?</h2>
+    <div class="table-wrap">
+      <table class="post__table">
+        <thead>
+          <tr><th></th><th>Keyword</th><th>RAG</th><th>Agent</th></tr>
+        </thead>
+        <tbody>
+          <tr><th>You provide</th><td>the exact words</td><td>a description</td><td>a question</td></tr>
+          <tr><th>Typical time</th><td>well under 1 s</td><td>~2 s, then a streamed answer</td><td>3–8 s</td></tr>
+          <tr><th>Cost per search</th><td>free</td><td>two model calls</td><td>a few model calls</td></tr>
+          <tr><th>Good at</th><td>quotes, catchphrases</td><td>“the one where…”</td><td>counting, ranking, comparing</td></tr>
+          <tr><th>Fails by</th><td>finding nothing</td><td>summarizing the wrong scenes</td><td>being confidently wrong about bad data</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+       My personal take, although I'm not a data scientist - If you have some background knowledge about what keywords to search for, anecdotally, I can't say that a "zero config" search of embeddings is better at returning what a user would consider "accurate" results. Its strength is it's ability to cast a wide net and pull in documents on a relavant topic, and with the wide context windows of todays LLMs, its usually more than enough context. 
+    </p>
+  </section>
+</article>

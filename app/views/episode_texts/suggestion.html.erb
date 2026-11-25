@@ -1,0 +1,9 @@
+<turbo-frame id="search-suggestion" target="_top">
+  <% if @suggestion %>
+    <p class="search-suggestion">
+      Suggested search:
+      <%= link_to @suggestion.query, episode_texts_path(query: @suggestion.query, series: @suggestion.series || @series) %>
+      <% if (series = @suggestion.series || @series) %><span class="search-suggestion__series">in <%= EpisodeText::SERIES[series] %></span><% end %>
+    </p>
+  <% end %>
+</turbo-frame>

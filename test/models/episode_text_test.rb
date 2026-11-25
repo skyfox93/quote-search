@@ -8,15 +8,6 @@ class EpisodeTextTest < ActiveSupport::TestCase
     assert_equal EpisodeText.normalize_title("Q Who"), EpisodeText.normalize_title("Q Who?")
   end
 
-  test "ids_for_titles matches guessed titles within a series, in order" do
-    mind = EpisodeText.create!(series: "TNG", episode: "episode 999", title: "The Mind's Eye", text: "x")
-    darmok = EpisodeText.create!(series: "TNG", episode: "episode 998", title: "Darmok", text: "x")
-    EpisodeText.create!(series: "DS9", episode: "episode 997", title: "Darmok", text: "x")
-
-    assert_equal [darmok.id, mind.id], EpisodeText.ids_for_titles(["darmok", "Mind's Eye", "Nonexistent"], series: "TNG")
-    assert_equal [], EpisodeText.ids_for_titles(["  ", ""])
-  end
-
   test "short_number and header fields" do
     episode = EpisodeText.new(series: "TNG", season: 4, episode_number: 24,
                               text: "The Next Generation Transcripts - X    X Stardate: 44885.5 Original Airdate: 27 May, 1991         Log.")

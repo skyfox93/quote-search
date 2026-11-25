@@ -1,8 +1,6 @@
 <% episode = hit.episode %>
 <% excerpts = hit.scenes.map do |scene|
      lines = ScriptText.lines(scene.content)
-     # Later chunks start inside the previous one's overlap, often mid-line.
-     lines = lines.drop(1) if scene.position.positive? && lines.size > 1
      shown = ScriptText.excerpt(lines, terms, size: 6)
      { lines: shown, link: episode_text_path(episode, chunk: scene.id, line: shown.first.index,
                                              lines: shown.last.index - shown.first.index + 1, anchor: "match") }
@@ -17,6 +15,9 @@
         <span class="badge" title="<%= episode.series_name %>"><%= episode.series %></span>
         <% if episode.short_number %><span class="result__number"><%= episode.short_number %></span><% end %>
         <% if hit.rank == 1 %><span class="pill pill--accent">Best match</span><% end %>
+        <span class="result__score" title="Average cosine similarity of the episode’s three closest scenes (1 = identical)">
+          similarity <%= number_with_precision(hit.score, precision: 2) %>
+        </span>
       </div>
       <h3 class="result__title"><%= link_to episode.display_title, best[:link] %></h3>
     </header>

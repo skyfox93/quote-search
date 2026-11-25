@@ -11,7 +11,12 @@
     <svg class="search-box__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.23-1.42 1.42-4.23-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" fill="currentColor"/></svg>
     <%= text_field_tag :query, @query, id: "query", class: "search-box__input", placeholder: "e.g. Geordi is brainwashed into becoming an assassin",
                         autocomplete: "off", autofocus: @query.blank?, maxlength: SearchQueryPlanner::MAX_QUERY_LENGTH %>
+    <% if @series %><%= hidden_field_tag :series, @series %><% end %>
     <button type="submit" class="button button--primary search-box__button">Search</button>
+  <% end %>
+
+  <% if @query.present? %>
+    <turbo-frame id="search-suggestion" src="<%= suggestion_episode_texts_path(query: @query, series: @series) %>" target="_top"></turbo-frame>
   <% end %>
 
   <% if @query.blank? %>
@@ -28,7 +33,7 @@
 </section>
 
 <% if @query.present? %>
-  <turbo-frame id="search-results" src="<%= results_episode_texts_path(query: @query, all: params[:all].presence) %>" target="_top">
+  <turbo-frame id="search-results" src="<%= results_episode_texts_path(query: @query, series: @series) %>" target="_top">
     <%= render "loading" %>
   </turbo-frame>
 <% end %>

@@ -43,6 +43,13 @@ class ScriptTextTest < ActiveSupport::TestCase
     assert_nil ScriptText.term_pattern([])
   end
 
+  test "terms are cut to a rough stem so other forms of the word match" do
+    assert_equal %w[data learn joke], ScriptText.terms("Data learning jokes")
+    assert_equal %w[picard live glass bus], ScriptText.terms("Picard lives glasses bus")
+    assert_match ScriptText.term_pattern(ScriptText.terms("jokes")), "a joke"
+    assert_match ScriptText.term_pattern(ScriptText.terms("learning")), "he learned"
+  end
+
   test "excerpt picks the window with the most distinct terms" do
     lines = ScriptText.lines((1..20).map { "DATA: line #{_1}" }.join("\n") + "\nPICARD: the Romulan assassin\nRIKER: a Romulan")
     excerpt = ScriptText.excerpt(lines, %w[romulan assassin], size: 3)

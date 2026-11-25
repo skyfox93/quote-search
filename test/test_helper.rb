@@ -2,9 +2,27 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
+# ReadonlySql logs in as search_agent_reader (AgentRecord). Test databases
+# are built from schema.rb, which has no grants, so this gives the role the
+# same SELECT it has in development, and points the agent connection at the
+# database the tests are using (each parallel worker has its own).
+module AgentDatabase
+  def self.prepare
+    ActiveRecord::Base.with_connection do |conn|
+      conn.execute("GRANT USAGE ON SCHEMA public TO search_agent_reader")
+      conn.execute("GRANT SELECT ON dialogues, episode_texts TO search_agent_reader")
+      agent = ActiveRecord::Base.configurations.configs_for(env_name: "test", name: "agent", include_hidden: true)
+      agent._database = conn.pool.db_config.database
+    end
+    AgentRecord.connects_to database: { writing: :agent }
+  end
+end
+AgentDatabase.prepare
+
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
+  parallelize_setup { AgentDatabase.prepare }
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

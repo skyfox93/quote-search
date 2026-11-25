@@ -11,3 +11,11 @@ two:
   episode: MyString
   series: MyString
   character: MyString
+
+# Read by ReadonlySql and SearchAgent tests. Those queries run on the agent
+# connection, which can't see rows a test creates inside its own transaction.
+make_it_so:
+  series: TNG
+  episode: episode 970
+  character: PICARD
+  line: Make it so.

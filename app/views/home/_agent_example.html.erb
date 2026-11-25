@@ -1,0 +1,74 @@
+<%# A snapshot of a real agent run (November 2026), so the post loads instantly. %>
+<% database_icon = capture do %>
+  <span class="agent-step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M12 3c4.97 0 9 1.34 9 3v12c0 1.66-4.03 3-9 3s-9-1.34-9-3V6c0-1.66 4.03-3 9-3Zm7 11.6c-1.65.9-4.2 1.4-7 1.4s-5.35-.5-7-1.4V18c.2.45 2.73 1.5 7 1.5s6.8-1.05 7-1.5v-3.4Zm0-6c-1.65.9-4.2 1.4-7 1.4S6.65 9.5 5 8.6V12c.2.45 2.73 1.5 7 1.5s6.8-1.05 7-1.5V8.6ZM12 4.5C7.73 4.5 5.2 5.55 5 6c.2.45 2.73 1.5 7 1.5s6.8-1.05 7-1.5c-.2-.45-2.73-1.5-7-1.5Z" fill="currentColor"/></svg></span>
+<% end %>
+<div class="card example">
+  <div class="example__query"><span class="example__label">Example</span> <span>“How many times does Picard say "make it so", and in which season does he say it most?”</span></div>
+
+  <p class="example__note">The agent ran 2 queries before answering:</p>
+  <ol class="agent-steps agent-steps--compact">
+    <li class="agent-step agent-step--sql">
+      <div class="agent-step__head">
+        <%= database_icon %>
+        <span class="agent-step__title">Count how often Picard says "make it so" and by season in The Next Generation.</span>
+        <span class="agent-step__stats">7 rows · 77ms</span>
+      </div>
+<pre class="sql"><code>WITH matches AS (
+  SELECT e.season, e.title, e.episode_number, d.line
+  FROM dialogues d
+  JOIN episode_texts e ON e.series = d.series AND e.episode = d.episode
+  WHERE d.series = 'TNG'
+    AND d.character = 'PICARD'
+    AND d.line ILIKE '%make it so%'
+)
+SELECT season, COUNT(*) AS times_said
+FROM matches
+GROUP BY season
+ORDER BY season</code></pre>
+      <div class="table-wrap">
+        <table class="mini-table">
+          <thead><tr><th>season</th><th>times_said</th></tr></thead>
+          <tbody>
+            <% [[1, 7], [2, 13], [3, 13], [4, 13], [5, 13], [6, 5], [7, 13]].each do |season, count| %>
+              <tr><td><%= season %></td><td><%= count %></td></tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </li>
+    <li class="agent-step agent-step--sql">
+      <div class="agent-step__head">
+        <%= database_icon %>
+        <span class="agent-step__title">Count the total number of times Picard says "make it so" in TNG.</span>
+        <span class="agent-step__stats">1 row · 63ms</span>
+      </div>
+<pre class="sql"><code>SELECT COUNT(*) AS total_times
+FROM dialogues d
+JOIN episode_texts e ON e.series = d.series AND e.episode = d.episode
+WHERE d.series = 'TNG'
+  AND d.character = 'PICARD'
+  AND d.line ILIKE '%make it so%'</code></pre>
+      <div class="table-wrap">
+        <table class="mini-table">
+          <thead><tr><th>total_times</th></tr></thead>
+          <tbody><tr><td>77</td></tr></tbody>
+        </table>
+      </div>
+    </li>
+    <li class="agent-step agent-step--answer">
+      <div class="card ai-answer">
+        <header class="ai-answer__header">
+          <svg class="ai-answer__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9L12 2Zm7 12 .95 2.55L22.5 17.5l-2.55.95L19 21l-.95-2.55L15.5 17.5l2.55-.95L19 14Z" fill="currentColor"/></svg>
+          <h3 class="ai-answer__title">Answer</h3>
+        </header>
+        <div class="ai-answer__body">
+          <p>
+            Picard says “make it so” 77 times in The Next Generation. He says it most often in a five-way tie:
+            seasons 2, 3, 4, 5, and 7 each have 13 instances. Season 1 has 7, and season 6 has 5.
+          </p>
+        </div>
+        <p class="ai-answer__footnote">Written by AI from the query results above. It can make mistakes.</p>
+      </div>
+    </li>
+  </ol>
+</div>

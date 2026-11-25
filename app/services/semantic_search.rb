@@ -1,54 +1,52 @@
 # Finds the episodes that best match a free-text description.
 #
-#   1. SearchQueryPlanner rewrites the request as a few lines of plausible
-#      script, guesses likely episodes, and picks out a series filter.
-#   2. The rewritten passage and the user's own words are embedded (one API
-#      call, cached) and each finds its nearest transcript chunks.
-#   3. The two chunk rankings and the model's guesses are combined with
-#      reciprocal rank fusion into one list of episodes, each with its
-#      best-matching scenes.
+#   1. The query is embedded exactly as typed (one API call, cached) and
+#      pgvector finds its nearest transcript chunks, optionally in one series.
+#   2. Episodes are ranked by the average similarity of their top three
+#      chunks, each with its best-matching scenes.
+#
+# SearchQueryPlanner isn't part of the search: the results page only offers
+# its tidied query as a suggestion.
 #
 # Without an API key nothing can be embedded, so callers should rescue
 # OpenaiApi::Error.
 class SemanticSearch
-  CHUNKS_PER_VECTOR = 40
+  CHUNKS = 40
   MAX_EPISODES = 8
   SCENES_PER_EPISODE = 3
-  RRF_K = 10 # small k: being first in a list counts for a lot more than being fifth
+  SCORED_CHUNKS = 3 # an episode's score averages its closest this-many chunks
 
   # One episode in the results. `rank` is 1-based; `scenes` are chunks, best
-  # first, each responding to #neighbor_distance.
-  Hit = Data.define(:rank, :episode, :scenes, :guessed) do
-    def similarity = 1 - scenes.first.neighbor_distance
-  end
+  # first, each responding to #neighbor_distance; `score` is the average cosine
+  # similarity of the episode's top SCORED_CHUNKS retrieved chunks.
+  Hit = Data.define(:rank, :episode, :scenes, :score)
 
-  # relaxed_filters: the plan's filters matched nothing, so these hits are
-  # from every series instead.
-  Result = Data.define(:query, :plan, :hits, :filters, :relaxed_filters, :timings) do
+  # relaxed_filters: the series filter matched nothing (that series has no
+  # embeddings yet), so these hits are from every series instead.
+  Result = Data.define(:query, :hits, :filters, :relaxed_filters, :timings) do
     def series_filter = filters[:series]
   end
 
-  def self.call(query, use_filters: true)
-    new(query, use_filters: use_filters).call
+  # series: a code from EpisodeText::SERIES to search only that series, or nil.
+  def self.call(query, series: nil)
+    new(query, series: series).call
   end
 
-  def initialize(query, use_filters: true)
+  def initialize(query, series: nil)
     @query = query.to_s.squish
-    @use_filters = use_filters
+    @series = series.presence
     @timings = {}
   end
 
   def call
-    plan = time(:plan) { SearchQueryPlanner.plan(@query) }
-    filters = @use_filters ? plan.filters : {}
-
-    vectors = time(:embed) { OpenaiEmbeddings.embed_cached([plan.query, @query].uniq) }
-    hits = time(:db) { rank_episodes(plan, vectors, filters) }
+    filters = { series: @series }.compact
+    vector = time(:embed) { OpenaiEmbeddings.embed_cached([@query]).first }
+    hits = time(:db) { rank_episodes(vector, filters) }
     relaxed = hits.empty? && filters.any?
-    hits = time(:db_unfiltered) { rank_episodes(plan, vectors, {}) } if relaxed
+    hits = time(:db_unfiltered) { rank_episodes(vector, {}) } if relaxed
 
     Rails.logger.info("[semantic search] #{@timings.map { |k, v| "#{k} #{v}ms" }.join(", ")} for #{@query.inspect}")
-    Result.new(query: @query, plan: plan, hits: hits, filters: filters, relaxed_filters: relaxed, timings: @timings)
+    Result.new(query: @query, hits: hits, filters: filters, relaxed_filters: relaxed, timings: @timings)
   end
 
   # Series that have embeddings, e.g. ["TNG"]. Cached briefly: it only
@@ -61,44 +59,21 @@ class SemanticSearch
 
   private
 
-  def rank_episodes(plan, vectors, filters)
-    chunk_lists = EpisodeChunk.nearest(vectors, limit: CHUNKS_PER_VECTOR, filters: filters)
-    guessed_ids = guessed_episode_ids(plan.guesses, filters)
+  # Groups the nearest chunks by episode and scores each episode by the average
+  # similarity of its top SCORED_CHUNKS chunks, counting missing ones as 0, so
+  # one close match on its own can't put an episode first. The chunks come
+  # back closest first, so each episode's scenes stay in that order.
+  def rank_episodes(vector, filters)
+    chunks = EpisodeChunk.nearest(vector, limit: CHUNKS, filters: filters)
+    ranked = chunks.group_by(&:episode_text_id)
+      .map { |id, list| [id, list, list.first(SCORED_CHUNKS).sum { 1 - _1.neighbor_distance } / SCORED_CHUNKS] }
+      .sort_by { |id, _list, score| [-score, id] }
+      .first(MAX_EPISODES)
+    return [] if ranked.empty?
 
-    rankings = chunk_lists.map { |chunks| chunks.map(&:episode_text_id).uniq }
-    rankings << guessed_ids
-    # A few spare: guessed episodes that aren't embedded have no scenes to show.
-    top_ids = fuse(rankings).first(MAX_EPISODES + SearchQueryPlanner::MAX_GUESSES)
-    return [] if top_ids.empty?
-
-    scenes = scenes_by_episode(chunk_lists.flatten)
-    missing = top_ids.reject { scenes.key?(_1) }
-    scenes.merge!(EpisodeChunk.nearest_in_episodes(vectors.first, missing, per: SCENES_PER_EPISODE)) if missing.any?
-
-    episodes = EpisodeText.without_text.where(id: top_ids).index_by(&:id)
-    top_ids.select { scenes[_1].present? && episodes[_1] }.first(MAX_EPISODES).each_with_index.map do |id, i|
-      Hit.new(rank: i + 1, episode: episodes[id], scenes: scenes[id].first(SCENES_PER_EPISODE), guessed: guessed_ids.include?(id))
-    end
-  end
-
-  # Guessed titles, matched within each guess's series (and the filter's, if
-  # any), most likely first.
-  def guessed_episode_ids(guesses, filters)
-    guesses.select { filters[:series].nil? || _1.series == filters[:series] }
-      .flat_map { EpisodeText.ids_for_titles([_1.title], series: _1.series) }.uniq
-  end
-
-  # Reciprocal rank fusion: each ranking adds 1 / (k + position) per episode.
-  def fuse(rankings)
-    scores = Hash.new(0.0)
-    rankings.each { |ids| ids.each_with_index { |id, i| scores[id] += 1.0 / (RRF_K + i + 1) } }
-    scores.sort_by { |id, score| [-score, id] }.map(&:first)
-  end
-
-  # { episode_id => chunks }, each chunk once (at its best distance), best first.
-  def scenes_by_episode(chunks)
-    chunks.group_by(&:episode_text_id).transform_values do |list|
-      list.group_by(&:id).values.map { |same| same.min_by(&:neighbor_distance) }.sort_by(&:neighbor_distance)
+    episodes = EpisodeText.without_text.where(id: ranked.map(&:first)).index_by(&:id)
+    ranked.each_with_index.map do |(id, list, score), i|
+      Hit.new(rank: i + 1, episode: episodes.fetch(id), scenes: list.first(SCENES_PER_EPISODE), score: score)
     end
   end
 
