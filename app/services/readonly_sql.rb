@@ -9,8 +9,10 @@
 #   - the query is wrapped as a subquery, so it must be a single SELECT, and
 #     at most MAX_ROWS rows come back (each cell cut to CELL_CHARS);
 #   - a statement timeout, so a slow query can't tie up the database;
-#   - a transaction that is always rolled back, so nothing the query sets
-#     (e.g. with set_config) carries over to the next one.
+#   - a read-only transaction that is always rolled back, so nothing the
+#     query sets (e.g. with set_config) carries over to the next one. Where
+#     the agent shares the app's login (Heroku Essential, see database.yml)
+#     this is what stops writes.
 class ReadonlySql
   MAX_ROWS = 50
   CELL_CHARS = 300
@@ -67,6 +69,7 @@ class ReadonlySql
     AgentRecord.with_connection do |conn|
       output = nil
       conn.transaction(requires_new: true, joinable: false) do
+        conn.execute("SET TRANSACTION READ ONLY")
         conn.execute("SET LOCAL statement_timeout = #{@timeout_ms}")
         res = conn.exec_query(wrapped, "AgentSQL")
         output = [res.columns, res.rows]
