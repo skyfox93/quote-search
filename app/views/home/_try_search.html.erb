@@ -1,16 +1,9 @@
-<%# A live search box above each demo. It loads the real search page's results into the demo's frame, %>
-<%# so the search runs in place on the homepage. %>
-<%# locals: (url:, param:, id:, label:, placeholder:, button:, frame:, word_forms: false) %>
-<%= form_with url: url, method: :get, class: ["search-box", "post__try", ("search-box--with-options" if word_forms)], role: "search",
-              data: { turbo_frame: frame } do %>
+<%# A live search box under each example: submits to the real search page. %>
+<%# locals: (url:, param:, id:, label:, placeholder:, button:, hidden: {}) %>
+<%= form_with url: url, method: :get, class: "search-box post__try", role: "search" do %>
   <label for="<%= id %>" class="visually-hidden"><%= label %></label>
   <svg class="search-box__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.23-1.42 1.42-4.23-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" fill="currentColor"/></svg>
   <%= text_field_tag param, nil, id: id, class: "search-box__input", placeholder: placeholder, autocomplete: "off", required: true %>
-  <% if word_forms %>
-    <label class="toggle" title="Also match other forms of each word (run, running, ran)">
-      <%= check_box_tag :dictionary, "1", true, id: "#{id}-dictionary" %>
-      <span>Match word forms</span>
-    </label>
-  <% end %>
+  <% hidden.each do |name, value| %><%= hidden_field_tag name, value, id: nil %><% end %>
   <button type="submit" class="button button--primary search-box__button"><%= button %></button>
 <% end %>

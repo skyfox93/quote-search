@@ -28,8 +28,6 @@
   <% end %>
 </section>
 
-<%# The homepage demo loads this frame in place. %>
-<turbo-frame id="demo-agent" target="_top">
 <% if @question.present? %>
   <section class="agent-run" data-controller="agent" data-agent-url-value="<%= ask_stream_path(q: @question) %>" aria-live="polite">
     <ol id="agent-steps" class="agent-steps"></ol>
@@ -39,4 +37,3 @@
     </p>
   </section>
 <% end %>
-</turbo-frame>

@@ -15,6 +15,9 @@
     <button type="submit" class="button button--primary search-box__button">Search</button>
   <% end %>
 
+  <% if @query.present? %>
+    <turbo-frame id="search-suggestion" src="<%= suggestion_episode_texts_path(query: @query, series: @series) %>" target="_top"></turbo-frame>
+  <% end %>
 
   <% if @query.blank? %>
     <div class="examples">
@@ -29,12 +32,8 @@
   <% end %>
 </section>
 
-<%# The homepage demo loads this frame in place; links in it open full pages. %>
-<turbo-frame id="demo-rag" target="_top">
 <% if @query.present? %>
-  <turbo-frame id="search-suggestion" class="demo__suggestion" src="<%= suggestion_episode_texts_path(query: @query, series: @series) %>" target="_top"></turbo-frame>
   <turbo-frame id="search-results" src="<%= results_episode_texts_path(query: @query, series: @series) %>" target="_top">
     <%= render "loading" %>
   </turbo-frame>
 <% end %>
-</turbo-frame>
