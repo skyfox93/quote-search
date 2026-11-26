@@ -27,6 +27,11 @@
   <section class="post__section" id="level-1" aria-labelledby="level-1-title">
     <p class="post__eyebrow">Level 1</p>
     <h2 id="level-1-title" class="level__title">Keyword search with a dictionary</h2>
+    <div class="demo">
+      <%= render "dialogues/demo", home: true %>
+    </div>
+
+    <h3 class="how-it-works">How it works</h3>
     <p>
       Postgres has support for Google-like search syntax built in through <code>websearch_to_tsquery</code>. It
       requires adding a column to your database which compares individual words against a dictionary to standardize
@@ -48,8 +53,6 @@ ORDER BY rank DESC;</code></pre>
       <%= render "home/keyword_example" %>
       <figcaption>Exact-word search vs. the English dictionary.</figcaption>
     </figure>
-    <%= render "home/try_search", url: dialogues_path, param: :query, id: "try-keyword", label: "Search for words in the dialogue",
-                 placeholder: "Try your own: a word or phrase, e.g. tea, earl grey", button: "Search", hidden: { dictionary: 1 } %>
 
     <p>
       <strong>Downsides:</strong> you have to know the phrase used in the actual text.
@@ -59,6 +62,11 @@ ORDER BY rank DESC;</code></pre>
   <section class="post__section" id="level-2" aria-labelledby="level-2-title">
     <p class="post__eyebrow">Level 2</p>
     <h2 id="level-2-title" class="level__title">RAG: retrieval with an AI summary</h2>
+    <div class="demo">
+      <%= render "episode_texts/demo", home: true %>
+    </div>
+
+    <h3 class="how-it-works">How it works</h3>
     <p>
       Searching by meaning starts with embeddings, numerical representations of what a term “means”. Or more
       precisely, its distance from other words in 1,536 dimensions (not labeled or known dimensions, but
@@ -90,8 +98,6 @@ LIMIT 40;</code></pre>
       <%= render "home/rag_example" %>
       <figcaption>The top scenes, with their similarity scores, and a summary that cites them.</figcaption>
     </figure>
-    <%= render "home/try_search", url: episode_texts_path, param: :query, id: "try-rag", label: "Describe a scene",
-                 placeholder: "Try your own: describe a scene, e.g. Picard plays the flute", button: "Search" %>
 
     <p>
       <strong>Where it begins to fall short:</strong> semantic search may be good at finding relevant snippets, but
@@ -104,6 +110,11 @@ LIMIT 40;</code></pre>
   <section class="post__section" id="level-3" aria-labelledby="level-3-title">
     <p class="post__eyebrow">Level 3</p>
     <h2 id="level-3-title" class="level__title">An AI agent with a SQL tool</h2>
+    <div class="demo">
+      <%= render "questions/demo", home: true %>
+    </div>
+
+    <h3 class="how-it-works">How it works</h3>
     <p>
       For the last
       level I gave the model two tools it can run: <code>run_sql</code>, and <code>search_scenes</code>, which is
@@ -139,8 +150,6 @@ end</code></pre>
     <figure class="post__figure">
       <%= render "home/agent_example" %>
     </figure>
-    <%= render "home/try_search", url: ask_path, param: :q, id: "try-agent", label: "Ask a question",
-                 placeholder: "Try your own: e.g. Which TNG character has the most lines?", button: "Ask" %>
   </section>
 
   <section class="post__section" id="takeaways" aria-labelledby="takeaways-title">

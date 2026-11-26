@@ -1,0 +1,57 @@
+<%# locals: (home: false) -%>
+<%# The page body. The homepage renders it too, as that level's live demo: searches load into this frame, %>
+<%# and links to other pages open full pages. On its own page, searches update the URL too. %>
+<% query = params[:query].to_s %>
+<turbo-frame id="demo-keyword" class="demo-frame"<%= ' data-turbo-action="advance"'.html_safe unless home %>>
+<section class="search-hero<%= " search-hero--compact" if query.present? %>">
+  <% if query.blank? %>
+    <h1 class="search-hero__title">Find a line of Star Trek dialogue</h1>
+    <p class="search-hero__lede">Search 240,000 lines by the words in them or the character who said them. Don't remember the exact words? <%= link_to "Describe the scene instead", episode_texts_path, data: { turbo_frame: "_top" } %>.</p>
+  <% end %>
+
+  <%= form_with url: dialogues_path, method: :get, class: "search-box search-box--with-options", role: "search" do |form| %>
+    <label for="dialogue-query" class="visually-hidden">Words or character</label>
+    <svg class="search-box__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.23-1.42 1.42-4.23-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" fill="currentColor"/></svg>
+    <%= form.text_field :query, value: query, id: "dialogue-query", class: "search-box__input", placeholder: "e.g. make it so, or \"tea, earl grey, hot\"",
+                        autocomplete: "off", autofocus: !home && query.blank? %>
+    <label class="toggle" title="Also match other forms of each word (run, running, ran)">
+      <%= form.check_box :dictionary, { checked: params[:dictionary] == "1" }, "1", nil %>
+      <span>Match word forms</span>
+    </label>
+    <%= form.submit "Search", class: "button button--primary search-box__button", name: nil %>
+  <% end %>
+</section>
+
+<% if query.present? %>
+  <h2 class="results-heading results-heading--plain">
+    <% if @dialogues.empty? %>
+      No lines match “<%= query %>”
+    <% else %>
+      <%= @dialogues.length == 300 ? "Top 300" : pluralize(@dialogues.length, "line") %> matching “<%= query %>”
+    <% end %>
+  </h2>
+
+  <% if @dialogues.empty? %>
+    <div class="empty-state">
+      <p>Check the spelling, try fewer words, or turn on “Match word forms”. You can also <%= link_to "describe the scene", episode_texts_path(query: query), data: { turbo_frame: "_top" } %> instead.</p>
+    </div>
+  <% else %>
+    <ol class="quote-list">
+      <% @dialogues.each do |dialogue| %>
+        <li class="quote-item">
+          <%= link_to dialogue_path(dialogue, anchor: "match"), class: "quote-item__link", data: { turbo_frame: "_top" } do %>
+            <blockquote class="quote-item__line"><%= dialogue.line %></blockquote>
+            <div class="quote-item__meta">
+              <span class="speaker"><%= dialogue.character %></span>
+              <% if dialogue.try(:delivery).present? %><span class="delivery"><%= dialogue.delivery %></span><% end %>
+              <span class="dot" aria-hidden="true">·</span>
+              <span class="badge badge--small"><%= dialogue.series %></span>
+              <span><%= @titles[[dialogue.series, dialogue.episode]] || dialogue.episode %></span>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+<% end %>
+</turbo-frame>
