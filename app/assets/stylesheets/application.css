@@ -270,7 +270,16 @@ mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; pad
 .result__body { min-width: 0; }
 .result__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 4px; font-size: 13px; color: var(--muted); }
 .result__number { font-family: var(--font-mono); font-size: 12px; }
-.post__try { margin: 4px 0 28px; }
+.post__try { margin: 4px 0 16px; }
+
+/* Live demos on the homepage: the search box loads results into the frame below it. */
+.demo { margin: 18px 0 30px; }
+.demo__frame { display: block; transition: opacity 0.15s; }
+.demo__frame[busy] { opacity: 0.55; }
+.demo__frame .post__figure { margin: 0; }
+.demo__frame .results-heading:first-child { margin-top: 4px; }
+.demo__suggestion { display: block; text-align: center; }
+.demo .quote-list { max-height: 560px; overflow-y: auto; }
 .mini-result__head .result__score { font-size: 11.5px; }
 .result__score { margin-left: auto; font: 500 12px var(--font-mono); color: var(--faint); cursor: help; }
 .result__title { font-size: 20px; font-weight: 700; }
@@ -549,7 +558,7 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 .post__toc ol { margin: 0; padding-left: 20px; }
 .post__toc li { margin: 2px 0; }
 .post__section { padding-top: 40px; scroll-margin-top: 72px; }
-.post__section h2 { margin: 0 0 16px; font-size: 28px; font-weight: 760; letter-spacing: -0.025em; line-height: 1.2; }
+.post__section > h2 { margin: 0 0 16px; font-size: 28px; font-weight: 760; letter-spacing: -0.025em; line-height: 1.2; }
 .post__eyebrow { margin: 0 0 6px !important; font: 700 12px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
 #level-2 .post__eyebrow, #level-3 .post__eyebrow { color: var(--ai); }
 .post code { font: 0.86em/1.4 var(--font-mono); padding: 1px 5px; border-radius: 5px; background: var(--surface-2); border: 1px solid var(--border); white-space: nowrap; }

@@ -20,6 +20,8 @@
   <% end %>
 </section>
 
+<%# The homepage demo loads this frame in place; links in it open full pages. %>
+<turbo-frame id="demo-keyword" target="_top">
 <% if query.present? %>
   <h2 class="results-heading results-heading--plain">
     <% if @dialogues.empty? %>
@@ -52,3 +54,4 @@
     </ol>
   <% end %>
 <% end %>
+</turbo-frame>
