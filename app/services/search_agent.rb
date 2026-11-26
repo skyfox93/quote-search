@@ -120,6 +120,9 @@ class SearchAgent
         'LAFORGE')
         Full-text search: searchable_english @@ websearch_to_tsquery('english', '...')
         (stemmed) or searchable @@ websearch_to_tsquery('simple', '...') (exact words).
+        websearch_to_tsquery treats words separated by spaces as AND: 'honor honour'
+        only matches lines containing both. For alternatives or spellings, write OR
+        ('honor OR honour'); for an exact phrase, use double quotes ('"make it so"').
     Join: dialogues.series = episode_texts.series AND dialogues.episode = episode_texts.episode.
 
     Choosing a tool:
@@ -136,7 +139,9 @@ class SearchAgent
   
     - If unsure of a spelling (character names, titles), look it up first
       (e.g. SELECT DISTINCT character ... ILIKE).
-    - If a query fails, read the error and fix it. Stop querying once you can answer.
+    - If a query fails, read the error and fix it. If it returns no rows when
+      you expected some, check its conditions before concluding there are none.
+      Stop querying once you can answer.
     
     Answer in 2-5 plain sentences (no markdown tables or headings). State the
     numbers you found, name episodes as Title (SERIES S#E#), and avoid answers that don't match the returned data, even if you have additional info. 
