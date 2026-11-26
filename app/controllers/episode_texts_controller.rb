@@ -44,12 +44,14 @@ class EpisodeTextsController < ApplicationController
   end
 
   # GET /episode_texts/:id
-  # Optional ?chunk=ID&line=N&lines=N highlights the lines a search result
-  # showed, and the link's #match anchor scrolls to them.
+  # With ?chunk=ID (a search result's scene), shows only that scene, and
+  # &line=N&lines=N highlights the lines the result showed; the link's #match
+  # anchor scrolls to them. Without it, shows the whole script.
   def show
     @episode = EpisodeText.find(params[:id])
-    @lines = ScriptText.lines(@episode.text)
-    @highlight = highlight_range
+    @scene = @episode.episode_chunks.find_by(id: params[:chunk]) if params[:chunk].present?
+    @lines = ScriptText.lines(@scene ? @scene.content : @episode.text)
+    @highlight = scene_highlight if @scene
   end
 
   private
@@ -62,12 +64,10 @@ class EpisodeTextsController < ApplicationController
     params[:series].presence_in(EpisodeText::SERIES.keys)
   end
 
-  def highlight_range
-    chunk = @episode.episode_chunks.find_by(id: params[:chunk]) if params[:chunk].present?
-    return unless chunk
-
+  # The lines of the scene that the search result showed.
+  def scene_highlight
     first = params[:line].to_i.clamp(0, 500)
     count = params[:lines].to_i.clamp(1, 30)
-    helpers.chunk_line_range(@episode.text, chunk, first, count)
+    first...(first + count)
   end
 end

@@ -26,7 +26,7 @@
       <p class="result__summary"><%= episode.summary %></p>
     <% end %>
 
-    <%= link_to best[:link], class: "excerpt", aria: { label: "Read this scene in #{episode.display_title}" } do %>
+    <%= link_to best[:link], class: "excerpt", aria: { label: "Read the full scene in #{episode.display_title}" } do %>
       <div class="script script--excerpt"><%= script_lines(best[:lines], terms: terms) %></div>
     <% end %>
 
@@ -42,7 +42,7 @@
     <% end %>
 
     <footer class="result__footer">
-      <%= link_to "Read the full script", best[:link], class: "link-arrow" %>
+      <%= link_to "Read the full scene", best[:link], class: "link-arrow" %>
     </footer>
   </div>
 </li>

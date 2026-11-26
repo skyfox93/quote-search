@@ -2,12 +2,10 @@
 
 <%= render "application/episode_header", episode: @episode, back: true %>
 
-<% if @highlight %>
-  <p class="jump-note">
-    <%= link_to "Jump to the matching scene", "#match", class: "link-arrow" %>
-  </p>
+<% if @scene %>
+  <p class="jump-note">The matching scene from this episode.</p>
 <% end %>
 
-<article class="card script script--full" aria-label="Transcript">
+<article class="card script script--full" aria-label="<%= @scene ? "Scene" : "Transcript" %>">
   <%= script_lines(@lines, highlight: @highlight) %>
 </article>

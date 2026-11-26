@@ -54,13 +54,4 @@ module ScriptHelper
     pieces << ERB::Util.html_escape(text[last..])
     safe_join(pieces)
   end
-
-  # Line index range in the full episode text covered by an excerpt of a chunk.
-  def chunk_line_range(episode_text, chunk, first_line, count)
-    start = episode_text.index(chunk.content)
-    return unless start
-
-    base = episode_text[0...start].count("\n")
-    (base + first_line)...(base + first_line + count)
-  end
 end

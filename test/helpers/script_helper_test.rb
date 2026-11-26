@@ -35,12 +35,4 @@ class ScriptHelperTest < ActionView::TestCase
     assert_equal 1, html.scan(%(id="match")).size
     assert_match(/id="match"[^>]*>.*two/m, html.to_s[/<p[^>]*id="match".*?<\/p>/m])
   end
-
-  test "chunk_line_range maps excerpt lines in a chunk back onto the episode" do
-    text = "HEADER\nA: one\nB: two\nC: three\nD: four\n"
-    chunk = EpisodeChunk.new(content: "B: two\nC: three\nD: four")
-
-    assert_equal 3...5, chunk_line_range(text, chunk, 1, 2)
-    assert_nil chunk_line_range(text, EpisodeChunk.new(content: "not in the text"), 0, 1)
-  end
 end
