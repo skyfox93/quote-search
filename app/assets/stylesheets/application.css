@@ -196,6 +196,8 @@ mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; pad
 
 @media (max-width: 560px) {
   .search-box--with-options { flex-wrap: wrap; padding-left: 46px; }
+  /* Centre the icon on the input row (6px padding + half its 44px), not the wrapped box. */
+  .search-box--with-options .search-box__icon { top: 18px; }
   .search-box--with-options .search-box__input { flex-basis: calc(100% - 8px); }
   .search-box--with-options .toggle { margin-right: auto; padding-left: 0; }
   .search-box__button { padding: 0 14px; }
@@ -581,6 +583,8 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
 .main:has(.post) { max-width: 860px; }
 @media (max-width: 560px) {
   .post { font-size: 16.5px; }
+  /* The page already has side padding; a bordered box inside it doubles it. */
+  .demo { padding: 0; border: none; border-radius: 0; }
   .post__dek { font-size: 18px; }
   .post code { white-space: normal; }
 }
