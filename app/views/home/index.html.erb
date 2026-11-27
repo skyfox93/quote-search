@@ -131,8 +131,7 @@ end</code></pre>
       ways to prevent AI agents from tampering with your data:
     </p>
     <ul>
-      <li>run the AI's query as a subquery inside a <code>SELECT</code>, so it can only be a single read;</li>
-      <li>send at most 50 rows back;</li>
+      <li>send at most 100 rows back;</li>
       <li>set a 4-second timeout, in a read-only transaction that is always rolled back;</li>
       <li>most importantly, give the agent a separate database login: a Postgres role that can <code>SELECT</code>
         the <code>dialogues</code> and <code>episode_texts</code> tables and nothing else. Postgres itself then
