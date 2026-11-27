@@ -14,7 +14,7 @@
 #     the agent shares the app's login (Heroku Essential, see database.yml)
 #     this is what stops writes.
 class ReadonlySql
-  MAX_ROWS = 50
+  MAX_ROWS = 100
   CELL_CHARS = 300
   MAX_SQL_LENGTH = 4000
   TIMEOUT_MS = 4000

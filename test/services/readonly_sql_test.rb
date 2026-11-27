@@ -31,7 +31,7 @@ class ReadonlySqlTest < ActiveSupport::TestCase
   end
 
   test "caps rows and long values" do
-    result = ReadonlySql.run("SELECT repeat('x', 1000) AS long FROM generate_series(1, 80)")
+    result = ReadonlySql.run("SELECT repeat('x', 1000) AS long FROM generate_series(1, #{ReadonlySql::MAX_ROWS + 30})")
 
     assert result.ok?, result.error
     assert_equal ReadonlySql::MAX_ROWS, result.row_count

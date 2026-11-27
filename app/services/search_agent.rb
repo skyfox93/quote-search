@@ -21,7 +21,7 @@ class SearchAgent
   REASONING = ENV.fetch("OPENAI_AGENT_REASONING", "low")
   STRONG_MODEL = ENV.fetch("OPENAI_AGENT_STRONG_MODEL", "gpt-5.4")
   STRONG_REASONING = ENV.fetch("OPENAI_AGENT_STRONG_REASONING", "low")
-  PROMPT_VERSION = 12
+  PROMPT_VERSION = 13
   MAX_STEPS = 8        # model calls (per model) before it must answer with what it has
   HANDOFF_LOG_CHARS = 2000 # per tool result, in the work passed to the stronger model
   MAX_QUESTION_LENGTH = 500
