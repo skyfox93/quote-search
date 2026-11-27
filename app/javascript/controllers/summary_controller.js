@@ -1,8 +1,10 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Streams the AI summary of a search into the page as it's written.
-// The answer is untrusted model output: it is only ever inserted as text
-// nodes, and "[2]" citations become links built with the DOM API.
+// Streams the AI summary of a search into the page as it's written, with a
+// small subset of markdown: paragraphs, "-" / "1." lists, **bold**, *italic*
+// and `code`. The answer is untrusted model output, so it is never parsed as
+// HTML: every element is built with the DOM API and all text goes in as text
+// nodes. "[2]" citations become links to the results.
 export default class extends Controller {
   static targets = ["output"]
   static values = { url: String, count: Number }
@@ -47,17 +49,48 @@ export default class extends Controller {
     }
   }
 
+  // Blocks are separated by blank lines; a block whose lines all start with
+  // "- ", "* " or "1. " is a list. While streaming, an unfinished **bold**
+  // shows as typed until its closing marker arrives.
   render(text) {
-    const paragraph = document.createElement("p")
-    for (const part of text.split(/(\[\d+\])/)) {
-      const number = Number(part.match(/^\[(\d+)\]$/)?.[1])
-      if (number >= 1 && number <= this.countValue) {
-        paragraph.append(this.citation(number))
-      } else if (part) {
-        paragraph.append(document.createTextNode(part))
+    const blocks = text.trim().split(/\n\s*\n/).filter((block) => block.trim())
+    const nodes = blocks.map((block) => {
+      const lines = block.split("\n").filter((line) => line.trim())
+      const bullet = /^\s*(?:[-*•]|\d+[.)])\s+/
+      if (lines.every((line) => bullet.test(line))) {
+        const list = document.createElement(/^\s*\d/.test(lines[0]) ? "ol" : "ul")
+        for (const line of lines) {
+          const item = document.createElement("li")
+          item.append(...this.inline(line.replace(bullet, "")))
+          list.append(item)
+        }
+        return list
       }
-    }
-    this.outputTarget.replaceChildren(paragraph)
+      const paragraph = document.createElement("p")
+      paragraph.append(...this.inline(lines.join(" ").replace(/^#+\s+/, "")))
+      return paragraph
+    })
+    this.outputTarget.replaceChildren(...(nodes.length ? nodes : [document.createElement("p")]))
+  }
+
+  // **bold**, *italic* / _italic_, `code` and [n] citations, as DOM nodes.
+  inline(text) {
+    const pattern = /(\*\*[^*\n]+\*\*|__[^_\n]+__|`[^`\n]+`|\*[^*\s][^*\n]*\*|(?<!\w)_[^_\s][^_\n]*_(?!\w)|\[\d+\])/
+    return text.split(pattern).filter(Boolean).map((part) => {
+      const number = Number(part.match(/^\[(\d+)\]$/)?.[1])
+      if (number >= 1 && number <= this.countValue) return this.citation(number)
+      const styled = [[/^\*\*(.+)\*\*$/, "strong"], [/^__(.+)__$/, "strong"], [/^`(.+)`$/, "code"],
+                      [/^\*(.+)\*$/, "em"], [/^_(.+)_$/, "em"]]
+      for (const [regex, tag] of styled) {
+        const match = part.match(regex)
+        if (match) {
+          const element = document.createElement(tag)
+          element.append(...(tag === "code" ? [document.createTextNode(match[1])] : this.inline(match[1])))
+          return element
+        }
+      }
+      return document.createTextNode(part)
+    })
   }
 
   citation(number) {
