@@ -51,6 +51,8 @@
  ## Ask a question (AI agent with SQL)
  "Ask a question" (`/ask`) gives an OpenAI model two tools and lets it use them until it can answer: `run_sql` queries the `dialogues` and `episode_texts` tables (e.g. "Which TNG character has the most lines?"), and `search_scenes` runs the vector search to find episodes by what happens in them, which it can then follow up with SQL. Every step and its results are shown as it works.
 
+ It runs on a small, fast model (`OPENAI_AGENT_MODEL` / `OPENAI_AGENT_REASONING`, default `gpt-5.4-mini` / `low`). A third tool, `ask_stronger_model`, lets it hand a question that needs judgment ("how often does Worf *ask* to fire phasers": requests, not lines that merely contain the words) to a more capable model (`OPENAI_AGENT_STRONG_MODEL` / `OPENAI_AGENT_STRONG_REASONING`, default `gpt-5.4` / `low`). The stronger model gets the question and the work so far as text, and finishes the job; it can't hand off again.
+
  The SQL is untrusted, so the boundary is Postgres itself: `ReadonlySql` runs it on its own connection (`AgentRecord`, the `agent` entry in `config/database.yml`) that logs in as `search_agent_reader`, a role that can only SELECT those two tables. Postgres then refuses writes, other tables and superuser functions, however the SQL is written. `ReadonlySql` only adds what privileges can't: the query is wrapped as a subquery (one SELECT, at most 50 rows), with a 4s timeout, in a transaction that is always rolled back.
 
  The migrations create the role, grant it SELECT and let it log in:

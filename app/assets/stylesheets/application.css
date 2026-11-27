@@ -503,6 +503,7 @@ form:not(.search-box) input[type="submit"] { height: 40px; padding: 0 16px; bord
   border: 1px solid var(--border); border-radius: 12px; animation: rise .25s ease-out;
 }
 .agent-step--answer, .agent-step--error { animation: rise .25s ease-out; }
+.agent-step--handoff { display: flex; align-items: center; gap: 8px; padding: 2px 4px; font-size: 13.5px; color: var(--muted); animation: rise .25s ease-out; }
 .agent-step--failed { border-color: color-mix(in srgb, var(--danger) 35%, var(--border)); }
 .agent-step__head { display: flex; align-items: center; gap: 8px; font-size: 14px; }
 .agent-step__icon { display: grid; place-items: center; width: 24px; height: 24px; flex: none; border-radius: 7px; color: var(--ai); background: var(--ai-soft); }

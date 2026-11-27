@@ -72,6 +72,13 @@
       <p class="agent-step__more">No scenes found.</p>
     <% end %>
   </li>
+<% when :handoff %>
+  <li class="agent-step agent-step--handoff">
+    <span class="agent-step__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="14" height="14"><path d="M13 3 4 14h6l-1 7 9-11h-6l1-7Z" fill="currentColor"/></svg>
+    </span>
+    <span>Handed to a stronger model (<%= SearchAgent::STRONG_MODEL %>): <%= event.text %></span>
+  </li>
 <% when :answer %>
   <li class="agent-step agent-step--answer">
     <div class="card ai-answer">

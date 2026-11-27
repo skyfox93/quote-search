@@ -123,7 +123,7 @@ def answer_output(text)
         assert_equal %i[search answer], events.map(&:kind)
         assert_equal "Find the scene", events.first.text
         found = events.first.result.episodes.first
-        assert_equal({ rank: 1, series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, summary: nil,
+        assert_equal({ rank: 1, episode_id: episode.id, series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, summary: nil,
                        similarity: 0.6 },
                      found.except(:scene))
         assert_equal "PICARD: Robert, I...\nROBERT: Go on.", found[:scene], "the whole chunk"
@@ -145,9 +145,9 @@ def answer_output(text)
     end
   end
   
-  test "both tools are offered with strict schemas" do
+  test "the tools are offered with strict schemas" do
     assert_equal %w[run_sql search_scenes], SearchAgent::TOOLS.map { _1[:name] }
-    SearchAgent::TOOLS.each do |tool|
+    (SearchAgent::TOOLS + [SearchAgent::HANDOFF_TOOL]).each do |tool|
       params = tool[:parameters]
       assert_equal params[:properties].keys.map(&:to_s).sort, params[:required].sort
       assert_equal false, params[:additionalProperties]
