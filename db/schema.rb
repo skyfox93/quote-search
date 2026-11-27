@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_27_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_29_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "vector"
@@ -27,8 +27,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_27_000000) do
     t.virtual "searchable_english", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(line, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(\"character\", ''::character varying))::text), 'B'::\"char\"))", stored: true
     t.string "character_raw"
     t.string "delivery"
-    t.index ["searchable"], name: "dialogues_search_index", using: :gin
+    t.bigint "episode_id"
+    t.string "season_id"
+    t.index ["episode_id"], name: "index_dialogues_on_episode_id"
     t.index ["searchable"], name: "index_dialogues_on_searchable", using: :gin
+    t.index ["season_id"], name: "index_dialogues_on_season_id"
     t.index ["series", "character"], name: "index_dialogues_on_series_and_character"
   end
 
@@ -55,6 +58,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_27_000000) do
     t.integer "season"
     t.integer "episode_number"
     t.vector "summary_embedding", limit: 1536
+    t.virtual "season_id", type: :string, as: "(((series)::text || ' S'::text) || (season)::text)", stored: true
+    t.index ["season_id"], name: "index_episode_texts_on_season_id"
     t.index ["series", "episode"], name: "index_episode_texts_on_series_and_episode"
   end
 
@@ -67,5 +72,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_27_000000) do
     t.index ["searchable"], name: "index_quotes_on_searchable", using: :gin
   end
 
+  add_foreign_key "dialogues", "episode_texts", column: "episode_id"
   add_foreign_key "episode_chunks", "episode_texts"
 end

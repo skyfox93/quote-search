@@ -39,3 +39,4 @@ scripts.each do |series, episodes|
     Dialogue.insert_all!(parser.dialogue_rows(series: series, episode: episode))
   end
 end
+Dialogue.link_episodes

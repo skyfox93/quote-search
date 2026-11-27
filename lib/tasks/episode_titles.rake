@@ -73,6 +73,7 @@ namespace :episodes do
       end
     end
 
+    Dialogue.link_episodes # dialogues copy each episode's season_id
     puts "Updated #{updated} episodes."
     puts "#{EpisodeText.where(title: nil).count} without a title, #{EpisodeText.where(season: nil).count} without a season."
   end

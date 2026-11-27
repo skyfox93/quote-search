@@ -13,6 +13,7 @@ namespace :dialogues do
     Dialogue.transaction do
       Dialogue.delete_all
       rows.each_slice(5_000) { |slice| Dialogue.insert_all!(slice) }
+      Dialogue.link_episodes
     end
     Rails.cache.clear
 
