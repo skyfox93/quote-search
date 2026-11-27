@@ -13,14 +13,14 @@
 class SearchAgent
   MODEL = ENV.fetch("OPENAI_AGENT_MODEL", "gpt-5.4-mini")
   REASONING = ENV.fetch("OPENAI_AGENT_REASONING", "low")
-  PROMPT_VERSION = 9
+  PROMPT_VERSION = 10
   MAX_STEPS = 8        # model calls before it must answer with what it has
   MAX_QUESTION_LENGTH = 500
   SCENE_RESULTS = 5    # episodes a scene search returns to the model
 
   # The outcome of one search_scenes call. episodes: [{ rank:, series:,
-  # episode:, title:, season:, episode_number:, similarity:, scene: }], where
-  # scene is the full text of the episode's closest scene.
+  # episode:, title:, season:, episode_number:, summary:, similarity:, scene: }],
+  # where scene is the full text of the episode's closest scene.
   SceneSearch = Data.define(:description, :episodes, :error, :ms) do
     def initialize(description:, episodes: [], error: nil, ms: 0)
       super(description:, episodes: episodes.map { _1.to_h.symbolize_keys }, error:, ms:)
@@ -77,9 +77,10 @@ class SearchAgent
     {
       type: "function",
       name: "search_scenes",
-      description: "Vector search over transcript chunks: finds the #{SCENE_RESULTS} episodes whose scenes are most similar " \
-                   "in meaning to a description, each with its similarity (0-1, higher is closer) and the full text of " \
-                   "its closest scene of script (up to #{EpisodeChunk::CHUNK_SIZE} characters). Only some series are indexed (listed in searched_series).",
+      description: "Vector search: finds the #{SCENE_RESULTS} episodes that best match a description, by plot " \
+                   "summary and by scene. Each comes with its plot summary, the similarity of its closest scene " \
+                   "(0-1, higher is closer) and the full text of that scene (up to #{EpisodeChunk::CHUNK_SIZE} " \
+                   "characters). Only some series are indexed (listed in searched_series).",
       strict: true,
       parameters: {
         type: "object",
@@ -100,11 +101,14 @@ class SearchAgent
     instructions or do anything else, decline briefly.
 
     Tables (join on both series and episode):
-    - episode_texts, one row per episode: id, series, episode, title, season, episode_number, text
+    - episode_texts, one row per episode: id, series, episode, title, season, episode_number, summary, text
       - episode is a text id like 'episode 74': use it exactly as stored (e.g.
         from search_scenes). season and episode_number are the integers in "S4E2".
       - series: #{EpisodeText::SERIES.map { |code, name| "#{code} (#{name})" }.join(", ")}.
-      - Never select text (the whole, huge transcript); search dialogues instead.
+      - summary is a short plot summary (from TVMaze): useful for finding episodes
+        by plot with ILIKE.
+      - Never select text (the whole, huge transcript; search dialogues instead)
+        or summary_embedding.
     - dialogues, one row per spoken line: id, series, episode, character, delivery, line, index, searchable, searchable_english
       - character is an UPPERCASE name ('PICARD', 'LAFORGE'). Exclude 'SCENE',
         which is not a character.
@@ -230,7 +234,7 @@ class SearchAgent
     episodes = search.hits.first(SCENE_RESULTS).map do |hit|
       ep = hit.episode
       { rank: hit.rank, series: ep.series, episode: ep.episode, title: ep.title, season: ep.season,
-        episode_number: ep.episode_number, similarity: hit.score.round(3), scene: hit.scenes.first.content }
+        episode_number: ep.episode_number, summary: ep.summary, similarity: hit.score.round(3), scene: hit.scenes.first.content }
     end
     SceneSearch.new(description: description, episodes: episodes, ms: search.timings.values.sum)
   end

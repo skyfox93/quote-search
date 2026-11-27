@@ -15,7 +15,7 @@
         <span class="badge" title="<%= episode.series_name %>"><%= episode.series %></span>
         <% if episode.short_number %><span class="result__number"><%= episode.short_number %></span><% end %>
         <% if hit.rank == 1 %><span class="pill pill--accent">Best match</span><% end %>
-        <span class="result__score" title="Average cosine similarity of the episode’s three closest scenes (1 = identical)">
+        <span class="result__score" title="Results are ordered by how well both the episode summary and its closest scene match. This is the closest scene’s cosine similarity (1 = identical).">
           similarity <%= number_with_precision(hit.score, precision: 2) %>
         </span>
       </div>
@@ -23,7 +23,8 @@
     </header>
 
     <% if episode.summary.present? %>
-      <p class="result__summary"><%= episode.summary %></p>
+      <p class="result__summary"><%= episode.summary %>
+        <%= link_to "TVMaze", "https://www.tvmaze.com/", class: "result__source", title: "Episode summary from TVMaze (CC BY-SA 4.0)" %></p>
     <% end %>
 
     <%= link_to best[:link], class: "excerpt", aria: { label: "Read the full scene in #{episode.display_title}" } do %>

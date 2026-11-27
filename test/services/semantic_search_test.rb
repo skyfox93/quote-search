@@ -37,8 +37,8 @@ class SemanticSearchTest < ActiveSupport::TestCase
 
     assert_equal [@a, @b, @c].map(&:id), result.hits.map { _1.episode.id }.first(3)
     assert_equal [1, 2, 3], result.hits.first(3).map(&:rank)
-    # One chunk each, so each score is a third of that chunk's similarity.
-    assert_in_delta 1 / Math.sqrt(1.25) / 3, result.hits.first.score, 0.001
+    # An episode's score is its closest chunk's similarity.
+    assert_in_delta 1 / Math.sqrt(1.25), result.hits.first.score, 0.001
     assert_equal "ALPHA: hello", result.hits.first.scenes.first.content
     assert_nil result.hits.first.episode.attributes["text"], "lists shouldn't load full transcripts"
   end
@@ -51,16 +51,17 @@ class SemanticSearchTest < ActiveSupport::TestCase
     assert_equal ["BETA: later", "BETA: hello"], result.hits.second.scenes.map(&:content)
   end
 
-  test "averages an episode's top three chunks, so several good matches beat one close one" do
-    # Beta: ~1.0 and 0, averaged over three: ~0.33. Gamma: two at ~0.96 and
-    # one at 0: ~0.64, so it ranks first.
-    @b.episode_chunks.create!(position: 1, content: "BETA: close", embedding: vec(0 => 1.0, 3 => 0.01))
+  test "scores an episode by its closest chunk, however many others match" do
+    # Beta has one chunk equal to the query; Gamma has two at ~0.96. Beta's
+    # one close match wins, and Alpha (~1.0) comes between them.
+    query = vec(0 => 1.0, 3 => 0.01)
+    @b.episode_chunks.create!(position: 1, content: "BETA: close", embedding: query)
     2.times { |i| @c.episode_chunks.create!(position: i + 1, content: "GAMMA: near", embedding: vec(0 => 1.0, 4 => 0.3)) }
-    result = search(vector: vec(0 => 1.0))
+    result = search(vector: query)
 
-    assert_equal [@c, @a, @b].map(&:id), result.hits.map { _1.episode.id }
-    assert_in_delta 2 / Math.sqrt(1.09) / 3, result.hits.first.score, 0.001
-    assert_equal "BETA: close", result.hits.third.scenes.first.content
+    assert_equal [@b, @a, @c].map(&:id), result.hits.map { _1.episode.id }
+    assert_in_delta 1.0, result.hits.first.score, 0.001
+    assert_equal "BETA: close", result.hits.first.scenes.first.content
   end
 
   test "falls back to all series when the filter matches nothing" do

@@ -1,6 +1,13 @@
 class EpisodeText < ApplicationRecord
   has_many :episode_chunks, dependent: :delete_all
 
+  # An embedding of the episode's summary (see summary_for_embedding), so
+  # scene search can match a description of the plot, not only the dialogue.
+  has_neighbors :summary_embedding
+
+  # TVMaze's summary per transcript, from `bin/rails episodes:fetch_summaries`.
+  SUMMARIES_FILE = Rails.root.join("db/episode_summaries.json")
+
   SERIES = {
     "TOS" => "Star Trek: The Original Series",
     "TAS" => "Star Trek: The Animated Series",
@@ -74,6 +81,11 @@ class EpisodeText < ApplicationRecord
 
   def display_title
     title.presence || "#{series} #{episode}"
+  end
+
+  # What gets embedded for summary search: the title helps queries that name it.
+  def summary_for_embedding
+    "#{display_title}: #{summary}"
   end
 
   def full_title

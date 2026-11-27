@@ -123,7 +123,8 @@ def answer_output(text)
         assert_equal %i[search answer], events.map(&:kind)
         assert_equal "Find the scene", events.first.text
         found = events.first.result.episodes.first
-        assert_equal({ rank: 1, series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, similarity: 0.6 },
+        assert_equal({ rank: 1, series: "TNG", episode: "episode 981", title: "Family", season: 4, episode_number: 2, summary: nil,
+                       similarity: 0.6 },
                      found.except(:scene))
         assert_equal "PICARD: Robert, I...\nROBERT: Go on.", found[:scene], "the whole chunk"
         assert_equal 12, events.first.result.ms

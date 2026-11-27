@@ -279,6 +279,7 @@ mark { background: var(--mark); color: var(--mark-text); border-radius: 3px; pad
 .result__title a { color: var(--text); text-decoration: none; }
 .result__title a:hover { color: var(--accent-strong); }
 .result__summary { margin-top: 6px; color: var(--muted); font-size: 15px; }
+.result__source { margin-left: 4px; font-size: 12px; color: var(--faint); }
 .result__footer { margin-top: 10px; }
 .result--placeholder { display: block; padding: 20px; margin-top: 14px; }
 

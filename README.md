@@ -9,6 +9,8 @@
  [Quotes dataset](https://www.kaggle.com/datasets/manann/quotes-500k)
  <br>
  [Star Trek Dataset](https://www.kaggle.com/datasets/gjbroughton/start-trek-scripts)
+ <br>
+ [Episode summaries](https://www.tvmaze.com/) from TVMaze (CC BY-SA 4.0)
  
  ## To Run
  (you should have Ruby installed)
@@ -30,15 +32,21 @@
 
  `bin/rails seed_embedding`
 
+ and load and embed the episode summaries (from [TVMaze](https://www.tvmaze.com/), CC BY-SA 4.0, kept in `db/episode_summaries.json`; `episodes:fetch_summaries` downloads them again):
+
+ `bin/rails episodes:load_summaries episodes:embed_summaries`
+
  How a search works:
  1. The query is embedded exactly as typed and matched against transcript chunks with pgvector (`?series=TNG` limits it to one series). Each chunk is one scene: transcripts are cut at every location marker (`[Bridge]`), scenes under 400 characters are merged into the next, and the few over 3,000 characters are split on line breaks with a little overlap.
- 2. The 40 nearest chunks are grouped by episode, and each episode is scored by the average similarity of its top three (missing ones count as 0, so one close match alone can't win). Episodes are ranked by that score, each with its best-matching scenes.
+ 2. The 40 nearest chunks are grouped by episode, and episodes are ranked by their closest chunk. Separately, the 40 episodes whose summaries are closest to the query are ranked too. The two ranks are combined with reciprocal rank fusion (`2 / (20 + summary rank) + 1 / (20 + scene rank)`), because summaries match descriptions of the plot ("Picard lives a whole other life") that no single scene's dialogue does, while scenes match a remembered moment. Each episode is shown with its summary and best-matching scenes.
  3. The results page loads straight away; results arrive in a Turbo Frame, then an AI summary of the top results streams in above them.
  4. Separately, a chat model suggests a tidier search under the search box: the request phrasing ("in what episode does...") removed, and a series filter if one is named ("in TNG"). It's only a link, never applied for you. It may only remove words: anything it adds is dropped, so its own Star Trek knowledge (episode titles, real dialogue) never reaches the search.
 
  Suggestions, embeddings and AI summaries are cached in `Rails.cache`, so repeat searches skip OpenAI. Optional settings:
  `OPENAI_SEARCH_MODEL` / `OPENAI_SEARCH_REASONING` (default `gpt-5.4-mini` / `none`) and
- `OPENAI_SUMMARY_MODEL` / `OPENAI_SUMMARY_REASONING` (default `gpt-5.4-nano` / `none`). The summary model is deliberately small and told to use only the retrieved excerpts, so the answer shows what retrieval found rather than what the model already knows about Star Trek.
+ `OPENAI_SUMMARY_MODEL` / `OPENAI_SUMMARY_REASONING` (default `gpt-5.4-nano` / `none`). The summary model is deliberately small and told to use only the retrieved summaries and excerpts, so the answer shows what retrieval found rather than what the model already knows about Star Trek.
+
+ `bin/rails search:eval` runs 23 descriptions whose episode is known and reports where each lands, to measure a change to the search.
 
  ## Ask a question (AI agent with SQL)
  "Ask a question" (`/ask`) gives an OpenAI model two tools and lets it use them until it can answer: `run_sql` queries the `dialogues` and `episode_texts` tables (e.g. "Which TNG character has the most lines?"), and `search_scenes` runs the vector search to find episodes by what happens in them, which it can then follow up with SQL. Every step and its results are shown as it works.
